@@ -11,15 +11,27 @@
   },
   "author": "JP Systems",
   "contributors": [
-    { "name": "Brad Davies" },
-    { "name": "Chris Williams" },
-    { "name": "Matt Shotton" },
-    { "name": "Han Liu" }
+    {
+      "name": "Brad Davies"
+    },
+    {
+      "name": "Chris Williams"
+    },
+    {
+      "name": "Matt Shotton"
+    },
+    {
+      "name": "Han Liu"
+    }
   ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jp-systems/som/issues"
   },
   "homepage": "https://github.com/jp-systems/som#readme",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "vue": "^2.2.1",
+    "vue-router": "^2.3.0"
+  }
 }
