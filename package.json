@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "Student Online Messenger online web application prototype developed for COMP2311 Systems Analysis & Design module.",
   "scripts": {
-    "test": ""
+    "lint": "standard --fix",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -33,5 +34,8 @@
   "dependencies": {
     "vue": "^2.2.1",
     "vue-router": "^2.3.0"
+  },
+  "devDependencies": {
+    "standard": "^8.6.0"
   }
 }
