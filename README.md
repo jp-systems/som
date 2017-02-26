@@ -10,3 +10,20 @@
 ---
 
 Student Online Messenger online web application prototype developed for COMP2311 Systems Analysis & Design module.
+
+## How to Build
+In order to bundle and test the web app, you must first install <a href="https://nodejs.org/en/">NodeJS</a> and npm (Comes bundled with NodeJS).
+
+Once that is installed, navigate to this repositories folder (if cloned or downloaded via GitHub) and from the command line;
+
+````
+npm install
+````
+
+Once all dependencies are installed, you can deploy a local development server via;
+
+````
+npm run dev
+````
+
+From here, you can edit the code within the 'src' directory and the bundle will automatically re-build as you make changes.
