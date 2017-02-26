@@ -1,0 +1,25 @@
+{
+  "name": "student-online-messenger",
+  "version": "0.1.0",
+  "description": "Student Online Messenger online web application prototype developed for COMP2311 Systems Analysis & Design module.",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jp-systems/som.git"
+  },
+  "author": "JP Systems",
+  "contributors": [
+    { "name": "Brad Davies" }
+    { "name": "Chris Williams" },
+    { "name": "Matt Shotton" },
+    { "name": "Han Liu" }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jp-systems/som/issues"
+  },
+  "homepage": "https://github.com/jp-systems/som#readme",
+  "private": true
+}
