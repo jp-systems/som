@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "quick": "cross-env NODE_ENV=development webpack",
     "lint": "standard --fix",
     "test": "npm run lint"
   },
@@ -34,6 +35,8 @@
   "homepage": "https://github.com/jp-systems/som#readme",
   "private": true,
   "dependencies": {
+    "axios": "^0.15.3",
+    "qs": "^6.4.0",
     "vue": "^2.2.1",
     "vue-router": "^2.3.0"
   },
