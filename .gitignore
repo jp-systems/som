@@ -36,5 +36,6 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-# Ignore built .html & .js files in www
+# Ignore built js & js map files in www
 www/*.js
+www/*.js.map
