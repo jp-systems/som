@@ -27,3 +27,12 @@ npm run dev
 ````
 
 From here, you can edit the code within the 'src' directory and the bundle will automatically re-build as you make changes.
+
+## Style Notes
+Vue is being used as the templating/data-binding framework for the application, however the smaller 'runtime-only' build is being used. This reduces the overhead of compiling templates at run-time, however means that for this project all Vue components/objects must be declared as *.vue files, and then explicitly declared in whatever component/object is using that component.
+
+All JavaScript should conform to the linting style (`npm run lint`), and all JavaScript will first be transpiled by the `babel-loader` webpack loader, running with the latest feature set (`babel-preset-latest`).
+
+All CSS should be defined as SCSS, as defined by the `lang` attribute within the .vue files. During development, this CSS will be inlined into the JavaScript bundle, however on building this compiled CSS will be extracted into it's own stylesheet.
+
+All HTML templating should be done in HTML5.
