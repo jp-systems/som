@@ -39,3 +39,6 @@ jspm_packages
 # Ignore built js & js map files in www
 www/*.js
 www/*.js.map
+
+# Ignore PHP credentials
+credentials.php

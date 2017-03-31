@@ -1,11 +1,8 @@
 <?php
 
-class Functions {
+require_once("credentials.php");
 
-  private static $host = "localhost";
-  private static $dbname = "som";
-  private static $username = "som_user";
-  private static $password = "TVWvKD4cF32psFyK";
+class Functions {
 
   public static function error($message) {
     return [
@@ -36,10 +33,10 @@ class Functions {
   }
   
   private static function query($query, $params = null) {
-    $host = Functions::$host;
-    $dbname = Functions::$dbname;
-    $username = Functions::$username;
-    $password = Functions::$password;
+    $host = Credentials::$host;
+    $dbname = Credentials::$dbname;
+    $username = Credentials::$username;
+    $password = Credentials::$password;
 
     $result = null;
 
