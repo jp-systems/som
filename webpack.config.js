@@ -57,8 +57,13 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     contentBase: path.resolve(__dirname, './www'),
+    hot: true,
     proxy: {
-      "/api": "http://localhost:80"
+      "/api/**": {
+        target: 'http://localhost:80/som/www/',
+        secure: false,
+        changeOrigin: true
+      }
     },
   },
   performance: {
