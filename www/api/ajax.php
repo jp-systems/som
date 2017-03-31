@@ -18,6 +18,8 @@ if ($get_request) {
       respond(Functions::get_username($_GET["user_id"]));
       break;
   }
+  // Invalid request
+  respond(Functions::error("Invalid request!"));
 } else if ($post_request) {
   // POST RQST ACTIVE
   switch($post_request) {
@@ -29,6 +31,8 @@ if ($get_request) {
       //
       respond(Functions::create_user($_POST["username"], $pass_hash));
   }
+  // Invalid request
+  respond(Functions::error("Invalid request!"));
 } else {
   respond(Functions::error("No request!"));
 }
