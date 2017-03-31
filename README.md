@@ -35,4 +35,4 @@ All JavaScript should conform to the linting style (`npm run lint`), and all Jav
 
 All CSS should be defined as SCSS, as defined by the `lang` attribute within the .vue files. During development, this CSS will be inlined into the JavaScript bundle, however on building this compiled CSS will be extracted into it's own stylesheet.
 
-All HTML templating should be done in HTML5.
+All HTML templating should be done in pure HTML5.
