@@ -19,17 +19,3 @@ const vm = new Vue({
 })
 
 vm.$mount('#app')
-
-import axios from 'axios'
-
-axios.get('/api/ajax.php', {
-  params: {
-    data: 123
-  }
-})
-.then(r => {
-  console.log(r)
-})
-.catch(e => {
-  console.log(e)
-})

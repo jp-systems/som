@@ -52,7 +52,8 @@ class Functions {
       $stmt = null;
 
     } catch (PDOException $e) {
-      return Functions::error("An error occured.");
+      return Functions::error($e->getMessage());
+      // return Functions::error("An error occured.");
     } finally {
       $db = null;
     }
