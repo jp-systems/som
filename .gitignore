@@ -36,9 +36,10 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-# Ignore built js & js map files in www
+# Ignore built js, js map and html files in www
 www/*.js
 www/*.js.map
+www/*.html
 
 # Ignore PHP credentials
 credentials.php

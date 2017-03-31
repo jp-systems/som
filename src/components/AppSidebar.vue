@@ -1,6 +1,6 @@
 <template>
   <div class='app-sidebar'>
-    
+    <h1>Hello!</h1>
   </div>
 </template>
 

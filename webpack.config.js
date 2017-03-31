@@ -1,95 +1,110 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
 
-module.exports = {
+const prod = process.env.NODE_ENV === 'production'
+const output = path.resolve(__dirname, 'www')
+
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
+let config = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './www'),
+    path: output,
     publicPath: '',
-    filename: 'bundle.js'
+    filename: prod ? '[name].[chunkhash].js' : '[name].js'
   },
   module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this necessary.
-            'scss': 'vue-style-loader!css-loader!sass-loader',
-            'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-          }
-          // other vue-loader options go here
-        }
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015'],
-          cacheDirectory: true
-        }
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
+    rules: [{
+      test: /\.vue$/,
+      loader: 'vue-loader',
+      options: {
+        loaders: {
+          'scss': prod ? ExtractTextPlugin.extract({ use: 'css-loader?minimize=true!sass-loader' }) : 'vue-style-loader!css-loader!sass-loader',
+          'sass': prod ? ExtractTextPlugin.extract({ use: 'css-loader?minimize=true!sass-loader?indentedSyntax' }) : 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
         }
       }
-    ]
+    }, {
+      test: /\.js$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/,
+      query: {
+        presets: ['latest'],
+        cacheDirectory: true
+      }
+    }, {
+      test: /\.(png|jpg|gif|svg)$/,
+      loader: 'file-loader',
+      options: {
+        name: '[name].[chunkhash].[ext]'
+      }
+    }]
   },
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': path.resolve(__dirname, './src')
+      '@': path.resolve(__dirname, 'src')
     },
-    extensions: [
-      '.js',
-      '.json',
-      '.vue'
-    ]
+    extensions: ['.js', '.json', '.vue']
   },
+  plugins: [],
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    contentBase: path.resolve(__dirname, './www'),
+    contentBase: output,
     hot: true,
     proxy: {
-      "/api/**": {
+      '/api/**': {
         target: 'http://localhost:80/som/www/',
         secure: false,
         changeOrigin: true
       }
-    },
+    }
   },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map'
+  devtool: prod ? '' : 'cheap-source-map'
 }
 
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
+if (prod) {
+  // Clean the 'www' folder of previous files
+  const glob = require('glob')
+  const fs = require('fs')
+  glob.glob('./www/*.*', function (er, files) {
+    files.forEach(f => {
+      fs.unlinkSync(f)
     })
-  ])
+  })
+
+  // Production only plugins
+  config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    minChunks: function (module) {
+      return module.context && module.context.indexOf('node_modules') !== -1
+    }
+  }))
+
+  config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+    name: 'manifest'
+  }))
+
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    sourceMap: true,
+    compress: {
+      warnings: false
+    }
+  }))
+
+  config.plugins.push(new ExtractTextPlugin('style.[chunkhash].css'))
 }
+
+// Either plugins
+
+config.plugins.push(new HtmlWebpackPlugin({
+  template: './src/index.html',
+  filename: 'index.html',
+  minify: prod ? {
+    collapseWhitespace: true,
+    removeComments: true
+  } : false
+}))
+
+module.exports = config
