@@ -56,7 +56,10 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    contentBase: path.resolve(__dirname, './www')
+    contentBase: path.resolve(__dirname, './www'),
+    proxy: {
+      "/api": "http://localhost:80"
+    },
   },
   performance: {
     hints: false
