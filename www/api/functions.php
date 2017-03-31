@@ -27,9 +27,9 @@ class Functions {
     return $r;
   }
 
-  public static function create_user($username, $pass_hash) {
+  public static function create_user($username, $pass_hash, $email) {
     $id = Functions::get_random_id();
-    return Functions::query("INSERT INTO `user` (`userID`, `username`, `password`, `email`) VALUES (?, ?, ?, 'bob@bobmail.com')", [$id, $username, $pass_hash]);
+    return Functions::query("INSERT INTO `user` (`userID`, `username`, `password`, `email`) VALUES (?, ?, ?, ?)", [$id, $username, $pass_hash, $email]);
   }
   
   private static function query($query, $params = null) {
@@ -53,7 +53,7 @@ class Functions {
 
     } catch (PDOException $e) {
       return Functions::error($e->getMessage());
-      // return Functions::error("An error occured.");
+      // return Functions::error("An error occurred.");
     } finally {
       $db = null;
     }

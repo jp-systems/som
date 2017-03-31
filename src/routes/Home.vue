@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <h1>Hello</h1>
-    <test-login></test-login>
+    <login></login>
   </div>
 </template>
 
 <script>
-import TestLogin from '@/components/TestLogin'
+import Login from '@/components/Login'
 
 export default {
   name: 'Home',
@@ -16,7 +16,7 @@ export default {
     }
   },
   components: {
-    TestLogin
+    Login
   }
 }
 </script>

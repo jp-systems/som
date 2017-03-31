@@ -26,10 +26,11 @@ if ($get_request) {
     case "create_user":
       if (!isset($_POST["username"])) respond(Functions::error("No username provided!"));
       if (!isset($_POST["password"])) respond(Functions::error("No password provided!"));
+      if (!isset($_POST["email"])) respond(Functions::error("No email provided"));
       //
       $pass_hash = password_hash($_POST["password"], PASSWORD_BCRYPT, ["cost" => 12]);
       //
-      respond(Functions::create_user($_POST["username"], $pass_hash));
+      respond(Functions::create_user($_POST["username"], $pass_hash, $_POST["email"]));
   }
   // Invalid request
   respond(Functions::error("Invalid request!"));
