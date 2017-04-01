@@ -24,8 +24,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-import qs from 'qs'
+import api from '@/js/api'
 
 export default {
   name: 'Register',
@@ -60,12 +59,11 @@ export default {
     },
 
     registerUser () {
-      axios.post('./api/ajax.php', qs.stringify({
-        request: 'create_user',
+      api.post('create_user', {
+        email: this.email,
         password: this.password,
-        username: this.username,
-        email: this.email
-      }))
+        username: this.username
+      })
       .then(response => {
         console.log(response)
       })

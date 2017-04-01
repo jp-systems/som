@@ -33,7 +33,7 @@ export default {
 
   computed: {
     btnDisabled() {
-    return (this.username == '' || this.password == '')
+      return (this.username == '' || this.password == '')
     }
   },
 
