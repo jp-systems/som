@@ -2,11 +2,13 @@
   <div class="home">
     <h1>Hello</h1>
     <login></login>
+    <register></register>
   </div>
 </template>
 
 <script>
 import Login from '@/components/Login'
+import Register from '@/components/Register'
 
 export default {
   name: 'Home',
@@ -16,7 +18,8 @@ export default {
     }
   },
   components: {
-    Login
+    Login,
+    Register
   }
 }
 </script>

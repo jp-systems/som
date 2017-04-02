@@ -1,11 +1,9 @@
 <template>
   <div class="login">
     <h2>Enter your Username and Password</h2>
-    
-    <!--<label for="username">Username:</label>-->
+
     <input type="text" id="username" v-model="username" placeholder="Username" required="required">
 
-    <!--<label for="password">Password:</label>-->
     <input type="password" id="password" v-model="password" placeholder="Password" required="required">
     
     <div>
@@ -33,18 +31,13 @@ export default {
 
   computed: {
     btnDisabled() {
-      return (this.username == '' || this.password == '')
+      return (!!!this.username || !!!this.password)
     }
   },
 
   methods: {
     checkUser () {
-      api.get('get_username', {
-        user_id: this.username
-      })
-      .then(response => {
-        console.log(response)
-      })
+      
     }
   }
 }

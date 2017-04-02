@@ -1,24 +1,17 @@
 <template>
   <div class="register">
-        <h2>Register Form</h2>
-        <p>
-          <label for="username">Username</label>
-          <input type="text" id="username" v-model="username" @blur="checkUnique" placeholder="bobbossman" required="required" >
-          <span class="usernameErr"></span>
-        </p>
-        <p>
-          <label for="email">Email</label>
-          <input type="email" id="email" v-model="email" placeholder="name@domain.com" required="required">
-        </p>
-        <p>
-          <label for="password">Password</label>
-          <input type="password" id="password" v-model="password" required="required">
-        </p>
-        <p>
-          <label for="confPassword">Confirm Password</label>
-          <input type="password" id="confPassword" v-model="confPassword" required="required">
-        </p>
-        <button :class="{disabled: btnDisabled}" :disabled="btnDisabled" @click="checkForm">Sign Up</button>
+        
+    <h2>Register Form</h2>
+
+    <input type="text" id="username" v-model="username" @blur="checkUnique" placeholder="bobbossman" required="required" >
+
+    <input type="email" id="email" v-model="email" placeholder="name@domain.com" required="required">
+
+    <input type="password" id="password" v-model="password" placeholder="Password" required="required">
+
+    <input type="password" id="confPassword" v-model="confPassword" placeholder="Confirm Password" required="required">
+
+    <button :class="{disabled: btnDisabled}" :disabled="btnDisabled" @click="checkForm">Sign Up</button>
 
   </div>
 </template>
@@ -39,7 +32,7 @@ export default {
 
   computed: {
     btnDisabled () {
-      return (this.username == '' || this.email == '' || this.password == '' || !this.passwordMatch)
+      return (!!!this.username || !!!this.email || !!!this.password || !this.passwordMatch)
     },
 
     passwordMatch () {
@@ -75,15 +68,40 @@ export default {
 <style lang="scss" scoped>
 
 .register {
-  background: #bada55;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  margin: auto;
+  width: 33vw;
+  height: 400px;
+  padding: 20px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
 
-input:focus {
-  outline: none;
+input {
+  border: none;
+  width: 50%;
+  padding: 10px 0;
+  border-bottom: solid 1px #ccc;
+  background-color: #fffbfe;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: #a8e2dc;
+
+    &::-webkit-input-placeholder {
+      color: #a8e2dc;
+      transform: translateY(-17px);
+      visibility: visible !important;
+    }
+  }
 }
 
 button {
   background-color: #00C4A7;
+  width: 33%;
+  margin: 0 auto;
   padding: 7px;
   border: 0px;
   border-radius: 7px;
