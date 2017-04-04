@@ -17,6 +17,10 @@ if ($get_request) {
       if (!isset($_GET["user_id"])) respond(Functions::error("No user ID provided!"));
       respond(Functions::get_username($_GET["user_id"]));
       break;
+    case "get_module":
+      if (!isset($_GET["module_id"])) respond(Functions::error("No module ID provided!"));
+      respond(Functions::get_module($_GET["module_id"]));
+      break;
   }
   // Invalid request
   respond(Functions::error("Invalid request!"));

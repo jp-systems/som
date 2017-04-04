@@ -63,6 +63,10 @@ class Functions {
   public static function get_username($userID) {
     return Functions::query("SELECT `username` FROM `user` WHERE `userID` = ?", [$userID]);
   }
+
+  public static function get_module($moduleID) {
+    return Functions::query("SELECT * FROM `module` WHERE `moduleID` = ?", [$moduleID]);
+  }
 }
 
 ?>
