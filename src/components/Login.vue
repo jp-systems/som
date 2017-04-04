@@ -37,7 +37,17 @@ export default {
 
   methods: {
     checkUser () {
-      
+      api.post('verify_user', {
+        username: this.username,
+        password: this.password
+      })
+      .then(r => {
+        if (r.data.success) {
+          // Login success!
+          window.localStorage.setItem('login_token', r.data.result)
+          window.location.reload()
+        }
+      })
     }
   }
 }

@@ -1,27 +1,30 @@
 <template>
-  <div class="home">
-    <h1>{{ $root.loggedIn }}</h1>
-    <p>{{ $root.userID }}</p>
+  <div class="test">
+    <login></login>
+    <register></register>
   </div>
 </template>
 
 <script>
+import Login from '@/components/Login'
+import Register from '@/components/Register'
 
 export default {
-  name: 'Home',
+  name: 'Test',
   data () {
     return {
       
     }
   },
   components: {
-
+    Login,
+    Register
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.home {
+.test {
   width: 100%;
   height: 100%;
 }

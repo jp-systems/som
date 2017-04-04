@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import api from '@/js/api'
+
 import AppSidebar from '@/components/AppSidebar'
 
 export default {
@@ -19,7 +21,7 @@ export default {
   },
   components: {
     AppSidebar
-  }
+  },
 }
 </script>
 

@@ -1,6 +1,7 @@
 <template>
-  <div class='app-sidebar'>
-    <h1>Hello!</h1>
+  <div class='app-sidebar' v-if="$root.loggedIn">
+    <h1>SOM</h1>
+    <button>Logout</button>
   </div>
 </template>
 
@@ -17,7 +18,7 @@ export default {
 
 <style lang="scss" scoped>
 .app-sidebar {
-  background: #a8e2dc;
+  background: #98ee47;
   width: 12vw;
 }
 </style>
