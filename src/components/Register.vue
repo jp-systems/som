@@ -9,7 +9,7 @@
 
     <input type="password" id="password" v-model="password" placeholder="Password" required="required">
 
-    <input type="password" id="confPassword" v-model="confPassword" placeholder="Confirm Password" required="required">
+    <input type="password" id="confPassword" v-model="confPassword" placeholder="Confirm Password" required="required" @keyup.enter="checkForm">
 
     <button :class="{disabled: btnDisabled}" :disabled="btnDisabled" @click="checkForm">Sign Up</button>
 

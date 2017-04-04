@@ -4,7 +4,7 @@
 
     <input type="text" id="username" v-model="username" placeholder="Username" required="required">
 
-    <input type="password" id="password" v-model="password" placeholder="Password" required="required">
+    <input type="password" id="password" v-model="password" placeholder="Password" required="required" @keyup.enter="checkUser">
     
     <div>
       <input type="checkbox" id="checkbox" v-model="rememberMe">
@@ -37,12 +37,14 @@ export default {
 
   methods: {
     checkUser () {
+      console.log("hello")
       api.post('verify_user', {
         username: this.username,
         password: this.password
       })
       .then(r => {
         if (r.data.success) {
+          console.log(r.data);
           // Login success!
           window.localStorage.setItem('login_token', r.data.result)
           window.location.reload()

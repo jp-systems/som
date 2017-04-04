@@ -2,7 +2,7 @@
   <div class="search">
     <input type="text" v-model="query" @keypress="search">
     <hr>
-    <router-link v-for="module in modules" :to="'/module/' + (module.ref || module.moduleID)">
+    <router-link v-for="module in modules" :key="module.id" :to="'/module/' + (module.ref || module.moduleID)">
       {{ module.code }}: {{ module.name }}
     </router-link>
   </div>
