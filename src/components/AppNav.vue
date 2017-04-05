@@ -4,7 +4,6 @@
       <h1><md-icon>school</md-icon> SOM</h1>
       <div class="spacer"></div>
       <template v-if="$root.loggedIn">
-        <p><b>UID: </b> {{ $root.userID }}</p>
         <md-button @click.native="logout"><md-icon>exit_to_app</md-icon> Logout</md-button>
       </template>
       <template v-else>

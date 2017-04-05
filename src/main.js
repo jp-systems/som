@@ -49,6 +49,7 @@ const vm = new Vue({
         if (r.data.success) {
           this.loggedIn = true
           this.userID = r.data.result
+          this.loginToken = window.localStorage.getItem('login_token')
           this.$router.push('/home')
         }
       })

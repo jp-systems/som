@@ -1,6 +1,10 @@
 <template>
   <div class='app-sidebar' v-show="$root.loggedIn">
     <h1>SOM</h1>
+    <p><b>UserID: </b> {{ $root.userID }}</p>
+    <p><b>SessID: </b> {{ $root.loginToken }}</p>
+    <hr>
+    <h2>Modules</h2>
   </div>
 </template>
 
@@ -24,5 +28,11 @@ export default {
 
 h1 {
   padding: .5rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1rem;
+  padding: .25rem;
 }
 </style>
