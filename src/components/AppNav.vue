@@ -3,8 +3,14 @@
     <div class="max-width">
       <h1><md-icon>school</md-icon> SOM</h1>
       <div class="spacer"></div>
-      <md-button @click.native="login">Login</md-button>
-      <md-button class="md-raised md-primary" @click.native="register">Register</md-button>
+      <template v-if="$root.loggedIn">
+        <p><b>UID: </b> {{ $root.userID }}</p>
+        <md-button @click.native="logout"><md-icon>exit_to_app</md-icon> Logout</md-button>
+      </template>
+      <template v-else>
+        <md-button @click.native="login"><md-icon>vpn_key</md-icon> Login</md-button>
+        <md-button class="md-raised md-primary" @click.native="register"><md-icon>add</md-icon> Register</md-button>
+      </template>
     </div>
   </div>
 </template>
@@ -18,6 +24,9 @@ export default {
     },
     register () {
       this.$root.modalStatus = 'register'
+    },
+    logout () {
+      this.$root.modalStatus = 'logout'
     }
   }
 }
@@ -25,7 +34,7 @@ export default {
 
 <style lang="scss" scoped>
 .app-nav {
-  background-image: linear-gradient(120deg, lighten(#fccb90, 15%) 0%, lighten(#d57eeb, 25%) 100%);
+  background-color: #f3f3f3;
   box-shadow: 0 3px 9px rgba(0, 0, 0, .2);
   z-index: 9;
 

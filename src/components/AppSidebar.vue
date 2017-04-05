@@ -1,7 +1,6 @@
 <template>
   <div class='app-sidebar' v-show="$root.loggedIn">
     <h1>SOM</h1>
-    <button>Logout</button>
   </div>
 </template>
 
@@ -20,6 +19,10 @@ export default {
 
 .app-sidebar {
   width: 12vw;
-  background-image: linear-gradient(to top, #B2DBBF 0%, #70C1B3 100%);
+  background-color: #e8e8e8;
+}
+
+h1 {
+  padding: .5rem;
 }
 </style>

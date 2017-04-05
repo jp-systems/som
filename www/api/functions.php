@@ -78,7 +78,7 @@ class Functions {
       if (strpos($query, "SELECT") !== false) {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (strpos($query, "LIMIT 1") !== false) $result = $result[0];
+        if (strpos($query, "LIMIT 1") !== false) $result = sizeof($result) > 0 ? $result[0] : [];
       }
       
       $stmt = null;

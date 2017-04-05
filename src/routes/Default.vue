@@ -10,7 +10,7 @@
 
 export default {
   name: 'Default',
-  beforeMount () {
+  mounted () {
     // Go to Home view if already logged in
     if (this.$root.loggedIn) this.$router.replace('/home')
   }

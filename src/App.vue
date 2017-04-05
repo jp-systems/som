@@ -11,6 +11,7 @@
       <div class="modal-overlay" v-if="$root.modalStatus">
         <login v-if="$root.modalStatus == 'login'"></login>
         <register v-if="$root.modalStatus == 'register'"></register>
+        <logout v-if="$root.modalStatus == 'logout'"></logout>
       </div>
     </transition>
   </div>
@@ -22,6 +23,7 @@ import api from '@/js/api'
 import AppNav from '@/components/AppNav'
 import AppSidebar from '@/components/AppSidebar'
 import Login from '@/components/Login'
+import Logout from '@/components/Logout'
 import Register from '@/components/Register'
 
 export default {
@@ -30,6 +32,7 @@ export default {
     AppNav,
     AppSidebar,
     Login,
+    Logout,
     Register
   },
   methods: {

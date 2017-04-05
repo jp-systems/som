@@ -36,19 +36,26 @@ const vm = new Vue({
   data: {
     modalStatus: null,
     loggedIn: false,
-    userID: null
+    userID: null,
+    user: null
+  },
+  methods: {
+    attemptLogin () {
+      let loginToken = window.localStorage.getItem('login_token')
+      api.post('verify_session', {
+        login_token: loginToken
+      })
+      .then(r => {
+        if (r.data.success) {
+          this.loggedIn = true
+          this.userID = r.data.result
+          this.$router.push('/home')
+        }
+      })
+    }
   },
   mounted () {
-    let loginToken = window.localStorage.getItem('login_token')
-    api.post('verify_session', {
-      login_token: loginToken
-    })
-    .then(r => {
-      if (r.data.success) {
-        this.loggedIn = true
-        this.userID = r.data.result
-      }
-    })
+    this.attemptLogin()
   }
 })
 

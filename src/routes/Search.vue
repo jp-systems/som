@@ -6,14 +6,16 @@
     </md-input-container>
 
     <div class="modules">
-      <router-link v-for="module in modules" :key="module.id" :to="'/module/' + (module.ref || module.moduleID)">
-        <md-card md-with-hover>
-          <md-card-header><h2>{{ module.code }}</h2></md-card-header>
-          <md-card-content>
-            <h3>{{ module.name }}</h3>
-          </md-card-content>     
-        </md-card>
-      </router-link>
+      <template v-for="module in modules">
+        <router-link :key="module.code" :to="'/module/' + (module.ref || module.moduleID)">
+          <md-card md-with-hover>
+            <md-card-header><h2>{{ module.code }}</h2></md-card-header>
+            <md-card-content>
+              <h3>{{ module.name }}</h3>
+            </md-card-content>     
+          </md-card>
+        </router-link>
+      </template>
     </div>
   </div>
 </template>
@@ -41,6 +43,7 @@ export default {
         query: this.query
       })
       .then(response => {
+        console.log(response)
         this.modules = response.data.result
       })
     }, 500)
@@ -53,14 +56,13 @@ export default {
 .search {
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding: 1rem;
+  width: 100%;
 }
 
 .modules {
   display: flex;
-  margin: 40px auto;
-  justify-content: space-around;
-  width: 80%;
+  justify-content: flex-start;
 }
 
 </style>

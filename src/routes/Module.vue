@@ -1,6 +1,6 @@
 <template>
   <div class="module" v-if="module !== null">
-    <h2>Module Outline for {{ module.name }}, COMP {{ module.code }}</h2>
+    <h2>{{ module.code }}: {{ module.name }}</h2>
     <br>  
     <div v-html="outlineHTML"></div>
     <br>
