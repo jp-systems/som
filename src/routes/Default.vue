@@ -1,7 +1,7 @@
 <template>
   <div class="default">
     <div class="h75">
-
+      <h1><md-icon class="md-size-5x">school</md-icon><br>Student Online Messenger</h1>
     </div>
   </div>
 </template>
@@ -23,8 +23,17 @@ export default {
   height: 100%;
 
   > .h75 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 75vh;
     background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+
+    > h1 {
+      text-align: center;
+      font-size: 4rem;
+    }
   }
 }
 </style>

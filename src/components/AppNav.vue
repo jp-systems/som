@@ -1,7 +1,7 @@
 <template>
   <div class="app-nav">
     <div class="max-width">
-      <h1>SOM</h1>
+      <h1><md-icon>school</md-icon> SOM</h1>
       <div class="spacer"></div>
       <md-button @click.native="login">Login</md-button>
       <md-button class="md-raised md-primary" @click.native="register">Register</md-button>
@@ -36,7 +36,14 @@ export default {
     margin: 0 auto;
 
     > h1 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.2rem;
+
+      > i {
+        margin-right: .5rem;
+      }
     }
     
     > .spacer {

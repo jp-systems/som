@@ -63,10 +63,6 @@ html, body, #app, #app > .wrapper {
     display: flex;
     flex: 1;
   }
-
-  &.blur {
-
-  }
 }
 
 #app > .modal-overlay {
