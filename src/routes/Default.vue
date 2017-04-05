@@ -27,12 +27,13 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 75vh;
+    height: 100%;
     background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
 
     > h1 {
       text-align: center;
       font-size: 4rem;
+      text-shadow: 0 0 15px rgba(0, 0, 0, .2);
     }
   }
 }
