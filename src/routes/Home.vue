@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <h1>{{ $root.loggedIn }}</h1>
-    <p>{{ $root.userID }}</p>
+    <div class="center">
+      <h1>Student Online Messenger</h1>
+      <hr>
+    </div>
   </div>
 </template>
 
@@ -9,13 +11,8 @@
 
 export default {
   name: 'Home',
-  data () {
-    return {
-      
-    }
-  },
-  components: {
-
+  beforeMount () {
+    if (!this.$root.loggedIn) this.$router.replace('/')
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class='app-sidebar' v-if="$root.loggedIn">
+  <div class='app-sidebar' v-show="$root.loggedIn">
     <h1>SOM</h1>
     <button>Logout</button>
   </div>
