@@ -39,6 +39,7 @@
     "marked": "^0.3.6",
     "qs": "^6.4.0",
     "vue": "^2.2.1",
+    "vue-material": "^0.7.1",
     "vue-router": "^2.3.0"
   },
   "devDependencies": {
@@ -53,6 +54,7 @@
     "node-sass": "^4.5.0",
     "sass-loader": "^6.0.2",
     "standard": "^9.0.0",
+    "style-loader": "^0.16.1",
     "vue-loader": "^11.2.0",
     "vue-template-compiler": "^2.2.4",
     "webpack": "^2.2.1",

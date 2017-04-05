@@ -38,6 +38,9 @@ let config = {
       options: {
         name: '[name].[chunkhash].[ext]'
       }
+    }, {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader'
     }]
   },
   resolve: {

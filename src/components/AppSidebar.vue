@@ -17,8 +17,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .app-sidebar {
-  background: #98ee47;
   width: 12vw;
+  background-image: linear-gradient(to top, #B2DBBF 0%, #70C1B3 100%);
 }
 </style>

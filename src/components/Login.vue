@@ -1,17 +1,27 @@
 <template>
   <div class="login">
-    <h2>Enter your Username and Password</h2>
+    <md-card md-with-hover>
+      <md-card-header>
+        <h2>Enter your Username and Password</h2>
+      </md-card-header>
 
-    <input type="text" id="username" v-model="username" placeholder="Username" required="required">
+      <md-card-content>
+        <md-input-container>
+          <label>Username</label>
+          <md-textarea v-model="username" required="required"></md-textarea>
+        </md-input-container>
+    
+        <md-input-container md-has-password>
+          <label>Password</label>
+          <md-input type="password" v-model="password" required="required" @keyup.enter.native="checkUser"></md-input>
+        </md-input-container>
+    
+        <md-checkbox v-model="rememberMe" class="md-primary">Remember Me</md-checkbox>
+        
+        <md-button class="md-raised md-primary" :disabled="btnDisabled" @click.native="checkUser">Login</md-button>
 
-    <input type="password" id="password" v-model="password" placeholder="Password" required="required" @keyup.enter="checkUser">
-    
-    <div>
-      <input type="checkbox" id="checkbox" v-model="rememberMe">
-      <label for="checkbox">Remember Me</label>
-    </div>
-    
-    <button :class="{disabled : btnDisabled}" :disabled="btnDisabled" @click="checkUser">Login</button>
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 
@@ -37,7 +47,6 @@ export default {
 
   methods: {
     checkUser () {
-      console.log("hello")
       api.post('verify_user', {
         username: this.username,
         password: this.password
@@ -57,54 +66,16 @@ export default {
 
 <style lang="scss" scoped>
 
-.login {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-around;
+.md-card {
   margin: auto;
-  padding: 20px;
-  width: 33vw;
-  height: 400px;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-}
-
-input[type]:not([type=checkbox]) {
-  border: none;
-  width: 50%;
-  padding: 10px 0;
-  border-bottom: solid 1px #ccc;
-  background-color: #fffbfe;
-
-  &:focus {
-    outline: none;
-    border-bottom-color: #a8e2dc;
-
-    &::-webkit-input-placeholder {
-      color: #a8e2dc;
-      transform: translateY(-17px);
-      visibility: visible !important;
-    }
-  }
-}
-
-input[type="checkbox"]+label {
-  font-size: 0.7em;
-}
-
-button {
-  background-color: #00C4A7;
-  width: 33%;
-  margin: 0 auto;
-  padding: 7px;
-  border: 0px;
-  border-radius: 7px;
-  color: white;  
-}
-
-button.disabled {
-  background-color: #FF2B56;
+  padding: 10px;
+  width: 400px;
   cursor: default;
+}
+
+.md-button {
+  display: block;
+  margin: auto;
 }
 
 </style>

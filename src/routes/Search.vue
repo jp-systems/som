@@ -1,10 +1,20 @@
 <template>
   <div class="search">
-    <input type="text" v-model="query" @keypress="search">
-    <hr>
-    <router-link v-for="module in modules" :key="module.id" :to="'/module/' + (module.ref || module.moduleID)">
-      {{ module.code }}: {{ module.name }}
-    </router-link>
+    <md-input-container>
+      <label>Search For Module</label>
+      <md-textarea v-model="query" @keyup.native="search"></md-textarea>
+    </md-input-container>
+
+    <div class="modules">
+      <router-link v-for="module in modules" :key="module.id" :to="'/module/' + (module.ref || module.moduleID)">
+        <md-card md-with-hover>
+          <md-card-header><h2>{{ module.code }}</h2></md-card-header>
+          <md-card-content>
+            <h3>{{ module.name }}</h3>
+          </md-card-content>     
+        </md-card>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -26,6 +36,7 @@ export default {
   },
   methods: {
     search: _.debounce(function () {
+      if(!this.query) {this.modules = []; return}
       api.get('search_modules', {
         query: this.query
       })
@@ -38,5 +49,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.search {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.modules {
+  display: flex;
+  margin: 40px auto;
+  justify-content: space-around;
+  width: 80%;
+}
 
 </style>

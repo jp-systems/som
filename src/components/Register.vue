@@ -1,17 +1,34 @@
 <template>
   <div class="register">
         
-    <h2>Register Form</h2>
+    <md-card md-with-hover>
+      <md-card-header><h2>Register Form</h2></md-card-header>
+  
+      <md-card-content>
+        <md-input-container>
+          <label>Username</label>
+          <md-textarea v-model="username" @blur="checkUnique" required="required"></md-textarea>
+        </md-input-container>
 
-    <input type="text" id="username" v-model="username" @blur="checkUnique" placeholder="bobbossman" required="required" >
-
-    <input type="email" id="email" v-model="email" placeholder="name@domain.com" required="required">
-
-    <input type="password" id="password" v-model="password" placeholder="Password" required="required">
-
-    <input type="password" id="confPassword" v-model="confPassword" placeholder="Confirm Password" required="required" @keyup.enter="checkForm">
-
-    <button :class="{disabled: btnDisabled}" :disabled="btnDisabled" @click="checkForm">Sign Up</button>
+        <md-input-container>
+          <label>Email</label>
+          <md-textarea type="email" v-model="email" required="required"></md-textarea>
+        </md-input-container>
+    
+        <md-input-container md-has-password>
+          <label>Password</label>
+          <md-input type="password" v-model="password" required="required"></md-input>
+        </md-input-container>
+        
+        
+        <md-input-container md-has-password>
+          <label>Confirm Password</label>
+          <md-input type="password" v-model="confPassword" required="required" @keyup.enter="checkForm"></md-input>
+        </md-input-container>
+    
+        <md-button class="md-raised md-primary" :disabled="btnDisabled" @click.native="checkForm">SignUp</md-button>
+      </md-card-content>
+    </md-card>
 
   </div>
 </template>
@@ -67,50 +84,16 @@ export default {
 
 <style lang="scss" scoped>
 
-.register {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-around;
+.md-card {
   margin: auto;
-  width: 33vw;
-  height: 400px;
-  padding: 20px;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-}
-
-input {
-  border: none;
-  width: 50%;
-  padding: 10px 0;
-  border-bottom: solid 1px #ccc;
-  background-color: #fffbfe;
-
-  &:focus {
-    outline: none;
-    border-bottom-color: #a8e2dc;
-
-    &::-webkit-input-placeholder {
-      color: #a8e2dc;
-      transform: translateY(-17px);
-      visibility: visible !important;
-    }
-  }
-}
-
-button {
-  background-color: #00C4A7;
-  width: 33%;
-  margin: 0 auto;
-  padding: 7px;
-  border: 0px;
-  border-radius: 7px;
-  color: white;  
-}
-
-button.disabled {
-  background-color: #FF2B56;
+  width: 400px;
+  padding: 10px;
   cursor: default;
+}
+
+.md-button {
+  display: block;
+  margin: auto;
 }
 
 </style>

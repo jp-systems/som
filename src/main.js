@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.css'
 
 import App from '@/App'
 
@@ -12,6 +14,7 @@ import api from '@/js/api'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
+Vue.use(VueMaterial)
 
 const vm = new Vue({
   render: h => h(App),
