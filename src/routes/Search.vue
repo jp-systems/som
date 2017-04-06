@@ -12,7 +12,12 @@
             <md-card-header><h2>{{ module.code }}</h2></md-card-header>
             <md-card-content>
               <h3>{{ module.name }}</h3>
-            </md-card-content>     
+            </md-card-content>
+            <md-card-actions v-if="$root.loggedIn">
+              <md-button class="md-icon-button" @click.native="favModule(module.moduleID)">
+                <md-icon>bookmark_border</md-icon>
+              </md-button>
+            </md-card-actions>     
           </md-card>
         </router-link>
       </template>
@@ -46,7 +51,10 @@ export default {
         console.log(response)
         this.modules = response.data.result
       })
-    }, 500)
+    }, 500),
+    favModule (moduleID) {
+      console.log(moduleID)
+    }
   }
 }
 </script>
@@ -63,6 +71,10 @@ export default {
 .modules {
   display: flex;
   justify-content: flex-start;
+}
+
+.md-card {
+  margin: 0px 10px;
 }
 
 </style>
