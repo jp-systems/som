@@ -9,12 +9,13 @@
       <template v-for="module in modules">
         <router-link :key="module.code" :to="'/module/' + (module.ref || module.moduleID)">
           <md-card md-with-hover>
+            <div class="header-colour"></div>
             <md-card-header><h2>{{ module.code }}</h2></md-card-header>
             <md-card-content>
               <h3>{{ module.name }}</h3>
             </md-card-content>
             <md-card-actions v-if="$root.loggedIn">
-              <md-button class="md-icon-button" @click.native="favModule(module.moduleID)">
+              <md-button class="md-icon-button" @click.prevent.native="favModule(module.moduleID)">
                 <md-icon>bookmark_border</md-icon>
               </md-button>
             </md-card-actions>     
@@ -75,6 +76,21 @@ export default {
 
 .md-card {
   margin: 0px 10px;
+
+  h2,h3 {
+    color: rgba(0, 0, 0, .87);
+  }
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+.header-colour {
+  background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+  height: 10px;
 }
 
 </style>
