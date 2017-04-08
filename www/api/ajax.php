@@ -26,8 +26,8 @@ if ($get_request) {
       respond(Functions::search_modules($_GET["query"]));
       break;
     case "user_modules":
-      if (!isset($_GET["user_token"])) respond(Functions::error("Invalid token"));
-      respond(Functions::user_modules($_GET["user_token"]));
+      if (!isset($_GET["login_token"])) respond(Functions::error("Invalid token"));
+      respond(Functions::user_modules($_GET["login_token"]));
       break;
   }
   // Invalid request
