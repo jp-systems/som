@@ -5,16 +5,38 @@
     <p><b>SessID: </b> {{ $root.loginToken }}</p>
     <hr>
     <h2>Modules</h2>
+    <br>
+    <ul v-for="module in modules">
+      <router-link :key="module.code" :to="'/module/' + (module.ref || module.moduleID)">
+        <li>{{ module.name }}</li>
+      </router-link> 
+    </ul>
   </div>
 </template>
 
 <script>
+import api from '@/js/api'
+
+
 export default {
   name: 'AppSidebar',
   data () {
     return {
-
+      modules: []
     }
+  },
+  mounted () {
+      if(this.$root.loggedIn) {
+        api.get('user_modules', {
+          user_token: this.$root.loginToken
+        })
+        .then(response => {
+          console.log(response)
+          if(response.data.success) {
+            this.modules = response.data.result
+          }
+        })
+      }
   }
 }
 </script>

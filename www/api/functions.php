@@ -104,6 +104,15 @@ class Functions {
     $query = "%" . $query . "%";
     return Functions::query("SELECT `moduleID`, `code`, `name`, `ref` FROM `module` WHERE `code` LIKE ? OR `name` LIKE ?", [$query, $query]);
   }
+
+  public static function user_modules($sessionID) {
+    return Functions::query("SELECT `module`.`code`, `module`.`name`, `module`.`ref`
+    FROM `userModule`
+	    JOIN `module` ON `module`.`moduleID` = `userModule`.`moduleID`
+      JOIN `user` ON `user`.`userID` = `userModule`.`userID`
+      JOIN `session` ON `session`.`userID` = `user`.`userID`
+    WHERE `session`.`sessionID` = ?", [$sessionID]);
+  }
 }
 
 ?>
