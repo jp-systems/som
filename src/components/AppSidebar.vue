@@ -51,8 +51,9 @@ export default {
 
 <style lang="scss" scoped>
 .app-sidebar {
-  width: 12vw;
+  width: 300px;
   background-color: #e8e8e8;
+  overflow: hidden;
 }
 
 h1 {
