@@ -64,6 +64,7 @@ html, body, #app, #app > .wrapper {
 
   > .page {
     display: flex;
+    background: rgba(0, 0, 0, .04);
     flex: 1;
   }
 }

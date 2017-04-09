@@ -26,7 +26,7 @@ export default {
   height: 100%;
 
   > .card {
-    margin: 1rem;
+    margin: .25rem;
 
     > form {
       margin: 1rem;
