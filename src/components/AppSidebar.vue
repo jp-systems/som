@@ -1,15 +1,17 @@
 <template>
-  <div class='app-sidebar' v-show="$root.loggedIn">
+  <div class='app-sidebar'
+       v-show="$root.loggedIn"
+       @click="data+=1">
     <h1>SOM</h1>
     <p><b>UserID: </b> {{ $root.userID }}</p>
     <p><b>SessID: </b> {{ $root.loginToken }}</p>
     <hr>
     <h2>Modules</h2>
     <br>
-    <ul v-for="module in modules">
-      <router-link :key="module.code" :to="'/module/' + (module.ref || module.moduleID)">
-        <li>{{ module.name }}</li>
-      </router-link> 
+    <ul v-for="mod in modules">
+      <router-link :key="mod.code" :to="'/module/' + (mod.ref || mod.moduleID)">
+        {{ mod.name }}
+      </router-link>
     </ul>
   </div>
 </template>
@@ -17,30 +19,37 @@
 <script>
 import api from '@/js/api'
 
-
 export default {
   name: 'AppSidebar',
-  data () {
+  data() {
     return {
-      modules: []
+      modules: [],
+      data: 1
     }
   },
-  mounted () {
-      if(this.$root.loggedIn) {
+  methods: {
+    fetchModules() {
+      if (this.$root.loggedIn) {
         api.post('user_modules')
         .then(response => {
-          console.log(response)
-          if(response.data.success) {
+          if (response.data.success) {
             this.modules = response.data.result
           }
         })
       }
+    }
+  },
+  watch: {
+    '$root.loggedIn': function () {
+      if (this.$root.loggedIn) {
+        this.fetchModules()
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 .app-sidebar {
   width: 12vw;
   background-color: #e8e8e8;
