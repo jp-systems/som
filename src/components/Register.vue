@@ -13,7 +13,7 @@
             <md-input-container :class="{ 'md-input-invalid': usernameError !== null }">
               <md-icon>person</md-icon>
               <label>Username</label>
-              <md-input v-model="username" @blur.native="checkUsername" required="required" tabindex="1"></md-input>
+              <md-input v-model="username" @blur.native="checkUsername" required="required" tabindex="1" ref="first"></md-input>
               <span class="md-error">{{ usernameError }}</span>
             </md-input-container>
             <md-input-container :class="{ 'md-input-invalid': emailError !== null }">
@@ -31,7 +31,7 @@
             <md-input-container md-has-password :class="{ 'md-input-invalid': confPassword !== '' && !passwordMatch }">
               <md-icon>vpn_key</md-icon>
               <label>Confirm Password</label>
-              <md-input type="password" v-model="confPassword" required="required" @keyup.enter="tryRegister" tabindex="4"></md-input>
+              <md-input type="password" v-model="confPassword" required="required" @keypress.native.enter="tryRegister" tabindex="4"></md-input>
               <span class="md-error">Passwords do not match!</span>
             </md-input-container>
             <md-button class="md-raised md-primary" :disabled="btnDisabled" @click.native="tryRegister" tabindex="5">Sign Up</md-button>
@@ -61,7 +61,8 @@ export default {
       confPassword: '',
       usernameError: null,
       emailError: null,
-      passwordError: null
+      passwordError: null,
+      error: null
     }
   },
 
@@ -135,7 +136,7 @@ export default {
     },
     tryRegister () {
       this.loading = true
-      this.errorMessage = null
+      this.error = null
       api.post('create_user', {
         email: this.email,
         password: this.password,
@@ -150,15 +151,18 @@ export default {
           this.$root.attemptLogin()
         } else {
           // Something went wrong, show an error
-          this.errorMessage = data.message
+          this.error = data.message
         }
         this.loading = false
       })
       .catch(error => {
-        console.error(error)
+        this.error = error
         this.loading = false
       })
     }
+  },
+  mounted () {
+    this.$nextTick(_ => this.$refs.first.$el.focus())
   }
 }
 </script>

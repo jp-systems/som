@@ -1,7 +1,7 @@
 <template>
   <div class="app-nav">
     <div class="max-width">
-      <h1><md-icon>school</md-icon> SOM</h1>
+      <h1 class="logo" @click="home"><md-icon>school</md-icon> SOM</h1>
       <md-button class="md-primary" @click.native="$router.push('/search')">Search</md-button>
       <div class="spacer"></div>
       <template v-if="$root.loggedIn">
@@ -34,6 +34,9 @@ export default {
     },
     profile () {
       this.$router.push('/profile')
+    },
+    home () {
+      this.$router.push(this.$root.loggedIn ? '/home' : '/')
     }
   }
 }
@@ -51,7 +54,8 @@ export default {
     max-width: 1200px;
     margin: 0 auto;
 
-    > h1 {
+    > .logo {
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;

@@ -1,10 +1,22 @@
 <template>
-  <div class="module" v-if="module !== null">
-    <h2>{{ module.code }}: {{ module.name }}</h2>
-    <br>  
-    <div v-html="outlineHTML"></div>
-    <br>
-    <p>Last Updated On : {{ module.updatedOn }}</p>
+  <div class="module">
+    <template v-if="module !== null">
+      <md-tabs md-fixed>
+        <md-tab md-label="Outline" md-icon="info">
+          <div v-html="outlineHTML"></div>
+          <p>{{ module.updatedOn }}</p>
+        </md-tab>
+        <md-tab md-label="Chat" md-icon="chat">
+          <p>Messenger</p>
+        </md-tab>
+        <md-tab md-label="FAQ" md-icon="help">
+          <p>FAQ HERE!</p>
+        </md-tab>
+      </md-tabs>
+      <!--<h1 class="header">{{ module.code }}: {{ module.name }}</h1>
+      <div v-html="outlineHTML"></div>
+      <p>Last Updated On : {{ module.updatedOn }}</p>-->
+    </template>
   </div>
 </template>
 
@@ -54,7 +66,13 @@ export default {
 <style lang="scss" scoped>
 .module {
   display: flex;
+  flex-direction: column;
   padding: 1rem;
   width: 100%;
+  height: 100%;
+
+  .md-tabs-content {
+    background-color: rgba(255, 255, 255, .5);
+  }
 }
 </style>

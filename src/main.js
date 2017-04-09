@@ -22,6 +22,22 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueMaterial)
 
+Vue.material.registerTheme('default', {
+  primary: {
+    color: 'teal',
+    hue: '400'
+  },
+  accent: {
+    color: 'orange',
+    hue: 'A700'
+  },
+  warn: {
+    color: 'red',
+    hue: 'A400'
+  },
+  background: 'white'
+})
+
 const router = new VueRouter({
   linkActiveClass: 'active',
   routes: [
