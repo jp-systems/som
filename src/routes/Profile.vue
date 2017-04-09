@@ -4,7 +4,7 @@
       <form novalidate @submit.stop.prevent="submit">
         <md-input-container>
           <label>Initial value</label>
-          <md-input v-model="initialValue"></md-input>
+          <md-input></md-input>
         </md-input-container>
       </form>
     </md-card>
