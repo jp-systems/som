@@ -28,6 +28,7 @@ import api from '@/js/api'
 
 export default {
   name: 'Module',
+  props: ['id'],
   data () {
     return {
       module: null
@@ -41,7 +42,7 @@ export default {
   methods: {
     fetch () {
       api.get('get_module', {
-        module_id: this.$route.params.id
+        module_id: this.id
       })
       .then(response => {
         if (response.data.success) this.module = response.data.result

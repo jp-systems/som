@@ -33,9 +33,10 @@ import api from '@/js/api'
 
 export default {
   name: 'Search',
+  props: ['query'],
   data () {
     return {
-      query: this.$route.params.query,
+      query: this.query,
       modules: []
     }
   },

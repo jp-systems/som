@@ -43,10 +43,10 @@ const router = new VueRouter({
   routes: [
     { path: '/', component: Default },
     { path: '/home', component: Home },
-    { path: '/module/:id', component: Module },
+    { path: '/module/:id', component: Module, props: true },
     { path: '/profile', component: Profile },
     { path: '/search', component: Search },
-    { path: '/search/:query', component: Search },
+    { path: '/search/:query', component: Search, props: true },
     { path: '/test', component: Test },
     { path: '/modinput', component: ModInput }
   ]
