@@ -2,7 +2,7 @@
   <div class="search">
     <md-input-container>
       <label>Search For Module</label>
-      <md-textarea v-model="query" @keyup.native="search"></md-textarea>
+      <md-input v-model="query" @keyup.native="search"></md-input>
     </md-input-container>
 
     <div class="modules">
@@ -18,7 +18,7 @@
               <md-button class="md-icon-button" @click.prevent.native="favModule(mod.moduleID)">
                 <md-icon>bookmark_border</md-icon>
               </md-button>
-            </md-card-actions>     
+            </md-card-actions>
           </md-card>
         </router-link>
       </template>
@@ -75,6 +75,7 @@ export default {
 
 .md-card {
   margin: 0px 10px;
+  overflow: hidden;
 
   h2,h3 {
     color: rgba(0, 0, 0, .87);
@@ -87,7 +88,6 @@ a:hover {
 
 .header-colour {
   background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
-  border-radius: 5px 5px 0 0;
   width: 100%;
   height: 10px;
 }
