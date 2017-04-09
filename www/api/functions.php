@@ -119,9 +119,9 @@ class Functions {
   }
 
   /***** TO DELETE ******/
-  public static function add_module($ref, $code, $name, $outline) {
+  public static function add_module($sessionID, $ref, $code, $name, $outline) {
     $id = Functions::get_random_id();
-    return Functions::query("INSERT INTO `module` (`moduleID`, `ref`, `code`, `name`, `outline`) VALUES (?,?,?,?,?)", [$id, $ref, $code, $name, $outline]);
+    return Functions::query("INSERT INTO `module` (`moduleID`, `userID`, `ref`, `code`, `name`, `outline`) VALUES (?,(SELECT `userID` FROM `session` WHERE sessionID = ?),?,?,?,?)", [$id, $sessionID, $ref, $code, $name, $outline]);
   }
 }
 

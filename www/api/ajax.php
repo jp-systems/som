@@ -60,11 +60,12 @@ if ($get_request) {
     
     /*** TO DELETE ****/
     case "add_module":
+      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
       if(!isset($_POST["mod_ref"])) respond(Functions::error("No ref provided"));
       if(!isset($_POST["mod_code"])) respond(Functions::error("No code provided"));
       if(!isset($_POST["mod_name"])) respond(Functions::error("No name provided"));
       if(!isset($_POST["mod_outline"])) respond(Functions::error("No outline provided"));
-      respond(Functions::add_module($_POST["mod_ref"], $_POST["mod_code"], $_POST["mod_name"], $_POST["mod_outline"]));
+      respond(Functions::add_module($_POST["login_token"], $_POST["mod_ref"], $_POST["mod_code"], $_POST["mod_name"], $_POST["mod_outline"]));
       break;
   }
   // Invalid request
