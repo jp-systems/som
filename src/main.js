@@ -28,7 +28,7 @@ const router = new VueRouter({
     { path: '/', component: Default },
     { path: '/home', component: Home },
     { path: '/module/:id', component: Module },
-    { path: '/search', component: Search },
+    { path: '/search', component: null },
     { path: '/search/:query', component: Search },
     { path: '/test', component: Test },
     { path: '/modinput', component: ModInput }

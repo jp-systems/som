@@ -82,7 +82,7 @@ html, body, #app, #app > .wrapper {
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Raleway', cursive;
+  font-family: 'Nixie One', cursive;
 }
 
 .fade-enter-active, .fade-leave-active {
