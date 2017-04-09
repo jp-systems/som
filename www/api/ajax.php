@@ -25,10 +25,6 @@ if ($get_request) {
       if (!isset($_GET["query"])) respond(Functions::error("No query provided!"));
       respond(Functions::search_modules($_GET["query"]));
       break;
-    case "user_modules":
-      if (!isset($_GET["login_token"])) respond(Functions::error("Invalid token"));
-      respond(Functions::user_modules($_GET["login_token"]));
-      break;
   }
   // Invalid request
   respond(Functions::error("Invalid request!"));
@@ -52,6 +48,14 @@ if ($get_request) {
     case "verify_session":
       if (!isset($_POST["login_token"])) respond(Functions::error("No token provided!"));
       respond(Functions::verify_session($_POST["login_token"]));
+      break;
+    case "destroy_session":
+      if (!isset($_POST["login_token"])) respond(Functions::error("No token provided!"));
+      respond(Functions::destroy_session($_POST["login_token"]));
+      break;
+    case "user_modules":
+      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
+      respond(Functions::user_modules($_POST["login_token"]));
       break;
   }
   // Invalid request

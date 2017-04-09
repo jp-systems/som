@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import api from '@/js/api'
+
 export default {
   name: 'Logout',
   methods: {
@@ -25,6 +27,7 @@ export default {
       this.$root.modalStatus = null
     },
     logout () {
+      api.post('destroy_session')
       window.localStorage.removeItem('login_token')
       this.$root.loggedIn = false
       this.$root.userID = null

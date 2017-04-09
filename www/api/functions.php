@@ -59,6 +59,10 @@ class Functions {
     Functions::query("INSERT INTO `session` (`sessionID`, `userID`, `expiresOn`) VALUES (?, ?, NOW() + INTERVAL 30 DAY)", [$sessionID, $userID]);
     return $sessionID;
   }
+
+  public static function destroy_session($login_token) {
+    return Functions::query("DELETE FROM `session` WHERE `sessionID` = ?", [$login_token]);
+  }
   
   private static function query($query, $params = null) {
     $host = Credentials::$host;

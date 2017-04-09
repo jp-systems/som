@@ -27,7 +27,7 @@ export default {
   },
   mounted () {
       if(this.$root.loggedIn) {
-        api.get('user_modules', {})
+        api.post('user_modules')
         .then(response => {
           console.log(response)
           if(response.data.success) {

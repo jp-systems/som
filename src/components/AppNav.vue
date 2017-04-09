@@ -2,6 +2,7 @@
   <div class="app-nav">
     <div class="max-width">
       <h1><md-icon>school</md-icon> SOM</h1>
+      <md-button class="md-primary" @click.native="$router.push('/search')">Search</md-button>
       <div class="spacer"></div>
       <template v-if="$root.loggedIn">
         <md-button @click.native="logout"><md-icon>exit_to_app</md-icon> Logout</md-button>
