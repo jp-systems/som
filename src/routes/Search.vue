@@ -49,7 +49,6 @@ export default {
         query: this.query
       })
       .then(response => {
-        console.log(response)
         this.modules = response.data.result
       })
     }, 500),

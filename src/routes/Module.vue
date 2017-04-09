@@ -15,9 +15,7 @@ import marked from 'marked'
 import api from '@/js/api'
 
 export default {
-
   name: 'Module',
-
   data () {
     return {
       module: null
@@ -28,23 +26,35 @@ export default {
       return marked(this.module.outline || '')
     }
   },
+  methods: {
+    fetch () {
+      api.get('get_module', {
+        module_id: this.$route.params.id
+      })
+      .then(response => {
+        if (response.data.success) this.module = response.data.result
+      })
+      .catch(error => {
+        console.error(error)
+      })
+    }
+  },
   mounted: function () {
-    api.get('get_module', {
-      module_id: this.$route.params.id
-    })
-    .then(response => {
-      console.log(response)
-      if(response.data.success) {
-        this.module = response.data.result
-      }
-    })
+    this.fetch()
+  },
+  watch: {
+    '$route': function () {
+      this.fetch()
+    }
   }
-
 }
 
 </script>
 
 <style lang="scss" scoped>
-
-
+.module {
+  display: flex;
+  padding: 1rem;
+  width: 100%;
+}
 </style>
