@@ -1,7 +1,7 @@
 import { get, post } from 'axios'
 import { stringify } from 'qs'
 
-const uri = '/api/ajax.php'
+const uri = './api/ajax.php'
 
 export default {
   get (request, params) {

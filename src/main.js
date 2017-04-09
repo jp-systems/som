@@ -47,10 +47,7 @@ const vm = new Vue({
   },
   methods: {
     attemptLogin () {
-      let loginToken = window.localStorage.getItem('login_token')
-      api.post('verify_session', {
-        login_token: loginToken
-      })
+      api.post('verify_session')
       .then(r => {
         if (r.data.success) {
           this.loggedIn = true
