@@ -4,7 +4,9 @@
       <app-nav></app-nav>
       <div class="page">
         <app-sidebar></app-sidebar>
-        <router-view></router-view>
+        <div class="route">
+          <transition name="fade"><router-view></router-view></transition>
+        </div>
       </div>
     </div>
     <transition name="fade">
@@ -66,6 +68,15 @@ html, body, #app, #app > .wrapper {
     display: flex;
     background: rgba(0, 0, 0, .04);
     flex: 1;
+
+    > .route {
+      flex: 1;
+      position: relative;
+
+      > div {
+        position: absolute;
+      }
+    }
   }
 }
 

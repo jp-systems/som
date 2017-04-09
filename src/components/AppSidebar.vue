@@ -1,6 +1,9 @@
 <template>
   <div class='app-sidebar' v-show="$root.loggedIn">
     <md-list class="md-dense list">
+      <md-list-item>
+        <router-link to="/home"><md-icon>home</md-icon><span>Home</span></router-link>
+      </md-list-item>
       <md-subheader>Modules</md-subheader>
       <md-divider></md-divider>
       <md-list-item v-for="mod in modules" :key="mod.code">
