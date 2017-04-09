@@ -59,7 +59,6 @@
           mod_outline: this.outline
         })
         .then(response => {
-          console.log(response)
           this.name = this.code = this.ref = this.outline = ''
         })
       }

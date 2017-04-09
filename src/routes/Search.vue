@@ -53,7 +53,7 @@ export default {
       })
     }, 500),
     favModule (moduleID) {
-      console.log(moduleID)
+      // Do thing
     }
   }
 }

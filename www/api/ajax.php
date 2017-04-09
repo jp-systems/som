@@ -25,6 +25,14 @@ if ($get_request) {
       if (!isset($_GET["query"])) respond(Functions::error("No query provided!"));
       respond(Functions::search_modules($_GET["query"]));
       break;
+    case "username_taken":
+      if (!isset($_GET["username"])) respond(Functions::error("No username provided!"));
+      respond(Functions::username_taken($_GET["username"]));
+      break;
+    case "email_taken":
+      if (!isset($_GET["email"])) respond(Functions::error("No email provided!"));
+      respond(Functions::email_taken($_GET["email"]));
+      break;
   }
   // Invalid request
   respond(Functions::error("Invalid request!"));

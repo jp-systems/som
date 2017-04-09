@@ -5,6 +5,10 @@
       <md-button class="md-primary" @click.native="$router.push('/search')">Search</md-button>
       <div class="spacer"></div>
       <template v-if="$root.loggedIn">
+        <md-button class="md-icon-button md-raised md-dense" @click.native="profile">
+          <md-icon>face</md-icon>
+          <md-tooltip md-direction="bottom">My Profile</md-tooltip>
+        </md-button>
         <md-button @click.native="logout"><md-icon>exit_to_app</md-icon> Logout</md-button>
       </template>
       <template v-else>
@@ -27,6 +31,9 @@ export default {
     },
     logout () {
       this.$root.modalStatus = 'logout'
+    },
+    profile () {
+      this.$router.push('/profile')
     }
   }
 }

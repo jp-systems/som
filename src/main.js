@@ -9,12 +9,12 @@ import App from '@/App'
 import Default from '@/routes/Default'
 import Home from '@/routes/Home'
 import Module from '@/routes/Module'
+import Profile from '@/routes/Profile'
 import Search from '@/routes/Search'
 
 // TO DELETE
 import Test from '@/routes/Test'
 import ModInput from '@/routes/ModInput'
-
 
 import api from '@/js/api'
 
@@ -28,6 +28,7 @@ const router = new VueRouter({
     { path: '/', component: Default },
     { path: '/home', component: Home },
     { path: '/module/:id', component: Module },
+    { path: '/profile', component: Profile },
     { path: '/search', component: null },
     { path: '/search/:query', component: Search },
     { path: '/test', component: Test },

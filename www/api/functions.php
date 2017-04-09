@@ -28,9 +28,33 @@ class Functions {
     return $r;
   }
 
+  public static function username_taken($username) {
+    $result = Functions::query("SELECT 1 FROM `user` WHERE `username` = ? LIMIT 1", [$username]);
+    if ($result["success"]) {
+      return Functions::success($result["result"] != null);
+    } else {
+      return $result;
+    }
+  }
+
+  public static function email_taken($email) {
+    $result = Functions::query("SELECT 1 FROM `user` WHERE `email` = ? LIMIT 1", [$email]);
+    if ($result["success"]) {
+      return Functions::success($result["result"] != null);
+    } else {
+      return $result;
+    }
+  }
+
   public static function create_user($username, $pass_hash, $email) {
     $id = Functions::get_random_id();
-    return Functions::query("INSERT INTO `user` (`userID`, `username`, `password`, `email`) VALUES (?, ?, ?, ?)", [$id, $username, $pass_hash, $email]);
+    $result = Functions::query("INSERT INTO `user` (`userID`, `username`, `password`, `email`) VALUES (?, ?, ?, ?)", [$id, $username, $pass_hash, $email]);
+    if ($result["success"]) {
+      $sessionID = Functions::create_login_session($id);
+      return Functions::success($sessionID);
+    } else {
+      return Functions::error("Could not create user");
+    }
   }
 
   public static function verify_user($username, $password) {
