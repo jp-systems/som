@@ -117,6 +117,12 @@ class Functions {
       JOIN `session` ON `session`.`userID` = `user`.`userID`
     WHERE `session`.`sessionID` = ?", [$sessionID]);
   }
+
+  /***** TO DELETE ******/
+  public static function add_module($ref, $code, $name, $outline) {
+    $id = Functions::get_random_id();
+    return Functions::query("INSERT INTO `module` (`moduleID`, `ref`, `code`, `name`, `outline`) VALUES (?,?,?,?,?)", [$id, $ref, $code, $name, $outline]);
+  }
 }
 
 ?>

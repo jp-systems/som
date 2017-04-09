@@ -6,16 +6,16 @@
     </md-input-container>
 
     <div class="modules">
-      <template v-for="module in modules">
-        <router-link :key="module.code" :to="'/module/' + (module.ref || module.moduleID)">
+      <template v-for="mod in modules">
+        <router-link :key="mod.code" :to="'/module/' + (mod.ref || mod.moduleID)">
           <md-card md-with-hover>
             <div class="header-colour"></div>
-            <md-card-header><h2>{{ module.code }}</h2></md-card-header>
+            <md-card-header><h2>{{ mod.code }}</h2></md-card-header>
             <md-card-content>
-              <h3>{{ module.name }}</h3>
+              <h3>{{ mod.name }}</h3>
             </md-card-content>
             <md-card-actions v-if="$root.loggedIn">
-              <md-button class="md-icon-button" @click.prevent.native="favModule(module.moduleID)">
+              <md-button class="md-icon-button" @click.prevent.native="favModule(mod.moduleID)">
                 <md-icon>bookmark_border</md-icon>
               </md-button>
             </md-card-actions>     
