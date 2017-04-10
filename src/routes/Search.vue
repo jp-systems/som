@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       activeQuery: this.query,
-      fetching: true,
+      fetching: false,
       modules: []
     }
   },
