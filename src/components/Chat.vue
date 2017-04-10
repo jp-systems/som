@@ -6,10 +6,13 @@
         <span class="user">{{ message.username }}</span><span class="content" v-html="messageHTML(message.message)"></span>
       </p>
     </div>
-    <md-input-container>
+    <md-input-container v-if="$root.loggedIn">
       <label>Message</label>
       <md-input v-model="message" @keypress.native.enter="post"></md-input>
     </md-input-container>
+    <p class="error" v-else>
+      <md-icon>error</md-icon> You must be logged in to chat!
+    </p>
   </div>
 </template>
 
@@ -80,6 +83,13 @@ export default {
       font-size: 1rem;
       display: inline-block;
     }
+  }
+
+  .error {
+    text-align: center;
+    font-weight: bold;
+    color: rgba(230, 140, 140, .8);
+    font-size: 1.2rem;
   }
 }
 </style>
