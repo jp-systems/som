@@ -12,9 +12,7 @@ import Register from '@/components/Register'
 export default {
   name: 'Test',
   data () {
-    return {
-      
-    }
+    return { }
   },
   components: {
     Login,

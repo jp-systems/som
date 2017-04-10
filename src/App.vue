@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import api from '@/js/api'
-
 import AppNav from '@/components/AppNav'
 import AppSidebar from '@/components/AppSidebar'
 import Login from '@/components/Login'

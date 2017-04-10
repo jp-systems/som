@@ -54,7 +54,7 @@ export default {
     }
   },
   computed: {
-    btnDisabled() {
+    btnDisabled () {
       return (!this.username || !this.password)
     }
   },

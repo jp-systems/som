@@ -45,7 +45,10 @@ export default {
   },
   methods: {
     search: _.debounce(function () {
-      if(!this.query) {this.modules = []; return}
+      if (!this.query) {
+        this.modules = []
+        return
+      }
       api.get('search_modules', {
         query: this.query
       })
