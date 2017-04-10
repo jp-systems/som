@@ -26,7 +26,7 @@
             </div>
             <md-button class="md-raised md-primary" :disabled="btnDisabled" @click.native="checkUser" tabindex="4">Login</md-button>
           </template>
-          <template v-else>
+          <template v-if="loading">
             <p style="text-align:center;"><md-spinner md-indeterminate></md-spinner></p>
           </template>
           <template v-if="error">
