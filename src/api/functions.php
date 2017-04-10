@@ -146,6 +146,11 @@ class Functions {
     WHERE `session`.`sessionID` = ?", [$sessionID]);
   }
 
+  public static function follow_module($sessionID, $moduleID) {
+    $id = Functions::get_random_id();
+    return Functions::query("INSERT IGNORE INTO `usermodule` (`userModuleID`, `userID`, `moduleID`) VALUES (?, (SELECT `userID` FROM `session` WHERE sessionID = ?), ?)", [$id, $sessionID, $moduleID]);
+  }
+
   /***** TO DELETE ******/
   public static function add_module($sessionID, $ref, $code, $name, $outline) {
     $id = Functions::get_random_id();

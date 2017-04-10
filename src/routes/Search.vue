@@ -60,8 +60,13 @@ export default {
         this.modules = response.data.result
       })
     }, 500),
-    favModule (moduleID) {
-      // Do thing
+    favModule (modID) {
+      api.post('fav_module', {
+        module_ID: modID
+      })
+      .then(response => {
+        console.log(response)
+      })
     }
   }
 }

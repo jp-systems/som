@@ -69,6 +69,11 @@ if ($get_request) {
       if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
       respond(Functions::user_data($_POST["login_token"]));
       break;
+    case "fav_module":
+      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
+      if (!isset($_POST["module_ID"])) respond(Functions::error("No module provided!"));
+      respond(Functions::follow_module($_POST["login_token"], $_POST["module_ID"]));
+      break;
     
     /*** TO DELETE ****/
     case "add_module":
