@@ -35,7 +35,6 @@
   import marked from 'marked'
   import api from '@/js/api'
 
-
   export default {
     data () {
       return {

@@ -48,8 +48,6 @@
 <script>
 import api from '@/js/api'
 
-import _ from 'lodash'
-
 export default {
   name: 'Register',
   data () {
@@ -105,7 +103,7 @@ export default {
           }
         })
         .catch(error => {
-          this.usernameError = 'An unexpected error occured!'
+          this.usernameError = 'An unexpected error occured!\n' + error
         })
       }
     },
@@ -130,7 +128,7 @@ export default {
           }
         })
         .catch(error => {
-          this.emailError = 'An unexpected error occured!'
+          this.emailError = 'An unexpected error occured!\n' + error
         })
       }
     },

@@ -15,7 +15,7 @@ import api from '@/js/api'
 
 export default {
   name: 'AppSidebar',
-  data() {
+  data () {
     return {
       modules: []
     }
