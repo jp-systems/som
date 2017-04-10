@@ -6,7 +6,11 @@
       <div class="spacer"></div>
       <template v-if="$root.loggedIn">
         <md-button class="md-primary md-dense" @click.native="profile">
-          <md-icon>person</md-icon> <span v-if="$root.user">{{ $root.user.username }}</span>
+          <md-avatar>
+            <img v-if="$root.user && $root.user.avatar" :src="$root.user.avatar">
+            <md-icon v-else>person</md-icon>
+          </md-avatar>
+          <span v-if="$root.user">{{ $root.user.username }}</span>
           <md-tooltip md-direction="bottom">My Profile</md-tooltip>
         </md-button>
         <md-button class="md-icon-button md-dense" @click.native="logout">
