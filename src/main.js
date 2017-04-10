@@ -69,8 +69,24 @@ const vm = new Vue({
           this.loggedIn = true
           this.userID = r.data.result
           this.loginToken = window.localStorage.getItem('login_token')
-          this.$router.push('/home')
+          api.post('user_data')
+          .then(r => {
+            if (r.data.success) {
+              this.user = r.data.result
+              this.$router.push('/home')
+            } else {
+              throw new Error(r.data.message)
+            }
+          })
+          .catch(e => {
+            console.error(e)
+          })
+        } else {
+          throw new Error('Invalid login token')
         }
+      })
+      .catch(e => {
+        console.error(e)
       })
     }
   },

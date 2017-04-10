@@ -4,7 +4,7 @@
       <md-subheader>Modules</md-subheader>
       <md-divider></md-divider>
       <md-list-item v-for="mod in modules" :key="mod.code">
-        <router-link :to="'/module/' + (mod.ref || mod.moduleID)">{{ mod.name }}</router-link>
+        <router-link :to="'/module/' + (mod.ref || mod.moduleID)" exact>{{ mod.name }}</router-link>
       </md-list-item>
     </md-list>
   </div>
@@ -50,5 +50,10 @@ export default {
   flex-shrink: 0;
   background-color: rgba(255, 255, 255, .7);
   overflow: hidden;
+
+  .active {
+    background-color: rgba(200, 245, 230, .9);
+    border-right: 5px solid rgba(0, 0, 0, .05);
+  }
 }
 </style>

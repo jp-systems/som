@@ -36,6 +36,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.0",
+    "firebase": "^3.7.5",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
     "qs": "^6.4.0",

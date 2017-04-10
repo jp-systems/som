@@ -7,15 +7,12 @@
           <p>{{ module.updatedOn }}</p>
         </md-tab>
         <md-tab md-label="Chat" md-icon="chat">
-          <p>Messenger</p>
+          <chat :module="module"></chat>
         </md-tab>
         <md-tab md-label="FAQ" md-icon="help">
           <p>FAQ HERE!</p>
         </md-tab>
       </md-tabs>
-      <!--<h1 class="header">{{ module.code }}: {{ module.name }}</h1>
-      <div v-html="outlineHTML"></div>
-      <p>Last Updated On : {{ module.updatedOn }}</p>-->
     </template>
   </div>
 </template>
@@ -26,8 +23,13 @@ import marked from 'marked'
 
 import api from '@/js/api'
 
+import Chat from '@/components/Chat'
+
 export default {
   name: 'Module',
+  components: {
+    Chat
+  },
   props: ['id'],
   data () {
     return {
@@ -54,11 +56,6 @@ export default {
   },
   mounted: function () {
     this.fetch()
-  },
-  watch: {
-    '$route': function () {
-      this.fetch()
-    }
   }
 }
 
@@ -72,8 +69,13 @@ export default {
   width: 100%;
   height: 100%;
 
-  .md-tabs-content {
-    background-color: rgba(255, 255, 255, .5);
+  .md-tabs {
+    flex: 1;
+
+    .md-tabs-content {
+      flex: 1;
+      height: 100%;
+    }
   }
 }
 </style>

@@ -46,6 +46,10 @@ class Functions {
     }
   }
 
+  public static function user_data($sessionID) {
+    return Functions::query("SELECT `user`.`avatar`, `user`.`email`, `user`.`username` FROM `user` JOIN `session` ON `session`.`userID` = `user`.`userID` WHERE `session`.`sessionID` = ? LIMIT 1", [$sessionID]);
+  }
+
   public static function create_user($username, $pass_hash, $email) {
     $id = Functions::get_random_id();
     $result = Functions::query("INSERT INTO `user` (`userID`, `username`, `password`, `email`) VALUES (?, ?, ?, ?)", [$id, $username, $pass_hash, $email]);

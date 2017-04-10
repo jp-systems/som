@@ -5,11 +5,14 @@
       <md-button class="md-primary" @click.native="$router.push('/search')">Search</md-button>
       <div class="spacer"></div>
       <template v-if="$root.loggedIn">
-        <md-button class="md-icon-button md-raised md-dense" @click.native="profile">
-          <md-icon>face</md-icon>
+        <md-button class="md-primary md-dense" @click.native="profile">
+          <md-icon>person</md-icon> <span v-if="$root.user">{{ $root.user.username }}</span>
           <md-tooltip md-direction="bottom">My Profile</md-tooltip>
         </md-button>
-        <md-button @click.native="logout"><md-icon>exit_to_app</md-icon> Logout</md-button>
+        <md-button class="md-icon-button md-dense" @click.native="logout">
+          <md-icon>exit_to_app</md-icon>
+          <md-tooltip md-direction="bottom">Logout</md-tooltip>
+          </md-button>
       </template>
       <template v-else>
         <md-button @click.native="login"><md-icon>vpn_key</md-icon> Login</md-button>

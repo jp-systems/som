@@ -1,0 +1,85 @@
+<template>
+  <div class='chat'>
+    <h1>Chat!</h1>
+    <div class="messages">
+      <p v-for="message in messages" class="message">
+        <span class="user">{{ message.username }}</span><span class="content" v-html="messageHTML(message.message)"></span>
+      </p>
+    </div>
+    <md-input-container>
+      <label>Message</label>
+      <md-input v-model="message" @keypress.native.enter="post"></md-input>
+    </md-input-container>
+  </div>
+</template>
+
+<script>
+import marked from 'marked'
+
+import fb from '@/js/fb'
+
+export default {
+  name: 'Chat',
+  props: {
+    module: {
+      required: true
+    }
+  },
+  data () {
+    return {
+      messages: {},
+      message: ''
+    }
+  },
+  methods: {
+    post () {
+      if (this.message === null || this.message === '' || this.$root.user === null) return
+      fb.postMessage(this.module.moduleID, this.$root.user, this.message)
+      this.message = ''
+    },
+    watch (snapshot) {
+      this.messages = snapshot.val()
+    },
+    messageHTML (msg) {
+      return marked(msg)
+    }
+  },
+  mounted () {
+    fb.watchMessages(this.module.moduleID, this.watch)
+  },
+  beforeDestroy () {
+    fb.unwatchMessages(this.module.moduleID)
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.chat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  color: black;
+
+  .message {
+    display: flex;
+    align-items: center;
+    padding: .25rem 0;
+
+    > .user {
+      font-size: 1rem;
+      font-weight: bold;
+      width: 5%;
+      text-align: right;
+      padding: 0 .5rem;
+      color: royalblue;
+    }
+
+    > .content {
+      font-size: 1rem;
+      display: inline-block;
+    }
+  }
+}
+</style>

@@ -65,6 +65,10 @@ if ($get_request) {
       if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
       respond(Functions::user_modules($_POST["login_token"]));
       break;
+    case "user_data":
+      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
+      respond(Functions::user_data($_POST["login_token"]));
+      break;
     
     /*** TO DELETE ****/
     case "add_module":
