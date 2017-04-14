@@ -67,6 +67,10 @@ html, body, #app, #app > .wrapper {
     background: rgba(0, 0, 0, .04);
     flex: 1;
 
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+
     > .route {
       flex: 1;
       position: relative;
@@ -100,5 +104,17 @@ h1, h2, h3, h4 {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0
+}
+
+.desktop-only {
+  @media (max-width: 600px) {
+    display: none !important;
+  }
+}
+
+.mobile-only {
+  @media (min-width: 600px) {
+    display: none !important;
+  }
 }
 </style>
