@@ -58,8 +58,13 @@ export default {
   min-width: 200px;
   max-width: 250px;
   flex-shrink: 0;
-  background-color: rgba(255, 255, 255, .7);
+  background-color: rgba(255, 255, 255, .6);
   overflow: hidden;
+
+  > .md-list {
+    margin: .25rem;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .1);
+  }
 
   .active {
     background-color: rgba(200, 245, 230, .9);
