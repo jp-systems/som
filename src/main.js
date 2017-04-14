@@ -69,7 +69,7 @@ const vm = new Vue({
         if (r.data.success) {
           this.loggedIn = true
           this.userID = r.data.result
-          this.loginToken = window.localStorage.getItem('login_token')
+          this.loginToken = window.sessionStorage.getItem('login_token') || window.localStorage.getItem('login_token')
           api.post('user_data')
           .then(r => {
             if (r.data.success) {

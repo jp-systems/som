@@ -71,7 +71,11 @@ export default {
       .then(r => {
         if (r.data.success) {
           // Login success!
-          window.localStorage.setItem('login_token', r.data.result)
+          if (this.rememberMe) {
+            window.localStorage.setItem('login_token', r.data.result)
+          } else {
+            window.sessionStorage.setItem('login_token', r.data.result)
+          }
           this.$root.modalStatus = null
           this.$root.attemptLogin()
         } else {

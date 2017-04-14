@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     sortedModules () {
-      return this.$root.modules.sort((a, b) => a.name > b.name)
+      return this.$root.modules ? this.$root.modules.sort((a, b) => a.name > b.name) : []
     }
   },
   methods: {
