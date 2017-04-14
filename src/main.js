@@ -59,7 +59,8 @@ const vm = new Vue({
     modalStatus: null,
     loggedIn: false,
     userID: null,
-    user: null
+    user: null,
+    modules: null
   },
   methods: {
     attemptLogin () {

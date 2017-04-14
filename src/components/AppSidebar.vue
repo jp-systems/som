@@ -3,9 +3,11 @@
     <md-list class="md-dense list">
       <md-subheader>Modules</md-subheader>
       <md-divider></md-divider>
-      <md-list-item v-for="mod in modules" :key="mod.code">
-        <router-link :to="moduleLink(mod)" exact>{{ mod.name }}</router-link>
-      </md-list-item>
+      <transition-group name="fade">
+        <md-list-item v-for="mod in sortedModules" :key="mod.code">
+          <router-link :to="moduleLink(mod)" exact>{{ mod.name }}</router-link>
+        </md-list-item>
+      </transition-group>
     </md-list>
   </div>
 </template>
@@ -20,14 +22,18 @@ export default {
       modules: []
     }
   },
+  computed: {
+    sortedModules () {
+      return this.$root.modules.sort((a, b) => a.name > b.name)
+    }
+  },
   methods: {
     fetchModules () {
       if (this.$root.loggedIn) {
         api.post('user_modules')
         .then(response => {
           if (response.data.success) {
-            console.log(response.data.result)
-            this.modules = response.data.result
+            this.$root.modules = response.data.result
           }
         })
       }

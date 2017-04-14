@@ -16,7 +16,7 @@
             <h3>{{ mod.name }}</h3>
           </md-card-content>
           <md-card-actions v-if="$root.loggedIn">
-            <md-button class="md-icon-button" @click.prevent.native="favModule(mod.moduleID)">
+            <md-button class="md-icon-button" @click.prevent.native="favModule(mod)">
               <md-icon>bookmark_border</md-icon>
             </md-button>
           </md-card-actions>
@@ -60,12 +60,12 @@ export default {
         this.modules = response.data.result
       })
     }, 500),
-    favModule (modID) {
+    favModule (mod) {
       api.post('fav_module', {
-        module_ID: modID
+        module_ID: mod.moduleID
       })
       .then(response => {
-        console.log(response)
+        this.$root.modules.push(mod)
       })
     }
   }
