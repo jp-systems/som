@@ -4,7 +4,7 @@
       <md-subheader>Modules</md-subheader>
       <md-divider></md-divider>
       <md-list-item v-for="mod in modules" :key="mod.code">
-        <router-link :to="'/module/' + (mod.ref || mod.moduleID)" exact>{{ mod.name }}</router-link>
+        <router-link :to="moduleLink(mod)" exact>{{ mod.name }}</router-link>
       </md-list-item>
     </md-list>
   </div>
@@ -26,10 +26,14 @@ export default {
         api.post('user_modules')
         .then(response => {
           if (response.data.success) {
+            console.log(response.data.result)
             this.modules = response.data.result
           }
         })
       }
+    },
+    moduleLink (module) {
+      return '/module/' + (module.ref || String(module.code).toLowerCase())
     }
   },
   watch: {

@@ -129,7 +129,7 @@ class Functions {
   }
 
   public static function get_module($moduleID) {
-    return Functions::query("SELECT * FROM `module` WHERE `moduleID` = ? OR `ref` = ? LIMIT 1", [$moduleID, $moduleID]);
+    return Functions::query("SELECT * FROM `module` WHERE `moduleID` = ? OR `code` = ? OR `ref` = ? LIMIT 1", [$moduleID, $moduleID, $moduleID]);
   }
 
   public static function search_modules($query) {
