@@ -22,5 +22,13 @@ export default {
   },
   unwatchMessages (moduleID) {
     firebase.database().ref('chat/module/' + moduleID).off('value')
+  },
+  saveUserAvatar (userID, avatar) {
+    let storage = firebase.storage().ref()
+    let ref = storage.child('avatars/' + userID)
+    return ref.put(avatar)
+  },
+  getUserAvatar (userID) {
+    return firebase.storage().ref('avatars/' + userID).getDownloadURL()
   }
 }

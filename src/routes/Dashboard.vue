@@ -4,14 +4,17 @@
       <img :src="photo" alt="User Photo" ref="img">
     </div>
     <div class="input">
-      <input multiple @change="photoUpload" ref="photoUpload" type="file" class="hide">
+      <input @change="photoUpload" ref="photoUpload" type="file" class="hide">
       <button @click="triggerUpload"><md-icon class="md-size-3x">camera_alt</md-icon></button>
       <p>Upload A Photo</p>
+      <p>UserID: {{ $root.userID }}</p>
     </div>
   </div>
 </template>
 
 <script>
+  import fb from '@/js/fb'
+
   export default {
     name: 'Dashboard',
     data () {
@@ -31,6 +34,7 @@
       photoUpload (e) {
         let self = this
         let file = e.target.files[0]
+        fb.saveUserAvatar(this.$root.userID, file)
         let reader = new FileReader()
         reader.onloadend = function (event) {
           self.photo = event.target.result

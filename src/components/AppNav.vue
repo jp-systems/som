@@ -7,8 +7,7 @@
       <template v-if="$root.loggedIn">
         <md-button class="md-primary md-dense desktop-only" @click.native="profile">
           <md-avatar>
-            <img v-if="$root.user && $root.user.avatar" :src="$root.user.avatar">
-            <md-icon v-else>person</md-icon>
+            <avatar :userID="$root.userID"></avatar>
           </md-avatar>
           <span v-if="$root.user">{{ $root.user.username }}</span>
           <md-tooltip md-direction="bottom">My Profile</md-tooltip>
@@ -48,8 +47,13 @@
 </template>
 
 <script>
+import Avatar from '@/components/Avatar'
+
 export default {
   name: 'AppNav',
+  components: {
+    Avatar
+  },
   data () {
     return {
       mobileNavOpen: false
