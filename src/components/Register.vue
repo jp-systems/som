@@ -85,6 +85,8 @@ export default {
     checkUsername () {
       if (this.username === null || this.username === '') {
         this.usernameError = null
+      } else if (!this.username.match(/^[A-Za-z]{1}[A-Za-z0-9\\-]{2,31}$/)) {
+        this.usernameError = 'Only alphanumerics and dashes allowed.'
       } else {
         // Fire of an API request
         api.get('username_taken', {
