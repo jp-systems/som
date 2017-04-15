@@ -48,7 +48,12 @@ export default {
         .then(response => {
           if (response.data.success) {
             this.$root.modules = response.data.result
+          } else {
+            throw Error('Bad request: ' + JSON.stringify(response.data))
           }
+        })
+        .catch(error => {
+          console.error(error)
         })
       }
     },

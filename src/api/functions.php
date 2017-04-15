@@ -139,9 +139,9 @@ class Functions {
 
   public static function user_modules($sessionID) {
     return Functions::query("SELECT `module`.`code`, `module`.`name`, `module`.`ref`
-    FROM `userModule`
-	    JOIN `module` ON `module`.`moduleID` = `userModule`.`moduleID`
-      JOIN `user` ON `user`.`userID` = `userModule`.`userID`
+    FROM `usermodule`
+	    JOIN `module` ON `module`.`moduleID` = `usermodule`.`moduleID`
+      JOIN `user` ON `user`.`userID` = `usermodule`.`userID`
       JOIN `session` ON `session`.`userID` = `user`.`userID`
     WHERE `session`.`sessionID` = ?", [$sessionID]);
   }
