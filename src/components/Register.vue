@@ -169,8 +169,9 @@ export default {
 
 .md-card {
   margin: auto;
-  width: 400px;
-  padding: 10px;
+  padding: 1rem;
+  width: 90vw;
+  max-width: 400px;
   cursor: default;
 }
 
@@ -185,8 +186,8 @@ export default {
 
 .top-right {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: -.5rem;
+  top: -.5rem;
 }
 
 .fade-enter-active, .fade-leave-active {

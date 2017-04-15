@@ -95,8 +95,9 @@ export default {
 
 .md-card {
   margin: auto;
-  padding: 10px;
-  width: 400px;
+  padding: 1rem;
+  width: 90vw;
+  max-width: 400px;
   cursor: default;
 }
 
@@ -111,8 +112,8 @@ export default {
 
 .top-right {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: -.5rem;
+  top: -.5rem;
 }
 
 .remember-me {

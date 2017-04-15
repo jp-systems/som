@@ -32,7 +32,8 @@ export default {
 
     > h1 {
       text-align: center;
-      font-size: 4rem;
+      font-size: 10vw;
+      line-height: 10vw;
       text-shadow: 0 0 15px rgba(0, 0, 0, .2);
     }
   }
