@@ -89,9 +89,8 @@ export default {
         module_ID: this.id,
         module_outline: this.rawOutline
       }).then(response => {
-        console.log(response)
+        this.endEdit()
       })
-      // this.endEdit()
     },
     cancelEdit () {
       this.rawOutline = this.module.outline
