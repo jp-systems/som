@@ -151,6 +151,10 @@ class Functions {
     return Functions::query("INSERT IGNORE INTO `usermodule` (`userModuleID`, `userID`, `moduleID`) VALUES (?, (SELECT `userID` FROM `session` WHERE sessionID = ?), ?)", [$id, $sessionID, $moduleID]);
   }
 
+  public static function update_module($sessionID, $moduleID, $moduleOutline) {
+    return Functions::query("UPDATE `module` (SET `userID` = (SELECT `userID` FROM `session` WHERE sessionID = ?), `outline` = ?) WHERE moduleID = ?", [$sessionID, $moduleOutline, $moduleID]);
+  }
+
   /***** TO DELETE ******/
   public static function add_module($sessionID, $ref, $code, $name, $outline) {
     $id = Functions::get_random_id();

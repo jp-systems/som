@@ -74,6 +74,12 @@ if ($get_request) {
       if (!isset($_POST["module_ID"])) respond(Functions::error("No module provided!"));
       respond(Functions::follow_module($_POST["login_token"], $_POST["module_ID"]));
       break;
+    case "update_module":
+      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
+      if (!isset($_POST["module_ID"])) respond(Functions::error("No module provided"));
+      if (!isset($_POST["module_outline"])) respond(Functions::error("No outline provided"));
+      respond(Functions::update_module($_POST["login_token"], $_POST["module_ID"], $_POST["module_outline"]));
+      break;
     
     /*** TO DELETE ****/
     case "add_module":
