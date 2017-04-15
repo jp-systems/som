@@ -12,11 +12,13 @@
     <div class="mobile-only">
       <div class="header">
         <p class="text">Your Modules</p>
-        <span class="toggle" @click="mobileMenuOpen = !mobileMenuOpen"><md-icon>menu</md-icon></span>
+        <span class="toggle" @click="mobileMenuOpen = !mobileMenuOpen">
+          <md-icon :class="{ open: mobileMenuOpen }">keyboard_arrow_down</md-icon>
+        </span>
       </div>
       <transition name="fold-down">
         <div class="modules" v-if="mobileMenuOpen">
-          <router-link v-for="mod in sortedModules" :key="mod.code" :to="moduleLink(mod)" exact>{{ mod.name }}</router-link>
+          <router-link class="router-link" v-for="mod in sortedModules" :key="mod.code" :to="moduleLink(mod)" exact>{{ mod.name }}</router-link>
         </div>
       </transition>
     </div>
@@ -70,7 +72,7 @@ export default {
   min-width: 200px;
   max-width: 250px;
   flex-shrink: 0;
-  background-color: rgba(255, 255, 255, .6);
+  background-color: rgba(0, 0, 0, .03);
   overflow: hidden;
 
   @media (max-width: 600px) {
@@ -88,10 +90,12 @@ export default {
   .active {
     background-color: rgba(200, 245, 230, .9);
     border-right: 5px solid rgba(0, 0, 0, .05);
+    text-decoration: none;
   }
 
   .mobile-only {
     display: flex;
+    background-color: rgba(255, 255, 255, .8);
     flex-direction: column;
 
     > .header {
@@ -105,18 +109,34 @@ export default {
         font-weight: bold;
         padding: .75rem 1rem;
       }
+
+      > .toggle {
+
+        > .md-icon {
+          transition: transform 300ms ease-out;
+          transform: rotateZ(0);
+
+          &.open {
+            transform: rotateZ(180deg);
+          }
+        }
+      }
     }
 
     > .modules {
       display: flex;
       flex-direction: column;
-      transform-origin: top;
+
+      > .router-link {
+        padding: .75rem 1rem;
+        color: black;
+      }
     }
   }
 }
 
 .fold-down-enter-active, .fold-down-leave-active {
-  transition: opacity 300ms;
+  transition: opacity 200ms;
 }
 .fold-down-enter, .fold-down-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0;
