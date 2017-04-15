@@ -52,6 +52,10 @@ class Functions {
 
   public static function create_user($username, $pass_hash, $email) {
     $id = Functions::get_random_id();
+    if (preg_match('/^[A-Za-z]{1}[A-Za-z0-9\\-]{2,31}$/', $username) === 0) {
+      // Invalid username type
+      return Functions::error("Invalid username format!");
+    }
     $result = Functions::query("INSERT INTO `user` (`userID`, `username`, `password`, `email`) VALUES (?, ?, ?, ?)", [$id, $username, $pass_hash, $email]);
     if ($result["success"]) {
       $sessionID = Functions::create_login_session($id);
