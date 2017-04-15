@@ -1,35 +1,35 @@
 <template>
   <div class="module">
     <template v-if="module !== null">
-        <md-tabs md-fixed>
-          <md-tab md-label="Outline" md-icon="info">
-            <template v-if="!editMode">
-              <div v-html="outlineHTML"></div>
-              <p>Changes were last made on {{ module.updatedOn }}</p>
-              <md-button class="md-raised md-warn" @click.native="enableEdit">Edit this page</md-button>
-            </template>
-            <template v-else>
-              <section class="editPage">
-                <article>
-                  <textarea cols="30" rows="10" v-model="rawOutline"></textarea>
-                  <div>
-                    <md-button class="md-raised md-warn" @click.native="cancelEdit">Cancel</md-button>
-                    <md-button class="md-raised" @click.native="saveEdit">Save changes</md-button>
-                  </div>
-                </article>
-                <article>
-                  <h2>{{ module.code }}: {{ module.name }}</h2>
-                  <div v-html="editModeHTML"></div>
-                </article>
-              </section>
-            </template> 
-          </md-tab>
-          <md-tab md-label="Chat" md-icon="chat">
-            <chat :module="module"></chat>
-          </md-tab>
-          <md-tab md-label="FAQ" md-icon="help">
-            <p>FAQ HERE!</p>
-          </md-tab>
+      <md-tabs md-fixed>
+        <md-tab md-label="Outline" md-icon="info">
+          <template v-if="!editMode">
+            <div v-html="outlineHTML"></div>
+            <p>Changes were last made on {{ module.updatedOn }}</p>
+            <md-button class="md-raised md-warn" @click.native="enableEdit">Edit this page</md-button>
+          </template>
+          <template v-else>
+            <section class="editPage">
+              <article>
+                <textarea cols="30" rows="10" v-model="rawOutline" ref="editArea"></textarea>
+                <div>
+                  <md-button class="md-raised md-warn" @click.native="cancelEdit">Cancel</md-button>
+                  <md-button class="md-raised" @click.native="saveEdit">Save changes</md-button>
+                </div>
+              </article>
+              <article>
+                <h2>{{ module.code }}: {{ module.name }}</h2>
+                <div v-html="editModeHTML"></div>
+              </article>
+            </section>
+          </template> 
+        </md-tab>
+        <md-tab md-label="Chat" md-icon="chat">
+          <chat :module="module"></chat>
+        </md-tab>
+        <md-tab md-label="FAQ" md-icon="help">
+          <p>FAQ HERE!</p>
+        </md-tab>
       </md-tabs>
     </template>
   </div>
@@ -61,7 +61,7 @@ export default {
       return marked(this.module.outline || '')
     },
     editModeHTML () {
-      return marked(this.rawOutline, { sanitize: true } || '')
+      return marked(this.rawOutline || '', { sanitize: true })
     }
   },
   methods: {
@@ -81,6 +81,7 @@ export default {
     },
     enableEdit () {
       this.editMode = true
+      this.$nextTick(() => this.$refs.editArea.focus())
     },
     saveEdit () {
       // Do stuff
