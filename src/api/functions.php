@@ -152,7 +152,7 @@ class Functions {
   }
 
   public static function update_module($sessionID, $moduleID, $moduleOutline) {
-    return Functions::query("UPDATE `module` (SET `userID` = (SELECT `userID` FROM `session` WHERE sessionID = ?), `outline` = ?) WHERE moduleID = ?", [$sessionID, $moduleOutline, $moduleID]);
+    return Functions::query("UPDATE `module` SET `userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?), `outline` = ? WHERE `ref` = ? OR `code` = ?", [$sessionID, $moduleOutline, $moduleID, $moduleID]);
   }
 
   /***** TO DELETE ******/
