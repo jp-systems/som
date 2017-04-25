@@ -16,8 +16,8 @@
             <h3>{{ mod.name }}</h3>
           </md-card-content>
           <md-card-actions v-if="$root.loggedIn">
-            <md-button class="md-icon-button bookmark" @click.prevent.native="favModule(mod)">
-              <md-icon>bookmark_border</md-icon>
+            <md-button class="md-icon-button bookmark" @click.prevent.native="changeFollow(mod)">
+              <md-icon>{{ isFollowing(mod) ? 'bookmark' : 'bookmark_border' }}</md-icon>
             </md-button>
           </md-card-actions>
         </md-card>
@@ -45,6 +45,9 @@ export default {
     if (this.activeQuery) this.search()
   },
   methods: {
+    isFollowing (mod) {
+      return this.$root.modules.findIndex(m => m.code === mod.code) !== -1
+    },
     search: _.debounce(function () {
       if (!this.activeQuery) {
         this.fetching = false
@@ -60,14 +63,20 @@ export default {
         this.modules = response.data.result
       })
     }, 500),
-    favModule (mod) {
-      api.post('fav_module', {
-        module_ID: mod.moduleID
-      })
-      .then(response => {
-        this.$root.modules.push(mod)
-        this.$root.modules = _.uniqBy(this.$root.modules, (m) => m.code)
-      })
+    changeFollow (mod) {
+      if (this.isFollowing(mod)) {
+        // Unfollow the module
+        this.$root.modules.splice(this.$root.modules.findIndex(m => m.code === mod.code), 1)
+      } else {
+        // Follow the module
+        api.post('fav_module', {
+          module_ID: mod.moduleID
+        })
+        .then(response => {
+          this.$root.modules.push(mod)
+          this.$root.modules = _.uniqBy(this.$root.modules, m => m.code)
+        })
+      }
     }
   }
 }

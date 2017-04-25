@@ -2,7 +2,13 @@
   <div class="module">
     <template v-if="module !== null">
       <div class="toolbar">
-        <h2 class="md-title"><md-icon>book</md-icon> {{ module.name }}</h2>
+        <md-button class="md-icon-button" @click.native="changeFollow">
+          <md-icon>{{ isFollowing ? 'bookmark' : 'bookmark_border' }}</md-icon>
+          <md-tooltip md-direction="bottom">{{ isFollowing ? 'Unfollow' : 'Follow' }}</md-tooltip>
+        </md-button>
+        <h2 class="md-title">
+          {{ module.name }}
+          </h2>
         <div class="buttons mobile-only">
           <router-link :to="'/module/' + id" tag="button" class="md-button" exact>
             <md-icon>info</md-icon> Outline
@@ -52,7 +58,7 @@
 </template>
 
 <script>
-
+import _ from 'lodash'
 import marked from 'marked'
 
 import api from '@/js/api'
@@ -75,6 +81,9 @@ export default {
     }
   },
   computed: {
+    isFollowing () {
+      return this.$root.modules.findIndex(m => m.code === this.module.code) !== -1
+    },
     tabHeader () {
       if (this.tab === 'faq') return 'Questions & Answers'
       if (this.tab === 'chat') return 'Messenger'
@@ -118,6 +127,21 @@ export default {
     cancelEdit () {
       this.rawOutline = this.module.outline
       this.endEdit()
+    },
+    changeFollow () {
+      if (this.isFollowing) {
+        // Unfollow the module
+        this.$root.modules.splice(this.$root.modules.findIndex(m => m.code === this.module.code), 1)
+      } else {
+        // Follow the module
+        api.post('fav_module', {
+          module_ID: this.module.moduleID
+        })
+        .then(response => {
+          this.$root.modules.push(this.module)
+          this.$root.modules = _.uniqBy(this.$root.modules, m => m.code)
+        })
+      }
     }
   },
   mounted: function () {
