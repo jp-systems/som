@@ -4,9 +4,20 @@
       <div class="toolbar">
         <h2 class="md-title"><md-icon>book</md-icon> {{ module.name }}</h2>
         <div class="buttons mobile-only">
-          <md-button>Outline</md-button>
-          <md-button>Chat</md-button>
-          <md-button>FAQ</md-button>
+          <router-link :to="'/module/' + id" tag="button" class="md-button" exact>
+            <md-icon>info</md-icon> Outline
+            <md-ink-ripple></md-ink-ripple>
+          </router-link>
+          <router-link :to="'/module/' + id + '/chat'" tag="button" class="md-button" exact>
+            <md-icon>chat</md-icon> Chat
+            <md-tooltip md-direction="bottom">Chat</md-tooltip>
+            <md-ink-ripple></md-ink-ripple>
+          </router-link>
+          <router-link :to="'/module/' + id + '/faq'" tag="button" class="md-button" exact>
+            <md-icon>question_answer</md-icon> FAQ
+            <md-tooltip md-direction="bottom">Q & A</md-tooltip>
+            <md-ink-ripple></md-ink-ripple>
+          </router-link>
         </div>
         <div class="buttons desktop-only">
           <router-link :to="'/module/' + id" tag="button" class="md-button md-icon-button" exact>
@@ -25,6 +36,16 @@
             <md-ink-ripple></md-ink-ripple>
           </router-link>
         </div>
+      </div>
+      <h1 class="md-title desktop-only">{{ tabHeader }}</h1>
+      <div class="content outline" v-if="tab === '' || tab === undefined || tab === null">
+        Outline
+      </div>
+      <div class="content chat" v-if="tab === 'chat'">
+        <chat :module="module"></chat>
+      </div>
+      <div class="content faq" v-if="tab === 'faq'">
+        FAQ
       </div>
     </template>
   </div>
@@ -54,8 +75,10 @@ export default {
     }
   },
   computed: {
-    mobile () {
-      return window.innerWidth <= 600
+    tabHeader () {
+      if (this.tab === 'faq') return 'Questions & Answers'
+      if (this.tab === 'chat') return 'Messenger'
+      return 'Module Outline'
     },
     outlineHTML () {
       return marked(this.module.outline || '')
@@ -117,6 +140,7 @@ export default {
     color: #f8f8f8;
     align-items: center;
     padding: 0 .5rem;
+    flex-shrink: 0;
 
     > .md-title {
       flex: 1;
@@ -145,6 +169,18 @@ export default {
         font-size: 1.3rem;
       }
     }
+  }
+
+  > .md-title {
+    padding: .5rem;
+    background-color: lighten(#1e88e5, 5%);
+    color: white;
+    flex-shrink: 0;
+  }
+
+  > .content {
+    flex: 1;
+    overflow: hidden;
   }
 }
 </style>

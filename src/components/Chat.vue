@@ -1,20 +1,23 @@
 <template>
   <div class='chat'>
-    <h1>Chat!</h1>
-    <div class="messages">
+    <div class="messages" ref="messages">
       <p v-for="(message, key) in messages" :key="key" class="message">
         <span class="user">{{ message.username || '?' }}</span>
         <span class="content" v-html="messageHTML(message.message)"></span>
         <span class="time">{{ formatTime(message.timestamp) }}</span>
       </p>
     </div>
-    <md-input-container v-if="$root.loggedIn">
-      <label>Message</label>
-      <md-input v-model="message" @keypress.native.enter="post"></md-input>
-    </md-input-container>
-    <p class="error" v-else>
-      <md-icon>error</md-icon> You must be logged in to chat!
-    </p>
+    <div class="text-entry">
+      <md-input-container v-if="$root.loggedIn">
+        <md-icon>message</md-icon>
+        <label>Message</label>
+        <md-input v-model="message" placeholder="Enter a message..." @keypress.native.enter="post" autofocus></md-input>
+      </md-input-container>
+      <md-button class="desktop-only md-icon-button md-primary" :class="{ 'md-raised': message !== '' }" @click.native="post">
+        <md-icon>local_post_office</md-icon>
+        <md-tooltip md-direction="left">Post Message</md-tooltip>
+      </md-button>
+    </div>
   </div>
 </template>
 
@@ -57,9 +60,14 @@ export default {
     },
     watch (snapshot) {
       this.messages = snapshot.val()
+      // Scroll down the messages div
+      this.$nextTick(() => {
+        this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight
+      })
     },
     messageHTML (msg) {
-      return marked(msg)
+      let escaped = String(msg).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+      return marked(escaped)
     }
   },
   mounted () {
@@ -80,7 +88,14 @@ export default {
   flex: 1;
   color: black;
 
+  .messages {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
   .message {
+    transition: background-color 300ms ease-out;
     display: flex;
     align-items: center;
     padding: .2rem .5rem;
@@ -103,7 +118,7 @@ export default {
     }
 
     &:hover {
-      background-color: rgba(0, 0, 0, .1);
+      background-color: rgba(0, 0, 0, .05);
     }
 
     @media screen and (max-width: 600px) {
@@ -113,11 +128,18 @@ export default {
     }
   }
 
-  .error {
-    text-align: center;
-    font-weight: bold;
-    color: rgba(230, 140, 140, .8);
-    font-size: 1.2rem;
+  .text-entry {
+    display: flex;
+    align-items: center;
+    margin: .5rem;
+    padding: .5rem;
+    border: 2px solid rgba(0, 0, 0, .2);
+    border-radius: 3px;
+    background: white;
+
+    > .md-input-container {
+      margin: 0;
+    }
   }
 }
 </style>
