@@ -98,6 +98,11 @@ export default {
     }
   }
 
+  .md-button {
+    white-space: normal !important;
+    line-height: normal;
+  }
+
   .active {
     background-color: rgba(144, 202, 249, .7);
     border-right: 5px solid rgba(0, 0, 0, .05);
