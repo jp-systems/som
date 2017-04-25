@@ -8,15 +8,15 @@
       <p style="text-align:center;"><md-spinner :md-size="100" md-indeterminate></md-spinner></p>
     </div>
     <div v-if="!fetching" class="modules">
-      <router-link v-for="mod in modules" :key="mod.code" :to="'/module/' + (mod.ref || mod.moduleID)">
-        <md-card md-with-hover>
+      <router-link v-for="mod in modules" :key="mod.code" :to="'/module/' + (mod.ref || mod.moduleID)" class="module">
+        <md-card md-with-hover class="mod_content">
           <div class="header-colour"></div>
           <md-card-header><h2>{{ mod.code }}</h2></md-card-header>
           <md-card-content>
             <h3>{{ mod.name }}</h3>
           </md-card-content>
           <md-card-actions v-if="$root.loggedIn">
-            <md-button class="md-icon-button" @click.prevent.native="favModule(mod)">
+            <md-button class="md-icon-button bookmark" @click.prevent.native="favModule(mod)">
               <md-icon>bookmark_border</md-icon>
             </md-button>
           </md-card-actions>
@@ -85,6 +85,23 @@ export default {
 .modules {
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow: scroll;
+}
+
+.module {
+  max-width: 340px;
+  margin-bottom: 1.5rem;
+}
+
+.mod_content {
+  height: 180px;
+}
+
+.bookmark {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
 }
 
 .md-card {
