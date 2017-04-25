@@ -77,11 +77,11 @@ export default {
         margin: .5rem;
         padding: .5rem;
         border: 1px solid rgba(0, 0, 0, .1);
-        background: rgba(255, 30, 0, .2);
+        background: rgba(255, 90, 90, .15);
         border-radius: 5px;
 
         &.anonymous {
-          background: rgba(0, 255, 30, .2);
+          background: rgba(0, 255, 30, .15);
         }
       }
     }
