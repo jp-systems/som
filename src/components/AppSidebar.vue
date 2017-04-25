@@ -90,6 +90,12 @@ export default {
   > .md-list {
     margin: .25rem;
     box-shadow: 0 3px 9px rgba(0, 0, 0, .1);
+
+    .md-list-item > a {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
   }
 
   .active {

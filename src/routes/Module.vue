@@ -28,7 +28,7 @@
           <chat :module="module"></chat>
         </md-tab>
         <md-tab md-label="FAQ" md-icon="help">
-          <p>FAQ HERE!</p>
+          <ask-question></ask-question>
         </md-tab>
       </md-tabs>
     </template>
@@ -41,11 +41,13 @@ import marked from 'marked'
 
 import api from '@/js/api'
 
+import AskQuestion from '@/components/AskQuestion'
 import Chat from '@/components/Chat'
 
 export default {
   name: 'Module',
   components: {
+    AskQuestion,
     Chat
   },
   props: ['id'],

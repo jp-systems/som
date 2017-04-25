@@ -66,6 +66,7 @@ export default {
       })
       .then(response => {
         this.$root.modules.push(mod)
+        this.$root.modules = _.uniqBy(this.$root.modules, (m) => m.code)
       })
     }
   }
