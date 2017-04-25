@@ -5,7 +5,7 @@
       <div class="page">
         <app-sidebar></app-sidebar>
         <div class="route">
-          <transition name="fade"><router-view :key="$route.fullPath"></router-view></transition>
+          <transition name="fade"><router-view></router-view></transition>
         </div>
       </div>
     </div>

@@ -122,6 +122,13 @@ export default {
   },
   mounted: function () {
     this.fetch()
+  },
+  watch: {
+    '$route' (to, from) {
+      if (to.params.id !== from.params.id) {
+        this.fetch()
+      }
+    }
   }
 }
 

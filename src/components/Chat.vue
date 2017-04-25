@@ -6,6 +6,10 @@
         <span class="content" v-html="messageHTML(message.message)"></span>
         <span class="time">{{ formatTime(message.timestamp) }}</span>
       </p>
+      <div v-if="!messages || messages.length === 0" class="no-messages">
+        <i class="material-icons">mood_bad</i>
+        <p>There are no messages!</p>
+      </div>
     </div>
     <div class="text-entry">
       <md-input-container v-if="$root.loggedIn">
@@ -92,6 +96,25 @@ export default {
     flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
+
+    > .no-messages {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      > i {
+        color: rgba(255, 130, 0, .9);
+        font-size: 4rem;
+      }
+
+      > p {
+        font-style: italic;
+        color: rgba(0, 0, 0, .5);
+      }
+    }
   }
 
   .message {
@@ -101,24 +124,32 @@ export default {
     padding: .2rem .5rem;
 
     > .user {
-      font-size: .8rem;
+      font-size: 1rem;
       font-weight: bold;
       color: royalblue;
       margin-right: .5rem;
     }
 
     > .content {
-      font-size: .8rem;
+      font-size: 1rem;
     }
 
     > .time {
       font-size: .7rem;
-      margin-left: .25rem;
-      color: rgba(0, 0, 0, .4);
+      margin-left: auto;
+      color: rgba(0, 0, 0, .2);
+      background-color: rgba(0, 0, 0, .02);
+      padding: 0 .25rem;
+      border-radius: 3px;
     }
 
     &:hover {
       background-color: rgba(0, 0, 0, .05);
+
+      & > .time {
+        background-color: rgba(0, 0, 0, .3);
+        color: white;
+      }
     }
 
     @media screen and (max-width: 600px) {
