@@ -5,7 +5,7 @@
       <md-divider></md-divider>
       <transition-group name="fade">
         <md-list-item v-for="mod in sortedModules" :key="mod.code">
-          <router-link :to="moduleLink(mod)" exact>{{ mod.name }}</router-link>
+          <router-link :to="moduleLink(mod)">{{ mod.name }}</router-link>
         </md-list-item>
       </transition-group>
     </md-list>
@@ -18,7 +18,7 @@
       </div>
       <transition name="fold-down">
         <div class="modules" v-if="mobileMenuOpen">
-          <router-link class="router-link" v-for="mod in sortedModules" :key="mod.code" :to="moduleLink(mod)" exact>{{ mod.name }}</router-link>
+          <router-link class="router-link" v-for="mod in sortedModules" :key="mod.code" :to="moduleLink(mod)">{{ mod.name }}</router-link>
         </div>
       </transition>
     </div>

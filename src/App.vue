@@ -95,10 +95,6 @@ html, body, #app, #app > .wrapper {
   z-index: 999;
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Nixie One', cursive;
-}
-
 .fade-enter-active, .fade-leave-active {
   transition: opacity 200ms
 }

@@ -1,36 +1,31 @@
 <template>
   <div class="module">
     <template v-if="module !== null">
-      <md-tabs md-fixed>
-        <md-tab md-label="Outline" md-icon="info">
-          <template v-if="!editMode">
-            <div v-html="outlineHTML"></div>
-            <p>Changes were last made on {{ module.updatedOn }}</p>
-            <md-button class="md-raised md-warn" @click.native="enableEdit">Edit this page</md-button>
-          </template>
-          <template v-else>
-            <section class="editPage">
-              <article>
-                <textarea cols="30" rows="10" v-model="rawOutline" ref="editArea"></textarea>
-                <div>
-                  <md-button class="md-raised md-warn" @click.native="cancelEdit">Cancel</md-button>
-                  <md-button class="md-raised" @click.native="saveEdit">Save changes</md-button>
-                </div>
-              </article>
-              <article>
-                <h2>{{ module.code }}: {{ module.name }}</h2>
-                <div v-html="editModeHTML"></div>
-              </article>
-            </section>
-          </template> 
-        </md-tab>
-        <md-tab md-label="Chat" md-icon="chat">
-          <chat :module="module"></chat>
-        </md-tab>
-        <md-tab md-label="FAQ" md-icon="help">
-          <ask-question></ask-question>
-        </md-tab>
-      </md-tabs>
+      <div class="toolbar">
+        <h2 class="md-title"><md-icon>book</md-icon> {{ module.name }}</h2>
+        <div class="buttons mobile-only">
+          <md-button>Outline</md-button>
+          <md-button>Chat</md-button>
+          <md-button>FAQ</md-button>
+        </div>
+        <div class="buttons desktop-only">
+          <router-link :to="'/module/' + id" tag="button" class="md-button md-icon-button" exact>
+            <md-icon>info</md-icon>
+            <md-tooltip md-direction="bottom">Outline</md-tooltip>
+            <md-ink-ripple></md-ink-ripple>
+          </router-link>
+          <router-link :to="'/module/' + id + '/chat'" tag="button" class="md-button md-icon-button" exact>
+            <md-icon>chat</md-icon>
+            <md-tooltip md-direction="bottom">Chat</md-tooltip>
+            <md-ink-ripple></md-ink-ripple>
+          </router-link>
+          <router-link :to="'/module/' + id + '/faq'" tag="button" class="md-button md-icon-button" exact>
+            <md-icon>question_answer</md-icon>
+            <md-tooltip md-direction="bottom">Q & A</md-tooltip>
+            <md-ink-ripple></md-ink-ripple>
+          </router-link>
+        </div>
+      </div>
     </template>
   </div>
 </template>
@@ -50,7 +45,7 @@ export default {
     AskQuestion,
     Chat
   },
-  props: ['id'],
+  props: ['id', 'tab'],
   data () {
     return {
       module: null,
@@ -59,6 +54,9 @@ export default {
     }
   },
   computed: {
+    mobile () {
+      return window.innerWidth <= 600
+    },
     outlineHTML () {
       return marked(this.module.outline || '')
     },
@@ -110,47 +108,43 @@ export default {
 .module {
   display: flex;
   flex-direction: column;
-  padding: .25rem;
   width: 100%;
   height: 100%;
 
-  .md-tabs {
-    flex: 1;
-
-    .md-tabs-content {
-      flex: 1;
-      height: 100%;
-    }
-  }
-}
-
-.editPage {
-  display: flex;
-  justify-content: space-between;
-
-  article {
-    flex: 1;
-    margin: 0 1rem;
+  > .toolbar {
     display: flex;
-    flex-direction: column;
+    background-color: #1E88E5;
+    color: #f8f8f8;
     align-items: center;
+    padding: 0 .5rem;
 
-    h2 {
-      margin-bottom: 2rem;
+    > .md-title {
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding: .75rem 0;
+      font-size: 1rem;
+      text-align: left;
+    }
+
+    > .buttons {
+      display: flex;
+      align-items: center;
+
+      .active {
+        background: rgba(255, 255, 255, .9);
+        color: #1e88e5;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      flex-direction: column;
+
+      > .md-title {
+        font-size: 1.3rem;
+      }
     }
   }
-
-  textarea {
-    width: 100%;
-    padding: .6rem;
-    border-radius: 5px;
-    box-shadow: 0px 2px 8px rgba(0,0,0,.3);
-    border: 0;
-    font-size: 1rem;
-    outline: none;
-    background-color: #F4F1F3;
-  }
 }
-
-
 </style>
