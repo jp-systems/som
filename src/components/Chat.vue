@@ -71,17 +71,37 @@ export default {
     padding: .25rem 0;
 
     > .user {
+      position: relative;
       font-size: 1rem;
       font-weight: bold;
-      width: 5%;
+      width: 10vw;
+      min-width: 70px;
+      margin-right: 1rem;
       text-align: right;
-      padding: 0 .5rem;
+      padding: .25rem;
       color: royalblue;
     }
 
     > .content {
-      font-size: 1rem;
-      display: inline-block;
+      font-size: .8rem;
+    }
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 2px 0;
+      
+      > .user {
+        text-align: left;
+        padding: 0;
+        margin: 0;
+      }
+
+      > .content {
+        padding: 0;
+        margin: 0;
+      }
+
     }
   }
 

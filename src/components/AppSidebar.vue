@@ -93,7 +93,7 @@ export default {
   }
 
   .active {
-    background-color: rgba(200, 245, 230, .9);
+    background-color: rgba(144, 202, 249, .7);
     border-right: 5px solid rgba(0, 0, 0, .05);
     text-decoration: none;
   }
