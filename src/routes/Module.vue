@@ -132,6 +132,11 @@ export default {
       if (this.isFollowing) {
         // Unfollow the module
         this.$root.modules.splice(this.$root.modules.findIndex(m => m.code === this.module.code), 1)
+        api.post('unfollow_module', {
+          module_ID: this.module.moduleID
+        }).then(response => {
+          console.log(response)
+        })
       } else {
         // Follow the module
         api.post('fav_module', {
