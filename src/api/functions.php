@@ -50,6 +50,14 @@ class Functions {
     return Functions::query("SELECT `user`.`avatar`, `user`.`email`, `user`.`username` FROM `user` JOIN `session` ON `session`.`userID` = `user`.`userID` WHERE `session`.`sessionID` = ? LIMIT 1", [$sessionID]);
   }
 
+  public static function user_questions($sessionID) {
+    return Functions::query("SELECT `moduleID`, `text` FROM `question` WHERE `userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?)", [$sessionID]);
+  }
+
+  public static function answer_rating($answerID) {
+    return Functions::query("SELECT COUNT(*) AS Total FROM `rating` WHERE `answerID` = ? AND `positive` = 1", [$answerID]);
+  }
+
   public static function create_user($username, $pass_hash, $email) {
     $id = Functions::get_random_id();
     if (preg_match('/^[A-Za-z]{1}[A-Za-z0-9\\-]{2,31}$/', $username) === 0) {
@@ -161,6 +169,29 @@ class Functions {
 
   public static function update_module($sessionID, $moduleID, $moduleOutline) {
     return Functions::query("UPDATE `module` SET `userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?), `outline` = ? WHERE `ref` = ? OR `code` = ?", [$sessionID, $moduleOutline, $moduleID, $moduleID]);
+  }
+
+  public static function post_question($sessionID, $moduleID, $text, $anonymous) {
+    $id = Functions::get_random_id();
+    return Functions::query("INSERT INTO `question` (`questionID`, `userID`, `moduleID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?", [$id, $sessionID, $moduleID, $text, $anonymous]);
+  }
+
+  public static function update_question($sessionID, $questionID, $text) {
+    return Functions::query("UPDATE `question` SET `text` = ? WHERE `questionID` = ? AND `userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?", [$text, $questionID, $sessionID]);
+  }
+
+  public static function post_reply($sessionID, $questionID, $text, $anonymous) {
+    $id = Functions::ger_random_id();
+    return Functions::query("INSERT INTO `answer` (`answerID`, `userID`, `questionID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?", [$id, $sessionID, $questionID, $text, $anonymous]);
+  }
+
+  public static function update_reply($sessionID, $questionID, $text) {
+    return Functions::query("UPDATE `answer` SET `text` = ? WHERE `questionID` = ? AND `userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?", [$text, $questionID, $sessionID]);
+  }
+
+  public static function add_rating($sessionID, $answerID, $positive) {
+    $id = Functions::get_random_id();
+    return Functions::query("INSERT IGNORE INTO `rating` (`ratingID`, `userID`, `answerID`, `positive`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?", [$id, $sessionID, $answerID, $positive]);
   }
 
   /***** TO DELETE ******/
