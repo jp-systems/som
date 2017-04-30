@@ -55,7 +55,7 @@ class Functions {
   }
 
   public static function answer_rating($answerID) {
-    return Functions::query("SELECT COUNT(*) AS Total FROM `rating` WHERE `answerID` = ? AND `positive` = 1", [$answerID]);
+    return Functions::query("SELECT COUNT(*) AS total FROM `rating` WHERE `answerID` = ? AND `positive` = 1", [$answerID]);
   }
 
   public static function create_user($username, $pass_hash, $email) {

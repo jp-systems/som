@@ -33,10 +33,6 @@ if ($get_request) {
       if (!isset($_GET["email"])) respond(Functions::error("No email provided!"));
       respond(Functions::email_taken($_GET["email"]));
       break;
-    case "user_questions":
-      if (!isset($_GET["login_token"])) respond(Functions::error("No token provided!"));
-      respond(Functions::user_questions($_GET["login_token"]));
-      break;
     case "answer_rating":
       if (!isset($_GET["answer_id"])) respond(Functions::error("No answer id provided!"));
       respond(Functions::answer_rating($_GET["answer_id"]));
@@ -93,6 +89,10 @@ if ($get_request) {
       if (!isset($_POST["module_ID"])) respond(Functions::error("No module provided"));
       respond(Functions::unfollow_module($_POST["login_token"], $_POST["module_ID"]));
       break;
+    case "user_questions":
+      if (!isset($_POST["login_token"])) respond(Functions::error("No token provided!"));
+      respond(Functions::user_questions($_POST["login_token"]));
+      break;
     case "post_question":
       if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
       if (!isset($_POST["module_ID"])) respond(Functions::error("No module provided"));
@@ -101,20 +101,20 @@ if ($get_request) {
       respond(Functions::post_question($_POST["login_token"], $_POST["module_ID"], $_POST["text"], $_POST["anonymous"]));
       break;
     case "update_question":
-      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!")); 
+      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
       if (!isset($_POST["question_ID"])) respond(Functions::error("No question id provided!"));
       if (!isset($_POST["text"])) respond(Functions::error("No text provided!"));
       respond(Functions::update_question($_POST["login_token"], $_POST["question_ID"], $_POST["text"]));
       break;
     case "post_reply":
-      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!")); 
+      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
       if (!isset($_POST["question_ID"])) respond(Functions::error("No question id provided!"));
       if (!isset($_POST["text"])) respond(Functions::error("No text provided!"));
       if (!isset($_POST["anonymous"])) respond(Functions::error("No anonymous value provided"));
       respond(Functions::post_reply($_POST["login_token"], $_POST["question_ID"], $_POST["text"], $_POST["anonymous"]));
       break;
     case "update_reply":
-      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!")); 
+      if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
       if (!isset($_POST["question_ID"])) respond(Functions::error("No question id provided!"));
       if (!isset($_POST["text"])) respond(Functions::error("No text provided!"));
       respond(Functions::update_reply($_POST["login_token"], $_POST["question_ID"], $_POST["text"]));
@@ -125,7 +125,7 @@ if ($get_request) {
       if (!isset($_POST["positive"])) respond(Functions::error("No value provided!"));
       respond(Functions::add_rating($_POST["login_token"], $_POST["answer_ID"], $_POST["positive"]));
       break;
-    
+
     /*** TO DELETE ****/
     case "add_module":
       if (!isset($_POST["login_token"])) respond(Functions::error("Invalid token!"));
