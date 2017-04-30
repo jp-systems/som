@@ -6,7 +6,7 @@
       <h2><md-icon>chat</md-icon> Your Questions</h2>
       <div class="questions" v-if="questions">
         <p v-for="q in questions" class="q">
-          {{ questionTitle(q) }} in <span class="module">{{ q.moduleID }}</span>
+          {{ questionTitle(q) }} in <span class="module">{{ q.name }}</span>
         </p>
       </div>
     </div>

@@ -51,7 +51,7 @@ class Functions {
   }
 
   public static function user_questions($sessionID) {
-    return Functions::query("SELECT `moduleID`, `text` FROM `question` WHERE `userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?)", [$sessionID]);
+    return Functions::query("SELECT `question`.`text`, `module`.`name` FROM `module` JOIN `question` ON `question`.`moduleID` = `module`.`moduleID` WHERE `question`.`userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?)", [$sessionID]);
   }
 
   public static function answer_rating($answerID) {
