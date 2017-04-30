@@ -17,10 +17,10 @@
           <md-icon v-if="!anonymous">warning</md-icon>
           <span v-if="anonymous">This question will be asked anonymously on your behalf.</span>
           <span v-else>This question will not be asked anonymously, and your username will be visible to other users.</span>
-        </p>        
+        </p>
       </div>
       <div>
-        <md-button class="md-raised md-primary">
+        <md-button class="md-raised md-primary" @click.native="postQuestion">
           <md-icon>add_circle</md-icon> Post Question</md-button>
       </div>
     </div>
@@ -28,13 +28,26 @@
 </template>
 
 <script>
+import api from '@/js/api'
+
 export default {
   name: 'AskQuestion',
+  props: ['module-id'],
   data () {
     return {
       title: '',
       content: '',
       anonymous: false
+    }
+  },
+  methods: {
+    postQuestion () {
+      api.post('post_question', {
+        module_ID: this.moduleId,
+        text: this.title + '\n\n' + this.content,
+        anonymous: this.anonymous
+      })
+      .then(r => console.log(r))
     }
   }
 }

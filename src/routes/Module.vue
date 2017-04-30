@@ -51,7 +51,7 @@
         <chat :module="module"></chat>
       </div>
       <div class="content faq" v-if="tab === 'faq'">
-        FAQ
+        <ask-question :module-id="module.moduleID"></ask-question>
       </div>
     </template>
   </div>
