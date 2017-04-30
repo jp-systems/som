@@ -45,6 +45,7 @@ const router = new VueRouter({
     { path: '/home', component: Home },
     { path: '/module/:id', component: Module, props: true },
     { path: '/module/:id/:tab', component: Module, props: true },
+    { path: '/module/:id/q/:qid', component: Module, props: true },
     { path: '/profile', component: Profile },
     { path: '/search', component: Search },
     { path: '/search/:query', component: Search, props: true },

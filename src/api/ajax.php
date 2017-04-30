@@ -33,6 +33,14 @@ if ($get_request) {
       if (!isset($_GET["email"])) respond(Functions::error("No email provided!"));
       respond(Functions::email_taken($_GET["email"]));
       break;
+    case "get_question":
+      if (!isset($_GET["questionID"])) respond(Functions::error("No questionID provided!"));
+      respond(Functions::get_question($_GET["questionID"]));
+      break;
+    case "get_questions":
+      if (!isset($_GET["moduleID"])) respond(Functions::error("No moduleID provided!"));
+      respond(Functions::get_questions($_GET["moduleID"]));
+      break;
     case "answer_rating":
       if (!isset($_GET["answer_id"])) respond(Functions::error("No answer id provided!"));
       respond(Functions::answer_rating($_GET["answer_id"]));

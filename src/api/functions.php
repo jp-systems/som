@@ -177,7 +177,11 @@ class Functions {
   }
 
   public static function get_questions($moduleID) {
-    return Functions::query("SELECT * FROM `question` WHERE `moduleID` = ?", [$moduleID]);
+    return Functions::query("SELECT `questionID`, `text`, `createdOn`, `updatedOn`, `anonymous` FROM `question` WHERE `moduleID` = ?", [$moduleID]);
+  }
+
+  public static function get_question($questionID) {
+    return Functions::query("SELECT * FROM `question` WHERE `questionID` = ? LIMIT 1", [$questionID]);
   }
 
   public static function update_question($sessionID, $questionID, $text) {
