@@ -141,7 +141,7 @@ class Functions {
   }
 
   public static function get_module($moduleID) {
-    return Functions::query("SELECT * FROM `module` WHERE `moduleID` = ? OR `code` = ? OR `ref` = ? LIMIT 1", [$moduleID, $moduleID, $moduleID]);
+    return Functions::query("SELECT `module`.`code`, `module`.`moduleID`, `module`.`name`, `module`.`outline`, `module`.`ref`, `module`.`updatedOn`, `user`.`username` FROM `user` JOIN `module` ON `module`.`userID` = `user`.`userID` WHERE `module`.`moduleID` = ? OR `module`.`code` = ? OR `module`.`ref` = ? LIMIT 1", [$moduleID, $moduleID, $moduleID]);
   }
 
   public static function search_modules($query) {

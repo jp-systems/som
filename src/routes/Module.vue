@@ -48,6 +48,7 @@
         <template v-if="!editMode">
           <section>
             <div v-html="outlineHTML"></div>
+            <p>Last updated by {{ module.username }} @ {{ module.updatedOn }}</p>
             <md-button class="md-raised" @click.native="editMode = true">Edit</md-button>
           </section>
         </template>
