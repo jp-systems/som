@@ -173,7 +173,11 @@ class Functions {
 
   public static function post_question($sessionID, $moduleID, $text, $anonymous) {
     $id = Functions::get_random_id();
-    return Functions::query("INSERT INTO `question` (`questionID`, `userID`, `moduleID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?)", [$id, $sessionID, $moduleID, $text, $anonymous]);
+    return Functions::query("INSERT INTO `question` (`questionID`, `userID`, `moduleID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?)", [$id, $sessionID, $moduleID, $text, $anonymous ? 1 : 0]);
+  }
+
+  public static function get_questions($moduleID) {
+    return Functions::query("SELECT * FROM `question` WHERE `moduleID` = ?", [$moduleID]);
   }
 
   public static function update_question($sessionID, $questionID, $text) {
@@ -182,7 +186,7 @@ class Functions {
 
   public static function post_reply($sessionID, $questionID, $text, $anonymous) {
     $id = Functions::ger_random_id();
-    return Functions::query("INSERT INTO `answer` (`answerID`, `userID`, `questionID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?)", [$id, $sessionID, $questionID, $text, $anonymous]);
+    return Functions::query("INSERT INTO `answer` (`answerID`, `userID`, `questionID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?)", [$id, $sessionID, $questionID, $text, $anonymous ? 1 : 0]);
   }
 
   public static function update_reply($sessionID, $questionID, $text) {
