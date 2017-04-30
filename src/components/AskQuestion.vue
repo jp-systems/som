@@ -21,7 +21,8 @@
       </div>
       <div>
         <md-button class="md-raised md-primary" @click.native="postQuestion">
-          <md-icon>add_circle</md-icon> Post Question</md-button>
+          <md-icon>add_circle</md-icon> Post Question
+        </md-button>
       </div>
     </div>
   </div>
