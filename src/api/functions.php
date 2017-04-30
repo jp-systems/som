@@ -77,7 +77,7 @@ class Functions {
     $result = Functions::query("SELECT `userID`, `password` FROM `user` WHERE `username` = ? LIMIT 1", [$username]);
     if (!$result["success"] || sizeof($result["result"]) == 0) return Functions::error("Incorrect username/password!");
     $user = $result["result"];
-    
+
     if (password_verify($password, $user["password"])) {
       // Create a new login session
       $sessionID = Functions::create_login_session($user["userID"]);
@@ -103,7 +103,7 @@ class Functions {
   public static function destroy_session($login_token) {
     return Functions::query("DELETE FROM `session` WHERE `sessionID` = ?", [$login_token]);
   }
-  
+
   private static function query($query, $params = null) {
     $host = Credentials::$host;
     $dbname = Credentials::$dbname;
@@ -124,7 +124,7 @@ class Functions {
 
         if (strpos($query, "LIMIT 1") !== false) $result = sizeof($result) > 0 ? $result[0] : [];
       }
-      
+
       $stmt = null;
 
     } catch (PDOException $e) {
@@ -173,7 +173,7 @@ class Functions {
 
   public static function post_question($sessionID, $moduleID, $text, $anonymous) {
     $id = Functions::get_random_id();
-    return Functions::query("INSERT INTO `question` (`questionID`, `userID`, `moduleID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?", [$id, $sessionID, $moduleID, $text, $anonymous]);
+    return Functions::query("INSERT INTO `question` (`questionID`, `userID`, `moduleID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?)", [$id, $sessionID, $moduleID, $text, $anonymous]);
   }
 
   public static function update_question($sessionID, $questionID, $text) {
@@ -182,7 +182,7 @@ class Functions {
 
   public static function post_reply($sessionID, $questionID, $text, $anonymous) {
     $id = Functions::ger_random_id();
-    return Functions::query("INSERT INTO `answer` (`answerID`, `userID`, `questionID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?", [$id, $sessionID, $questionID, $text, $anonymous]);
+    return Functions::query("INSERT INTO `answer` (`answerID`, `userID`, `questionID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?)", [$id, $sessionID, $questionID, $text, $anonymous]);
   }
 
   public static function update_reply($sessionID, $questionID, $text) {
@@ -191,7 +191,7 @@ class Functions {
 
   public static function add_rating($sessionID, $answerID, $positive) {
     $id = Functions::get_random_id();
-    return Functions::query("INSERT IGNORE INTO `rating` (`ratingID`, `userID`, `answerID`, `positive`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?", [$id, $sessionID, $answerID, $positive]);
+    return Functions::query("INSERT IGNORE INTO `rating` (`ratingID`, `userID`, `answerID`, `positive`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?)", [$id, $sessionID, $answerID, $positive]);
   }
 
   /***** TO DELETE ******/
