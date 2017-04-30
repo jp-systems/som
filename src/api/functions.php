@@ -51,7 +51,7 @@ class Functions {
   }
 
   public static function user_questions($sessionID) {
-    return Functions::query("SELECT `question`.`text`, `module`.`name` FROM `module` JOIN `question` ON `question`.`moduleID` = `module`.`moduleID` WHERE `question`.`userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?)", [$sessionID]);
+    return Functions::query("SELECT DISTINCT `question`.`text`, `module`.`name`, (SELECT COUNT(*) FROM `answer` WHERE `answer`.`questionID` = `question`.`questionID`) AS 'replies' FROM `module` JOIN `question` ON `question`.`moduleID` = `module`.`moduleID` JOIN `answer` ON `answer`.`questionID` = `question`.`questionID` WHERE `question`.`userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?)", [$sessionID]);
   }
 
   public static function answer_rating($answerID) {
