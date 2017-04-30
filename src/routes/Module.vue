@@ -44,8 +44,28 @@
         </div>
       </div>
       <h1 class="md-title desktop-only">{{ tabHeader }}</h1>
-      <div class="content outline" v-if="(tab === '' || tab === undefined) && qid === undefined">
-        Outline
+      <div class="content outline" v-if="(tab === '' || tab === undefined) && qid === undefined">      
+        <template v-if="!editMode">
+          <section>
+            <div v-html="outlineHTML"></div>
+            <md-button class="md-raised" @click.native="editMode = true">Edit</md-button>
+          </section>
+        </template>
+        <template v-else>
+          <section class="edit-page">
+            <article>
+              <textarea cols="30" rows="20" v-model="rawOutline"></textarea>
+              <div class="edit-btns">
+                <md-button class="md-raised md-warn" @click.native="cancelEdit">Cancel</md-button>
+                <md-button class="md-raised md-primary" @click.native="saveEdit">Save changes</md-button>
+              </div>
+            </article>
+            <article>
+              <h2>{{ module.code }}: {{ module.name }}</h2>
+              <div v-html="editModeHTML"></div>
+            </article>
+          </section>
+        </template>
       </div>
       <div class="content chat" v-if="tab === 'chat'">
         <chat :module="module"></chat>
@@ -278,7 +298,39 @@ export default {
     flex: 1;
     overflow: hidden;
   }
+  > .outline {
+    margin: 1rem .5rem;
 
+    > .edit-page {
+      display: flex;
+      justify-content: space-between;
+
+      > * {
+        flex: 1;
+        padding: 0 .6rem;
+      }
+
+      h2 {
+        margin-bottom: 1rem;
+      }
+
+      textarea {
+        width: 100%;
+        padding: .3rem .4rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.3);
+        border: 0;
+        font-size: 1rem;
+        outline: none;
+        background-color: rgba(255, 255, 255, .87);
+      }
+
+      .edit-btns {
+        display: flex;
+        justify-content: space-between;
+      }      
+    }
+  }
   > .faq {
     overflow-y: auto;
 
