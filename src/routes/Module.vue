@@ -177,6 +177,7 @@ export default {
       this.answers = null
       this.askQuestionOpen = false
       this.postReplyOpen = false
+      this.module = null
       api.get('get_module', {
         module_id: this.id
       })
@@ -301,6 +302,7 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
+  position: relative;
 
   > .toolbar {
     display: flex;
@@ -406,9 +408,9 @@ export default {
         align-items: center;
         padding: .25rem .25rem;
         right: 0;
-        top: 0;
+        bottom: 0;
         background-color: rgba(0, 0, 0, 0.05);
-        border-radius: 0 0 0 5px;
+        border-radius: 5px 0 0 0;
 
         @media screen and (max-width: 600px) {
           position: relative;
