@@ -177,7 +177,7 @@ class Functions {
   }
 
   public static function get_questions($moduleID) {
-    return Functions::query("SELECT `questionID`, `text`, `createdOn`, `updatedOn`, `anonymous` FROM `question` WHERE `moduleID` = ?", [$moduleID]);
+    return Functions::query("SELECT `question`.`questionID`, `question`.`text`, `question`.`createdOn`, `question`.`updatedOn`, CASE `question`.`anonymous` WHEN 1 THEN 'anonymous' ELSE `user`.`username` END AS 'user' FROM `question` JOIN `user` ON `user`.`userID` = `question`.`userID` WHERE `moduleID` = ?", [$moduleID]);
   }
 
   public static function get_question($questionID) {
