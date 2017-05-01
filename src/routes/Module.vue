@@ -48,7 +48,7 @@
         <template v-if="!editMode">
           <section class="view">
             <div v-html="outlineHTML" class="content"></div>
-            <div class="toolbar">
+            <div class="toolbar" v-if="$root.loggedIn">
               <p>Last updated by {{ module.username }} @ {{ datetime(module.updatedOn) }}</p>
               <md-button class="md-raised" @click.native="editMode = true">Edit</md-button>
             </div>
@@ -85,7 +85,7 @@
         <transition name="fade">
           <ask-question v-if="askQuestionOpen" :module-id="module.moduleID" @close="askQuestionOpen=false" @done="questionAsked"></ask-question>
         </transition>
-        <md-button v-if="!askQuestionOpen" class="md-fab md-fab-bottom-right" @click.native="askQuestionOpen=true">
+        <md-button v-if="!askQuestionOpen && $root.loggedIn" class="md-fab md-fab-bottom-right" @click.native="askQuestionOpen=true">
           <md-icon>add</md-icon>
           <md-tooltip md-direction="top">Ask Question</md-tooltip>
         </md-button>
@@ -113,7 +113,7 @@
         <transition name="fade">
           <post-reply v-if="postReplyOpen" :question-id="qid" @close="postReplyOpen=false" @done="replyPosted"></post-reply>
         </transition>
-        <md-button v-if="!postReplyOpen" class="md-fab md-fab-bottom-right" @click.native="postReplyOpen=true">
+        <md-button v-if="!postReplyOpen && $root.loggedIn" class="md-fab md-fab-bottom-right" @click.native="postReplyOpen=true">
           <md-icon>add</md-icon>
           <md-tooltip md-direction="top">Post Reply</md-tooltip>
         </md-button>

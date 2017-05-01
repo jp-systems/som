@@ -17,7 +17,7 @@
         <md-input type="password" v-model="newPassword1" required="required" tabindex="2"></md-input>
         <span class="md-error">Password must be at least 7 characters long</span>
       </md-input-container>
-      <md-input-container md-has-password :class="{ 'md-input-invalid': newPassword !== '' && newPassword1 !== newPassword2 }">
+      <md-input-container md-has-password :class="{ 'md-input-invalid': newPassword2 !== '' && newPassword1 !== newPassword2 }">
         <md-icon>vpn_key</md-icon>
         <label>Confirm New Password</label>
         <md-input type="password" v-model="newPassword2" required="required" @keypress.native.enter="tryRegister" tabindex="3"></md-input>
@@ -60,6 +60,7 @@ export default {
 .profile {
   width: 100%;
   height: 100%;
+  overflow-y: auto;
 
   > .card {
     padding: .5rem;

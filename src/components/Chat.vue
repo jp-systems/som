@@ -11,8 +11,8 @@
         <p>There are no messages!</p>
       </div>
     </div>
-    <div class="text-entry">
-      <md-input-container v-if="$root.loggedIn">
+    <div class="text-entry" v-if="$root.loggedIn">
+      <md-input-container>
         <md-icon>message</md-icon>
         <label>Message</label>
         <md-input v-model="message" placeholder="Enter a message..." @keypress.native.enter="post" autofocus></md-input>

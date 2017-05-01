@@ -13,7 +13,7 @@ import Profile from '@/routes/Profile'
 import Search from '@/routes/Search'
 
 // TO DELETE
-import ModInput from '@/routes/ModInput'
+// import ModInput from '@/routes/ModInput'
 
 import api from '@/js/api'
 
@@ -47,8 +47,8 @@ const router = new VueRouter({
     { path: '/module/:id/q/:qid', component: Module, props: true },
     { path: '/profile', component: Profile },
     { path: '/search', component: Search },
-    { path: '/search/:query', component: Search, props: true },
-    { path: '/modinput', component: ModInput }
+    { path: '/search/:query', component: Search, props: true }
+    // { path: '/modinput', component: ModInput }
   ]
 })
 
