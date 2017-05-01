@@ -4,9 +4,9 @@
       <h1>Home</h1>
       <hr>
       <h2><md-icon>bookmark</md-icon> Your Modules</h2>
-      <p v-for="mod in $root.modules">
-        {{ mod.name }}
-      </p>
+      <div class="modules">
+        <mod-card v-for="mod in $root.modules" :key="mod.code" :mod="mod"></mod-card>
+      </div>
       <hr>
       <h2><md-icon>chat</md-icon> Your Questions</h2>
       <div class="questions" v-if="questions">
@@ -21,8 +21,13 @@
 <script>
 import api from '@/js/api'
 
+import ModCard from '@/components/ModCard'
+
 export default {
   name: 'Home',
+  components: {
+    ModCard
+  },
   data () {
     return {
       questions: null
@@ -54,6 +59,15 @@ export default {
   height: 100%;
   padding: .75rem .5rem;
   overflow-y: auto;
+
+  .modules {
+    display: flex;
+    flex-wrap: wrap;
+
+    > div {
+      margin: .5rem 0;
+    }
+  }
 
   hr {
     margin-top: .75rem;

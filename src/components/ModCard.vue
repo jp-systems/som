@@ -8,7 +8,7 @@
           <div class="md-subhead">{{ mod.name }}</div>  
         </md-card-header>
         <md-card-content>
-          <md-icon>person_pin</md-icon>{{ mod.followers}} Followers
+          <div class="content"></div>
         </md-card-content>
       </md-card-area>
       <md-card-actions>
@@ -17,6 +17,10 @@
           <md-tooltip md-direction="bottom">Bookmark</md-tooltip>
         </md-button>
       </md-card-actions>
+      <div class="followers" v-if="mod.followers">
+        <md-icon>person</md-icon> {{ mod.followers }}
+        <md-tooltip md-direction="bottom">Followers</md-tooltip>
+      </div>
     </md-card>
   </div>
 </template>
@@ -71,11 +75,15 @@ export default {
   color: rgba(0, 0, 0, .87);
 
   .md-card-content {
-    padding-top: 5px;
+    padding-top: 20px;
 
     > i {
       color: #1e88e5;
     }
+  }
+  .md-card-actions {
+    margin-top: auto;
+    height: 40px;
   }
 }
 
@@ -87,6 +95,15 @@ export default {
   position: absolute;
   bottom: 1px;
   right: 1px;
+}
+
+.followers {
+  position: absolute;
+  bottom: 1px;
+  left: 1px;
+  color: black;
+  padding: .5rem;
+  color: rgba(0, 90, 255, .5);
 }
 
 .header-colour {

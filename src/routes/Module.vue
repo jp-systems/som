@@ -74,7 +74,7 @@
       <div class="content faq" v-if="tab === 'faq'">
         <div class="questions" v-if="questions">
           <router-link v-for="q in questions" :key="q.questionID" :to="'/module/' + id + '/q/' + q.questionID" class="q">
-            <md-icon>chat_bubble_outline</md-icon> {{ questionTitle(q) }}
+            <md-icon>chat_bubble_outline</md-icon><span class="title">{{ questionTitle(q) }}</span><span class="author" v-if="q.user">Asked by {{ q.user }}</span>
             <span class="replies"><md-icon>chat</md-icon> {{ q.replies }}</span>
             <span class="posted-on">{{ datetime(q.createdOn) }}</span>
           </router-link>
@@ -97,11 +97,13 @@
         <hr>
         <div class="answers" v-if="!postReplyOpen">
           <div v-for="answer in answers" :key="answer.answerID" class="answer">
+            <div class="info">
+              <span class="user">{{ answer.user ? answer.user : 'Anonymous' }}</span>
+              <span class="posted-on">Posted: {{ datetime(answer.createdOn) }}</span>
+              <span class="id">{{ answer.answerID }}</span>
+            </div>
             <div class="content">
               {{ answer.text }}
-            </div>
-            <div class="info">
-              <pre>{{answer}}</pre>
             </div>
           </div>
         </div>
@@ -414,6 +416,12 @@ export default {
           margin-left: 0;
         }
 
+        > .author {
+          color: rgba(0, 0, 0, .4);
+          margin-left: 1rem;
+          font-size: .7rem;
+        }
+
         > .posted-on {
           font-size: .8rem;
           color: rgba(0, 0, 0, .5);
@@ -472,6 +480,7 @@ export default {
       border: 1px solid rgba(0, 0, 0, .1);
       border-top: none;
       border-radius: 0 0 3px 3px;
+      font-size: 1rem;
     }
 
     > .post-reply {
@@ -481,10 +490,53 @@ export default {
     > .answers {
 
       > .answer {
-        padding: 1rem;
+        display: flex;
+        margin: .5rem;
+        border: 1px solid rgba(0, 0, 0, .1);
+        border-radius: 3px;
 
-        > .text {
-          background: red;
+        > .info {
+          display: flex;
+          flex-direction: column;
+          background: rgba(0, 0, 0, .05);
+          padding: .5rem;
+          width: 10vw;
+          max-width: 200px;
+          min-width: 160px;
+
+          > .user {
+            text-align: center;
+            font-weight: bold;
+            font-size: .8rem;
+          }
+
+          > .posted-on {
+            text-align: center;
+            font-size: .8rem;
+            color: rgba(0, 0, 0, .5);
+          }
+
+          > .id {
+            text-align: center;
+            font-size: .6rem;
+            color: rgba(0, 0, 0, .2);
+          }
+        }
+
+        > .content {
+          background: rgba(255, 255, 255, .5);
+          padding: .5rem;
+          flex: 1;
+          font-size: 1rem;
+        }
+
+        @media screen and (max-width: 600px) {
+          flex-direction: column;
+
+          > .info {
+            width: 100%;
+            max-width: 100%;
+          }
         }
       }
     }
