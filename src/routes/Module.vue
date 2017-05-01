@@ -107,7 +107,7 @@
             <div class="content">
               {{ answer.text }}
             </div>
-            <rating-box :answer="answer"></rating-box>
+            <rating-box :answer="answer" @update-rating="getAnswers"></rating-box>
           </div>
         </div>
         <transition name="fade">
@@ -224,6 +224,7 @@ export default {
       })
     },
     getAnswers () {
+      this.answers = null
       api.get('get_answers', {
         questionID: this.qid
       })

@@ -199,7 +199,9 @@ class Functions {
 
   public static function get_answers($questionID) {
     return Functions::query("SELECT `answer`.`answerID`, `answer`.`createdOn`, `answer`.`text`,
-      CASE `answer`.`anonymous` WHEN 1 THEN '' ELSE (SELECT `user`.`username` FROM `user` WHERE `user`.`userID` = `answer`.`userID`) END AS 'user'
+      CASE `answer`.`anonymous` WHEN 1 THEN '' ELSE (SELECT `user`.`username` FROM `user` WHERE `user`.`userID` = `answer`.`userID`) END AS 'user',
+      (SELECT COUNT(*) FROM `rating` WHERE `rating`.`answerID` = `answer`.`answerID` AND `rating`.`positive` = 1) AS `positive`,
+      (SELECT COUNT(*) FROM `rating` WHERE `rating`.`answerID` = `answer`.`answerID` AND `rating`.`positive` = 0) AS `negative`
       FROM `answer` WHERE `questionID` = ?",
       [ $questionID ]
     );
@@ -216,7 +218,13 @@ class Functions {
 
   public static function add_rating($sessionID, $answerID, $positive) {
     $id = Functions::get_random_id();
-    return Functions::query("INSERT IGNORE INTO `rating` (`ratingID`, `userID`, `answerID`, `positive`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?)", [$id, $sessionID, $answerID, $positive]);
+    Functions::query("INSERT IGNORE INTO `rating` (`ratingID`, `userID`, `answerID`, `positive`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?)", [$id, $sessionID, $answerID, $positive]);
+    return Functions::query("SELECT
+      (SELECT COUNT(*) FROM `rating` WHERE `answerID` = ? AND `rating`.`positive` = 1) AS `positive`,
+      (SELECT COUNT(*) FROM `rating` WHERE `answerID` = ? AND `rating`.`positive` = 0) AS `negative`
+      FROM `rating` WHERE `answerID` = ? LIMIT 1",
+      [ $answerID, $answerID, $answerID ]
+    );
   }
 
   /***** TO DELETE ******/

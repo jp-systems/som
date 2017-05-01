@@ -7,31 +7,47 @@
     <button class="button button-down" @click="downvote">
       <md-icon>thumb_down</md-icon>
     </button>
+    <div class="loading" v-if="loading">
+      <md-spinner md-indeterminate></md-spinner>
+    </div>
   </div>
 </template>
 
 <script>
-// import api from '@/js/api'
+import api from '@/js/api'
 
 export default {
   name: 'RatingBox',
   props: ['answer'],
   data () {
     return {
-      score: this.answer.score || 0
+      score: (this.answer.positive - this.answer.negative) || 0,
+      loading: false
     }
   },
   computed: {
     formatScore () {
-      return this.score > 0 ? '+' + this.score : this.score < 0 ? '-' + this.score : this.score
+      return this.score > 0 ? '+' + this.score : this.score
     }
   },
   methods: {
     upvote () {
-
+      this.vote(1)
     },
     downvote () {
-
+      this.vote(0)
+    },
+    vote (positive) {
+      this.loading = true
+      api.post('add_rating', {
+        answer_ID: this.answer.answerID,
+        positive: positive
+      })
+      .then(r => {
+        // This returns an object with 'positive' and 'negative' values!
+        this.loading = false
+        this.$emit('update-rating')
+      })
     },
     colorClass () {
       return this.score === 0 ? '' : this.score > 0 ? 'positive' : 'negative'
@@ -103,6 +119,17 @@ export default {
 
   &.negative {
     background-color: rgba(255, 90, 90, .1);
+  }
+
+  > .loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 100, 255, 1);
   }
 }
 </style>
