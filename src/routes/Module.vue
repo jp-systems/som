@@ -74,7 +74,8 @@
       <div class="content faq" v-if="tab === 'faq'">
         <div class="questions">
           <router-link v-for="q in questions" :key="q.questionID" :to="'/module/' + id + '/q/' + q.questionID" class="q">
-            <md-icon>chat_bubble</md-icon> {{ questionTitle(q) }}
+            <md-icon>chat_bubble_outline</md-icon> {{ questionTitle(q) }}
+            <span class="replies"><md-icon>chat</md-icon> {{ q.replies }}</span>
             <span class="posted-on">{{ datetime(q.createdOn) }}</span>
           </router-link>
           <p v-if="questions.length === 0" class="notice"><md-icon>mood_bad</md-icon> Nobody has asked any questions...</p>
@@ -400,9 +401,20 @@ export default {
         }
 
         > .posted-on {
-          margin-left: auto;
           font-size: .8rem;
           color: rgba(0, 0, 0, .5);
+          width: 4rem;
+          text-align: right;
+        }
+
+        > .replies {
+          margin-left: auto;
+          padding: 0 .5rem;
+          font-size: .8rem;
+          color: rgba(40, 140, 195, .5);
+          > i {
+            transform: scale(0.8);
+          }
         }
 
         &:last-child {
