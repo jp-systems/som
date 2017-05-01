@@ -29,7 +29,6 @@ export default {
   mounted () {
     this.loadAvatar()
     bus.$on('reload-avatar', e => {
-      this.imageURL = null
       this.loadAvatar()
     })
   }
