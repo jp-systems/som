@@ -33,8 +33,11 @@ export default {
   },
   mounted () {
     api.post('user_questions')
-    .then(r => {
-      this.questions = r.data.result
+    .then(response => {
+      this.questions = response.data.result
+    })
+    .catch(error => {
+      console.error(error)
     })
   }
 }

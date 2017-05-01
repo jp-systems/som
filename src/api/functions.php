@@ -51,7 +51,16 @@ class Functions {
   }
 
   public static function user_questions($sessionID) {
-    return Functions::query("SELECT DISTINCT `question`.`text`, `module`.`name`, (SELECT COUNT(*) FROM `answer` WHERE `answer`.`questionID` = `question`.`questionID`) AS 'replies' FROM `module` JOIN `question` ON `question`.`moduleID` = `module`.`moduleID` JOIN `answer` ON `answer`.`questionID` = `question`.`questionID` WHERE `question`.`userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?)", [$sessionID]);
+    // Need the question ID, text
+    // Need the module name, ref, code
+    // Need the number of replies to question
+    return Functions::query("SELECT `question`.`questionID`, `question`.`text`, `module`.`name`, `module`.`ref`, `module`.`code`,
+      (SELECT COUNT(*) FROM `answer` WHERE `answer`.`questionID` = `question`.`questionID`) AS 'replies' FROM `question`
+      JOIN `module` ON `module`.`moduleID` = `question`.`moduleID`
+      WHERE `question`.`userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?)",
+      [ $sessionID ]
+    );
+    // return Functions::query("SELECT DISTINCT `question`.`text`, `module`.`name`, (SELECT COUNT(*) FROM `answer` WHERE `answer`.`questionID` = `question`.`questionID`) AS 'replies' FROM `module` JOIN `question` ON `question`.`moduleID` = `module`.`moduleID` JOIN `answer` ON `answer`.`questionID` = `question`.`questionID` WHERE `question`.`userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?)", [$sessionID]);
   }
 
   public static function answer_rating($answerID) {
