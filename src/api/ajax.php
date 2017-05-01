@@ -41,6 +41,10 @@ if ($get_request) {
       if (!isset($_GET["moduleID"])) respond(Functions::error("No moduleID provided!"));
       respond(Functions::get_questions($_GET["moduleID"]));
       break;
+    case "get_answers":
+      if (!isset($_GET["questionID"])) respond(Functions::error("No questionID provided!"));
+      respond(Functions::get_answers($_GET["questionID"]));
+      break;
     case "answer_rating":
       if (!isset($_GET["answer_id"])) respond(Functions::error("No answer id provided!"));
       respond(Functions::answer_rating($_GET["answer_id"]));

@@ -197,8 +197,12 @@ class Functions {
     return Functions::query("UPDATE `question` SET `text` = ? WHERE `questionID` = ? AND `userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?", [$text, $questionID, $sessionID]);
   }
 
+  public static function get_answers($questionID) {
+    return Functions::query("SELECT `answer`.`answerID`, `answer`.`createdOn`, `answer`.`text`, `answer`.`anonymous` FROM `answer` WHERE `questionID` = ?", [ $questionID ]);
+  }
+
   public static function post_reply($sessionID, $questionID, $text, $anonymous) {
-    $id = Functions::ger_random_id();
+    $id = Functions::get_random_id();
     return Functions::query("INSERT INTO `answer` (`answerID`, `userID`, `questionID`, `text`, `anonymous`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?, ?)", [$id, $sessionID, $questionID, $text, $anonymous ? 1 : 0]);
   }
 
