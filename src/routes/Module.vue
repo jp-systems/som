@@ -79,7 +79,7 @@
           <p v-if="questions.length === 0" class="notice"><md-icon>mood_bad</md-icon> Nobody has asked any questions...</p>
         </div>
         <transition name="fade">
-          <ask-question v-if="askQuestionOpen" :module-id="module.moduleID"></ask-question>
+          <ask-question v-if="askQuestionOpen" :module-id="module.moduleID" @close="askQuestionOpen=false"></ask-question>
         </transition>
         <md-button v-if="!askQuestionOpen" class="md-fab md-fab-bottom-right" @click.native="askQuestionOpen=true">
           <md-icon>add</md-icon>
@@ -92,6 +92,17 @@
           <p class="askedOn">Asked on {{ question.createdOn }}</p>
         </div>
         <p class="text">{{ question.text.split('\n\n')[1] }}</p>
+        <hr>
+        <div class="answers" v-if="!postReplyOpen">
+          <h1>ANSWERS</h1>
+        </div>
+        <transition name="fade">
+          <post-reply v-if="postReplyOpen" :question-id="qid" @close="postReplyOpen=false"></post-reply>
+        </transition>
+        <md-button v-if="!postReplyOpen" class="md-fab md-fab-bottom-right" @click.native="postReplyOpen=true">
+          <md-icon>add</md-icon>
+          <md-tooltip md-direction="top">Post Reply</md-tooltip>
+        </md-button>
       </div>
     </template>
   </div>
@@ -105,12 +116,14 @@ import api from '@/js/api'
 
 import AskQuestion from '@/components/AskQuestion'
 import Chat from '@/components/Chat'
+import PostReply from '@/components/PostReply'
 
 export default {
   name: 'Module',
   components: {
     AskQuestion,
-    Chat
+    Chat,
+    PostReply
   },
   props: ['id', 'tab', 'qid'],
   data () {
@@ -120,6 +133,7 @@ export default {
       rawOutline: '',
       questions: null,
       askQuestionOpen: false,
+      postReplyOpen: false,
       question: null,
       answers: null
     }
@@ -148,6 +162,7 @@ export default {
       this.question = null
       this.answers = null
       this.askQuestionOpen = false
+      this.postReplyOpen = false
       api.get('get_module', {
         module_id: this.id
       })
@@ -407,6 +422,10 @@ export default {
       border: 1px solid rgba(0, 0, 0, .1);
       border-top: none;
       border-radius: 0 0 3px 3px;
+    }
+
+    > .post-reply {
+      margin-top: auto;
     }
   }
 }

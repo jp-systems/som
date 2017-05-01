@@ -1,30 +1,20 @@
 <template>
-  <div class="ask-question">
+  <div class="post-reply">
     <md-button class="md-icon-button md-warn md-raised md-dense close" @click.native="$emit('close')">
       <md-icon>close</md-icon>
     </md-button>
     <md-input-container>
-      <md-icon>question_answer</md-icon>
-      <label>Title</label>
-      <md-input type="text" v-model="title"></md-input>
-    </md-input-container>
-    <md-input-container>
       <md-icon>message</md-icon>
-      <label>Question</label>
+      <label>Reply</label>
       <md-textarea v-model="content"></md-textarea>
     </md-input-container>
     <div class="section">
       <div class="flex">
         <md-switch v-model="anonymous">Post Anonymously?</md-switch>
-        <p :class="{ anonymous : anonymous }">
-          <md-icon v-if="!anonymous">warning</md-icon>
-          <span v-if="anonymous">This question will be asked anonymously on your behalf.</span>
-          <span v-else>This question will not be asked anonymously, and your username will be visible to other users.</span>
-        </p>
       </div>
       <div>
         <md-button class="md-raised md-primary" @click.native="postQuestion">
-          <md-icon>add_circle</md-icon> Post Question
+          <md-icon>reply</md-icon> Post Reply
         </md-button>
       </div>
     </div>
@@ -32,33 +22,23 @@
 </template>
 
 <script>
-import api from '@/js/api'
-
 export default {
-  name: 'AskQuestion',
-  props: ['module-id'],
+  name: 'PostReply',
+  props: ['question-id'],
   data () {
     return {
-      title: '',
       content: '',
       anonymous: false
     }
   },
   methods: {
-    postQuestion () {
-      api.post('post_question', {
-        module_ID: this.moduleId,
-        text: this.title + '\n\n' + this.content,
-        anonymous: this.anonymous
-      })
-      .then(r => console.log(r))
-    }
+
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.ask-question {
+.post-reply {
   position: relative;
   margin: .5rem;
   padding: .5rem;
