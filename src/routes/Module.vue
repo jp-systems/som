@@ -72,7 +72,7 @@
         <chat :module="module"></chat>
       </div>
       <div class="content faq" v-if="tab === 'faq'">
-        <div class="questions">
+        <div class="questions" v-if="questions">
           <router-link v-for="q in questions" :key="q.questionID" :to="'/module/' + id + '/q/' + q.questionID" class="q">
             <md-icon>chat_bubble_outline</md-icon> {{ questionTitle(q) }}
             <span class="replies"><md-icon>chat</md-icon> {{ q.replies }}</span>
@@ -96,7 +96,14 @@
         <p class="text">{{ question.text.split('\n\n')[1] }}</p>
         <hr>
         <div class="answers" v-if="!postReplyOpen">
-          <h1>ANSWERS</h1>
+          <div v-for="answer in answers" :key="answer.answerID" class="answer">
+            <div class="content">
+              {{ answer.text }}
+            </div>
+            <div class="info">
+              <pre>{{answer}}</pre>
+            </div>
+          </div>
         </div>
         <transition name="fade">
           <post-reply v-if="postReplyOpen" :question-id="qid" @close="postReplyOpen=false" @done="replyPosted"></post-reply>
@@ -186,6 +193,7 @@ export default {
       })
       .then(r => {
         this.question = r.data.result
+        this.getAnswers()
       })
     },
     questionAsked () {
@@ -208,7 +216,15 @@ export default {
       })
     },
     getAnswers () {
-
+      api.get('get_answers', {
+        questionID: this.qid
+      })
+      .then(r => {
+        this.answers = r.data.result
+      })
+      .catch(err => {
+        console.error(err)
+      })
     },
     endEdit () {
       this.editMode = false
@@ -240,8 +256,6 @@ export default {
         this.$root.modules.splice(this.$root.modules.findIndex(m => m.code === this.module.code), 1)
         api.post('unfollow_module', {
           module_ID: this.module.moduleID
-        }).then(response => {
-          console.log(response)
         })
       } else {
         // Follow the module
@@ -436,8 +450,11 @@ export default {
   }
 
   > .q {
+    overflow-y: auto;
+
     > .title {
       display: flex;
+      flex-shrink: 0;
       justify-content: space-between;
       align-items: center;
       margin: .5rem;
@@ -459,6 +476,17 @@ export default {
 
     > .post-reply {
       margin-top: auto;
+    }
+
+    > .answers {
+
+      > .answer {
+        padding: 1rem;
+
+        > .text {
+          background: red;
+        }
+      }
     }
   }
 }
