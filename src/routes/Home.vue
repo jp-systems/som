@@ -5,7 +5,9 @@
       <hr>
       <h2><md-icon>bookmark</md-icon> Your Modules</h2>
       <div class="modules">
-        <mod-card v-for="mod in $root.modules" :key="mod.code" :mod="mod"></mod-card>
+        <router-link v-for="mod in $root.modules" :key="mod.code" :to="'/module/' + (mod.ref || mod.code)" class="mod-link">
+          <mod-card :mod="mod"></mod-card>
+        </router-link>
       </div>
       <hr>
       <h2><md-icon>chat</md-icon> Your Questions</h2>
@@ -76,6 +78,10 @@ export default {
     width: 100%;
     height: 2px;
     background-color: rgba(0, 0, 0, .1);
+  }
+
+  .mod-link {
+    text-decoration: none !important;
   }
 
   .questions {
