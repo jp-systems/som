@@ -51,7 +51,9 @@ export default {
         text: this.title + '\n\n' + this.content,
         anonymous: this.anonymous
       })
-      .then(r => console.log(r))
+      .then(r => {
+        this.$emit('done')
+      })
     }
   }
 }

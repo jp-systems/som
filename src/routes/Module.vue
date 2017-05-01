@@ -75,11 +75,12 @@
         <div class="questions">
           <router-link v-for="q in questions" :key="q.questionID" :to="'/module/' + id + '/q/' + q.questionID" class="q">
             <md-icon>chat_bubble</md-icon> {{ questionTitle(q) }}
+            <span class="posted-on">{{ datetime(q.createdOn) }}</span>
           </router-link>
           <p v-if="questions.length === 0" class="notice"><md-icon>mood_bad</md-icon> Nobody has asked any questions...</p>
         </div>
         <transition name="fade">
-          <ask-question v-if="askQuestionOpen" :module-id="module.moduleID" @close="askQuestionOpen=false"></ask-question>
+          <ask-question v-if="askQuestionOpen" :module-id="module.moduleID" @close="askQuestionOpen=false" @done="questionAsked"></ask-question>
         </transition>
         <md-button v-if="!askQuestionOpen" class="md-fab md-fab-bottom-right" @click.native="askQuestionOpen=true">
           <md-icon>add</md-icon>
@@ -97,7 +98,7 @@
           <h1>ANSWERS</h1>
         </div>
         <transition name="fade">
-          <post-reply v-if="postReplyOpen" :question-id="qid" @close="postReplyOpen=false"></post-reply>
+          <post-reply v-if="postReplyOpen" :question-id="qid" @close="postReplyOpen=false" @done="replyPosted"></post-reply>
         </transition>
         <md-button v-if="!postReplyOpen" class="md-fab md-fab-bottom-right" @click.native="postReplyOpen=true">
           <md-icon>add</md-icon>
@@ -113,6 +114,7 @@ import _ from 'lodash'
 import marked from 'marked'
 
 import api from '@/js/api'
+import datetime from '@/js/datetime'
 
 import AskQuestion from '@/components/AskQuestion'
 import Chat from '@/components/Chat'
@@ -185,6 +187,14 @@ export default {
         this.question = r.data.result
       })
     },
+    questionAsked () {
+      this.getQuestions()
+      this.askQuestionOpen = false
+    },
+    replyPosted () {
+      this.getAnswers()
+      this.postReplyOpen = false
+    },
     getQuestions () {
       api.get('get_questions', {
         moduleID: this.module.moduleID
@@ -195,6 +205,9 @@ export default {
       .catch(error => {
         console.error(error)
       })
+    },
+    getAnswers () {
+
     },
     endEdit () {
       this.editMode = false
@@ -238,6 +251,9 @@ export default {
           this.$root.modules = _.uniqBy(this.$root.modules, m => m.code)
         })
       }
+    },
+    datetime (format) {
+      return datetime(format)
     }
   },
   mounted: function () {
@@ -368,20 +384,24 @@ export default {
 
       > .q {
         border-left: 2px solid transparent;
-        display: block;
+        display: flex;
         color: black;
         cursor: pointer;
         padding: .5rem;
         border-bottom: 1px dashed rgba(0, 0, 0, .1);
         text-decoration: none;
+        align-items: center;
 
         > .md-icon {
           color: lighten(#3594E8, 30%);
           margin-right: .5rem;
+          margin-left: 0;
         }
 
-        > .module {
-          font-weight: bold;
+        > .posted-on {
+          margin-left: auto;
+          font-size: .8rem;
+          color: rgba(0, 0, 0, .5);
         }
 
         &:last-child {
