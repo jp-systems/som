@@ -198,6 +198,7 @@ export default {
     },
     endEdit () {
       this.editMode = false
+      this.module.outline = this.rawOutline
     },
     enableEdit () {
       this.editMode = true

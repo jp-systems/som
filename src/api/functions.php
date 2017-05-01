@@ -155,7 +155,7 @@ class Functions {
 
   public static function search_modules($query) {
     $query = "%" . $query . "%";
-    return Functions::query("SELECT `moduleID`, `code`, `name`, `ref` FROM `module` WHERE `code` LIKE ? OR `name` LIKE ?", [$query, $query]);
+    return Functions::query("SELECT `module`.`moduleID`, `module`.`code`, `module`.`name`, `module`.`ref`, (SELECT COUNT(*) FROM `usermodule` WHERE `usermodule`.`moduleID` = `module`.`moduleID`) AS 'followers' FROM `module` WHERE `code` LIKE ? OR `name` LIKE ?", [$query, $query]);
   }
 
   public static function user_modules($sessionID) {
