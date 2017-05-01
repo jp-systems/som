@@ -49,7 +49,7 @@ export default {
       api.post('post_question', {
         module_ID: this.moduleId,
         text: this.title + '\n\n' + this.content,
-        anonymous: this.anonymous
+        anonymous: this.anonymous ? 1 : 0
       })
       .then(r => {
         this.$emit('done')

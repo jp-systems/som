@@ -13,7 +13,7 @@
         <md-switch v-model="anonymous">Post Anonymously?</md-switch>
       </div>
       <div>
-        <md-button class="md-raised md-primary" @click.native="postQuestion">
+        <md-button class="md-raised md-primary" @click.native="postReply">
           <md-icon>reply</md-icon> Post Reply
         </md-button>
       </div>
@@ -35,13 +35,16 @@ export default {
   },
   methods: {
     postReply () {
-      api.post('post_question', {
-        module_ID: this.moduleId,
-        text: this.title + '\n\n' + this.content,
-        anonymous: this.anonymous
+      api.post('post_reply', {
+        question_ID: this.questionId,
+        text: this.content,
+        anonymous: this.anonymous ? 1 : 0
       })
       .then(r => {
         this.$emit('done')
+      })
+      .catch(error => {
+        console.error(error)
       })
     }
   }
