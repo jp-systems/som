@@ -9,18 +9,7 @@
     </div>
     <div v-if="!fetching" class="modules">
       <router-link v-for="mod in modules" :key="mod.code" :to="'/module/' + (mod.ref || mod.moduleID)" class="module">
-        <md-card md-with-hover class="mod_content">
-          <div class="header-colour"></div>
-          <md-card-header><h2>{{ mod.code }}</h2></md-card-header>
-          <md-card-content>
-            <h3>{{ mod.name }}</h3>
-          </md-card-content>
-          <md-card-actions v-if="$root.loggedIn">
-            <md-button class="md-icon-button bookmark" @click.prevent.native="changeFollow(mod)">
-              <md-icon>{{ isFollowing(mod) ? 'bookmark' : 'bookmark_border' }}</md-icon>
-            </md-button>
-          </md-card-actions>
-        </md-card>
+        <mod-card :mod="mod"></mod-card>
       </router-link>
     </div>
   </div>
@@ -31,8 +20,13 @@ import _ from 'lodash'
 
 import api from '@/js/api'
 
+import ModCard from '@/components/ModCard'
+
 export default {
   name: 'Search',
+  components: {
+    ModCard
+  },
   props: ['query'],
   data () {
     return {
@@ -109,25 +103,6 @@ export default {
   margin-bottom: 1.5rem;
 }
 
-.mod_content {
-  height: 180px;
-}
-
-.bookmark {
-  position: absolute;
-  bottom: 1px;
-  right: 1px;
-}
-
-.md-card {
-  margin: 0px 10px;
-  overflow: hidden;
-
-  h2,h3 {
-    color: rgba(0, 0, 0, .87);
-  }
-}
-
 a:hover {
   text-decoration: none !important;
 }
@@ -137,12 +112,6 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.header-colour {
-  background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
-  width: 100%;
-  height: 10px;
 }
 
 </style>
