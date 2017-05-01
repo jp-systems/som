@@ -76,6 +76,7 @@ export default {
       align-items: center;
       padding: .5rem;
       border-bottom: 1px dashed rgba(0, 0, 0, .1);
+      border-left: 2px solid transparent;
 
       > .module {
         font-weight: bold;
@@ -101,7 +102,8 @@ export default {
       }
 
       &:hover {
-        background-color: rgba(140, 150, 255, .1);
+        background-color: rgba(53, 148, 232, .05);
+        border-left: 2px solid rgba(0, 0, 0, .2);
       }
     }
   }

@@ -87,8 +87,10 @@
         </md-button>
       </div>
       <div class="content q" v-if="qid && question">
-        <h1 class="title"><md-icon>question_answer</md-icon> {{ question.text.split('\n\n')[0] }}</h1>
-        <p class="askedOn">Asked on {{ question.createdOn }}</p>
+        <div class="title">
+          <h1><md-icon>question_answer</md-icon> {{ question.text.split('\n\n')[0] }}</h1>
+          <p class="askedOn">Asked on {{ question.createdOn }}</p>
+        </div>
         <p class="text">{{ question.text.split('\n\n')[1] }}</p>
       </div>
     </template>
@@ -118,7 +120,8 @@ export default {
       rawOutline: '',
       questions: null,
       askQuestionOpen: false,
-      question: null
+      question: null,
+      answers: null
     }
   },
   computed: {
@@ -143,6 +146,7 @@ export default {
     fetch () {
       this.editMode = false
       this.question = null
+      this.answers = null
       this.askQuestionOpen = false
       api.get('get_module', {
         module_id: this.id
@@ -346,7 +350,9 @@ export default {
       border: 1px solid rgba(0, 0, 0, .2);
       background-color: rgba(255, 255, 255, .9);
 
+
       > .q {
+        border-left: 2px solid transparent;
         display: block;
         color: black;
         cursor: pointer;
@@ -366,6 +372,11 @@ export default {
         &:last-child {
           border-bottom: none;
         }
+
+        &:hover {
+          background-color: rgba(53, 148, 232, .05);
+          border-left: 2px solid rgba(0, 0, 0, .2);
+        }
       }
 
       > .notice {
@@ -373,6 +384,29 @@ export default {
         font-size: 1.2rem;
         text-align: center;
       }
+    }
+  }
+
+  > .q {
+    > .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: .5rem;
+      padding: 1rem;
+      background-color: rgba(30, 136, 229, .8);
+      color: white;
+      border-radius: 3px;
+      border: 2px solid rgba(0, 0, 0, .1);
+    }
+
+    > .text {
+      margin: -.5rem 1rem .5rem 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, .7);
+      border: 1px solid rgba(0, 0, 0, .1);
+      border-top: none;
+      border-radius: 0 0 3px 3px;
     }
   }
 }
