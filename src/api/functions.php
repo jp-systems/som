@@ -218,13 +218,7 @@ class Functions {
 
   public static function add_rating($sessionID, $answerID, $positive) {
     $id = Functions::get_random_id();
-    Functions::query("INSERT IGNORE INTO `rating` (`ratingID`, `userID`, `answerID`, `positive`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?)", [$id, $sessionID, $answerID, $positive]);
-    return Functions::query("SELECT
-      (SELECT COUNT(*) FROM `rating` WHERE `answerID` = ? AND `rating`.`positive` = 1) AS `positive`,
-      (SELECT COUNT(*) FROM `rating` WHERE `answerID` = ? AND `rating`.`positive` = 0) AS `negative`
-      FROM `rating` WHERE `answerID` = ? LIMIT 1",
-      [ $answerID, $answerID, $answerID ]
-    );
+    return Functions::query("INSERT IGNORE INTO `rating` (`ratingID`, `userID`, `answerID`, `positive`) VALUES (?, (SELECT `userID` FROM `session` WHERE `sessionID` = ?), ?, ?)", [$id, $sessionID, $answerID, $positive]);
   }
 
   /***** TO DELETE ******/
