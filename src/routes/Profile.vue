@@ -1,19 +1,19 @@
 <template>
   <div class="profile">
     <md-card class="card">
-      <form novalidate @submit.stop.prevent="submit">
-        <md-input-container>
-          <label>Initial value</label>
-          <md-input></md-input>
-        </md-input-container>
-      </form>
+      <avatar-upload></avatar-upload>
     </md-card>
   </div>
 </template>
 
 <script>
+import AvatarUpload from '@/components/AvatarUpload'
+
 export default {
   name: 'Profile',
+  components: {
+    AvatarUpload
+  },
   mounted () {
     if (!this.$root.loggedIn) this.$router.go(-1)
   }

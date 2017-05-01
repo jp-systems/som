@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import bus from '@/js/bus'
 import fb from '@/js/fb'
 
 export default {
@@ -17,10 +18,19 @@ export default {
       imageError: null
     }
   },
+  methods: {
+    loadAvatar () {
+      fb.getUserAvatar(this.userID)
+      .then(response => {
+        this.imageURL = response
+      })
+    }
+  },
   mounted () {
-    fb.getUserAvatar(this.userID)
-    .then(response => {
-      this.imageURL = response
+    this.loadAvatar()
+    bus.$on('reload-avatar', e => {
+      this.imageURL = null
+      this.loadAvatar()
     })
   }
 }
@@ -28,8 +38,16 @@ export default {
 
 <style lang="scss" scoped>
 .avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, .1);
   width: 100%;
   height: 100%;
+
+  > img {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
