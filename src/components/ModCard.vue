@@ -5,13 +5,15 @@
       <md-card-header><h2>{{ mod.code }}</h2></md-card-header>
       <md-card-content>
         <h3>{{ mod.name }}</h3>
-        <p>{{ mod.followers }}</p>
       </md-card-content>
-      <md-card-actions v-if="$root.loggedIn">
-        <md-button class="md-icon-button bookmark" @click.prevent.native="changeFollow(mod)">
+      <md-card-actions>
+        <md-button v-if="$root.loggedIn" class="md-icon-button bookmark" @click.prevent.native="changeFollow(mod)">
           <md-icon>{{ isFollowing(mod) ? 'bookmark' : 'bookmark_border' }}</md-icon>
         </md-button>
       </md-card-actions>
+      <div class="followers" v-if="mod.followers">
+        <md-icon>person</md-icon> {{ mod.followers }}
+      </div>
     </md-card>
   </div>
 </template>
@@ -74,6 +76,15 @@ export default {
   position: absolute;
   bottom: 1px;
   right: 1px;
+}
+
+.followers {
+  position: absolute;
+  bottom: 1px;
+  left: 1px;
+  color: black;
+  padding: .5rem;
+  color: rgba(0, 90, 255, .5);
 }
 
 .header-colour {

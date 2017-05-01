@@ -186,7 +186,7 @@ class Functions {
   }
 
   public static function get_questions($moduleID) {
-    return Functions::query("SELECT `question`.`questionID`, `question`.`text`, `question`.`createdOn`, `question`.`updatedOn`, CASE `question`.`anonymous` WHEN 1 THEN 'anonymous' ELSE `user`.`username` END AS 'user', (SELECT COUNT(*) FROM `answer` WHERE `answer`.`questionID` = `question`.`questionID`) AS 'replies' FROM `question` JOIN `user` ON `user`.`userID` = `question`.`userID` WHERE `moduleID` = ? ORDER BY `question`.`createdOn` DESC", [$moduleID]);
+    return Functions::query("SELECT `question`.`questionID`, `question`.`text`, `question`.`createdOn`, `question`.`updatedOn`, CASE `question`.`anonymous` WHEN 1 THEN '' ELSE `user`.`username` END AS 'user', (SELECT COUNT(*) FROM `answer` WHERE `answer`.`questionID` = `question`.`questionID`) AS 'replies' FROM `question` JOIN `user` ON `user`.`userID` = `question`.`userID` WHERE `moduleID` = ? ORDER BY `question`.`createdOn` DESC", [$moduleID]);
   }
 
   public static function get_question($questionID) {
@@ -198,7 +198,11 @@ class Functions {
   }
 
   public static function get_answers($questionID) {
-    return Functions::query("SELECT `answer`.`answerID`, `answer`.`createdOn`, `answer`.`text`, `answer`.`anonymous` FROM `answer` WHERE `questionID` = ?", [ $questionID ]);
+    return Functions::query("SELECT `answer`.`answerID`, `answer`.`createdOn`, `answer`.`text`,
+      CASE `answer`.`anonymous` WHEN 1 THEN '' ELSE (SELECT `user`.`username` FROM `user` WHERE `user`.`userID` = `answer`.`userID`) END AS 'user'
+      FROM `answer` WHERE `questionID` = ?",
+      [ $questionID ]
+    );
   }
 
   public static function post_reply($sessionID, $questionID, $text, $anonymous) {

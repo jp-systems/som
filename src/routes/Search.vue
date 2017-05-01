@@ -93,9 +93,11 @@ export default {
 
 .modules {
   display: flex;
+  flex: 1;
   justify-content: flex-start;
   flex-wrap: wrap;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .module {
