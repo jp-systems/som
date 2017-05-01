@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import api from '@/js/api'
+
 export default {
   name: 'PostReply',
   props: ['question-id'],
@@ -32,7 +34,16 @@ export default {
     }
   },
   methods: {
-
+    postReply () {
+      api.post('post_question', {
+        module_ID: this.moduleId,
+        text: this.title + '\n\n' + this.content,
+        anonymous: this.anonymous
+      })
+      .then(r => {
+        this.$emit('done')
+      })
+    }
   }
 }
 </script>

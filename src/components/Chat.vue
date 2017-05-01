@@ -28,6 +28,7 @@
 <script>
 import marked from 'marked'
 
+import datetime from '@/js/datetime'
 import fb from '@/js/fb'
 
 export default {
@@ -45,17 +46,7 @@ export default {
   },
   methods: {
     formatTime (timestamp) {
-      let now = new Date()
-      let date = new Date(timestamp)
-      if (now.getDate() === date.getDate() && now.getMonth() === date.getMonth() && date.getFullYear() === now.getFullYear()) {
-        // Same day
-        let hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-        let mins = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-        return hours + ':' + mins
-      } else {
-        // In the past
-        return date.getDate() + '/' + date.getMonth() + '/' + String(date.getFullYear()).slice(2, 4)
-      }
+      return datetime(timestamp)
     },
     post () {
       if (this.message === null || this.message === '' || this.$root.user === null) return

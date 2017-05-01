@@ -48,7 +48,7 @@
         <template v-if="!editMode">
           <section>
             <div v-html="outlineHTML"></div>
-            <p>Last updated by {{ module.username }} @ {{ module.updatedOn }}</p>
+            <p>Last updated by {{ module.username }} @ {{ datetime(module.updatedOn) }}</p>
             <md-button class="md-raised" @click.native="editMode = true">Edit</md-button>
           </section>
         </template>
@@ -90,7 +90,7 @@
       <div class="content q" v-if="qid && question">
         <div class="title">
           <h1><md-icon>question_answer</md-icon> {{ question.text.split('\n\n')[0] }}</h1>
-          <p class="askedOn">Asked on {{ question.createdOn }}</p>
+          <p class="askedOn">Asked at {{ datetime(question.createdOn) }}</p>
         </div>
         <p class="text">{{ question.text.split('\n\n')[1] }}</p>
         <hr>
