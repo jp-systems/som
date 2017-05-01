@@ -46,10 +46,12 @@
       <h1 class="md-title desktop-only">{{ tabHeader }}</h1>
       <div class="content outline" v-if="(tab === '' || tab === undefined) && qid === undefined">
         <template v-if="!editMode">
-          <section>
-            <div v-html="outlineHTML"></div>
-            <p>Last updated by {{ module.username }} @ {{ datetime(module.updatedOn) }}</p>
-            <md-button class="md-raised" @click.native="editMode = true">Edit</md-button>
+          <section class="view">
+            <div v-html="outlineHTML" class="content"></div>
+            <div class="toolbar">
+              <p>Last updated by {{ module.username }} @ {{ datetime(module.updatedOn) }}</p>
+              <md-button class="md-raised" @click.native="editMode = true">Edit</md-button>
+            </div>
           </section>
         </template>
         <template v-else>
@@ -354,11 +356,11 @@ export default {
     overflow: hidden;
   }
   > .outline {
-    margin: 1rem .5rem;
 
     > .edit-page {
       display: flex;
       justify-content: space-between;
+      padding: 1rem;
 
       > * {
         flex: 1;
@@ -383,6 +385,36 @@ export default {
       .edit-btns {
         display: flex;
         justify-content: space-between;
+      }
+    }
+
+    section.view {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      position: relative;
+
+      > .content {
+        flex: 1;
+        padding: .5rem;
+      }
+
+      > .toolbar {
+        display: flex;
+        position: absolute;
+        align-items: center;
+        padding: .25rem .25rem;
+        right: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 0 0 0 5px;
+
+        @media screen and (max-width: 600px) {
+          position: relative;
+          padding: 0 .5rem;
+          justify-content: space-between;
+        }
       }
     }
   }
