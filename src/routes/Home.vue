@@ -3,6 +3,11 @@
     <div class="center">
       <h1>Home</h1>
       <hr>
+      <h2><md-icon>bookmark</md-icon> Your Modules</h2>
+      <p v-for="mod in $root.modules">
+        {{ mod.name }}
+      </p>
+      <hr>
       <h2><md-icon>chat</md-icon> Your Questions</h2>
       <div class="questions" v-if="questions">
         <router-link :to="'/module/' + (q.ref || q.code) + '/q/' + q.questionID" tag="p" v-for="q in questions" :key="q.questionID" class="q">
