@@ -5,9 +5,9 @@
       <hr>
       <h2><md-icon>chat</md-icon> Your Questions</h2>
       <div class="questions" v-if="questions">
-        <p v-for="q in questions" class="q">
-          {{ questionTitle(q) }} in <span class="module">{{ q.name }}</span><span> Replies: {{ q.replies }}</span>
-        </p>
+        <router-link :to="'/module/' + (q.ref || q.code) + '/q/' + q.questionID" tag="p" v-for="q in questions" :key="q.questionID" class="q">
+          {{ questionTitle(q) }} in<span class="module">{{ q.name }}</span><span class="replies"><md-icon>chat</md-icon> {{ q.replies }}</span>
+        </router-link>
       </div>
     </div>
   </div>
@@ -67,15 +67,36 @@ export default {
 
     > .q {
       cursor: pointer;
+      display: flex;
+      align-items: center;
       padding: .5rem;
       border-bottom: 1px dashed rgba(0, 0, 0, .1);
 
       > .module {
         font-weight: bold;
+        font-size: .8rem;
+        margin-left: .25rem;
+        padding: .1rem .5rem;
+        background-color: rgba(40, 40, 50, .05);
+        color: rgba(0, 0, 0, .5);
+      }
+
+      > .replies {
+        margin-left: auto;
+        padding: 0 1rem;
+        color: rgba(0, 0, 20, .8);
+
+        > i {
+          transform: scale(.8);
+        }
       }
 
       &:last-child {
         border-bottom: none;
+      }
+
+      &:hover {
+        background-color: rgba(140, 150, 255, .1);
       }
     }
   }

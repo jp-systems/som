@@ -44,7 +44,7 @@
         </div>
       </div>
       <h1 class="md-title desktop-only">{{ tabHeader }}</h1>
-      <div class="content outline" v-if="(tab === '' || tab === undefined) && qid === undefined">      
+      <div class="content outline" v-if="(tab === '' || tab === undefined) && qid === undefined">
         <template v-if="!editMode">
           <section>
             <div v-html="outlineHTML"></div>
@@ -223,6 +223,7 @@ export default {
   },
   mounted: function () {
     this.fetch()
+    if (this.qid) this.fetchQuestion()
   },
   watch: {
     '$route' (to, from) {
@@ -329,7 +330,7 @@ export default {
       .edit-btns {
         display: flex;
         justify-content: space-between;
-      }      
+      }
     }
   }
   > .faq {
