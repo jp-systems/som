@@ -107,6 +107,7 @@
             <div class="content">
               {{ answer.text }}
             </div>
+            <rating-box :answer="answer"></rating-box>
           </div>
         </div>
         <transition name="fade">
@@ -131,13 +132,15 @@ import datetime from '@/js/datetime'
 import AskQuestion from '@/components/AskQuestion'
 import Chat from '@/components/Chat'
 import PostReply from '@/components/PostReply'
+import RatingBox from '@/components/RatingBox'
 
 export default {
   name: 'Module',
   components: {
     AskQuestion,
     Chat,
-    PostReply
+    PostReply,
+    RatingBox
   },
   props: ['id', 'tab', 'qid'],
   data () {
@@ -532,6 +535,8 @@ export default {
         > .info {
           display: flex;
           flex-direction: column;
+          align-items: center;
+          justify-content: center;
           background: rgba(0, 0, 0, .05);
           padding: .5rem;
           width: 10vw;
@@ -559,7 +564,7 @@ export default {
 
         > .content {
           background: rgba(255, 255, 255, .5);
-          padding: .5rem;
+          padding: 1rem;
           flex: 1;
           font-size: 1rem;
         }
