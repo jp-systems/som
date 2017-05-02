@@ -56,27 +56,7 @@ export default {
         this.fetching = false
         this.modules = response.data.result
       })
-    }, 500),
-    changeFollow (mod) {
-      if (this.isFollowing(mod)) {
-        // Unfollow the module
-        this.$root.modules.splice(this.$root.modules.findIndex(m => m.code === mod.code), 1)
-        api.post('unfollow_module', {
-          module_ID: mod.moduleID
-        }).then(response => {
-          console.log(response)
-        })
-      } else {
-        // Follow the module
-        api.post('fav_module', {
-          module_ID: mod.moduleID
-        })
-        .then(response => {
-          this.$root.modules.push(mod)
-          this.$root.modules = _.uniqBy(this.$root.modules, m => m.code)
-        })
-      }
-    }
+    }, 500)
   }
 }
 </script>
