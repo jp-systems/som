@@ -1,3 +1,4 @@
+// Custom file to access firebase database used to store/get module chats and user avatars
 import firebase from 'firebase'
 
 firebase.initializeApp({

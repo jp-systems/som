@@ -1,3 +1,4 @@
+// Main file to set up Vue instance, router and user's data
 import 'vue-material/dist/vue-material.css'
 
 import Vue from 'vue'

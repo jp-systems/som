@@ -1,3 +1,4 @@
+// Custom function to get the right date format
 export default function (format) {
   let now = new Date()
   let date = new Date(format)

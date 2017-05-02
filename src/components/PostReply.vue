@@ -6,7 +6,7 @@
     <md-input-container>
       <md-icon>message</md-icon>
       <label>Reply</label>
-      <md-textarea v-model="content"></md-textarea>
+      <md-textarea v-model="content" required></md-textarea>
     </md-input-container>
     <div class="section">
       <div class="flex">
