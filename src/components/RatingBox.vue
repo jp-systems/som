@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       score: (this.answer.positive - this.answer.negative) || 0,
-      loading: false
+      loading: true
     }
   },
   computed: {
@@ -129,7 +129,10 @@ export default {
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: rgba(100, 100, 255, 1);
+    background: rgba(220, 220, 220, .9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>
