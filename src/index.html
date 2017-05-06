@@ -6,10 +6,54 @@
     <title>SOM</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+      html, body, #app {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      #app {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+      }
+
+      #app > h1 {
+        font-size: 4vmin;
+        font-family: sans-serif;
+        color: #1E88E5;
+      }
+
+      #app > svg {
+        position: absolute;
+        width: 50vmin;
+        height: 50vmin;
+        min-width: 100px;
+        min-height: 100px;
+        max-width: 290px;
+        max-height: 290px;
+        animation: loading-spinner 1s linear infinite;
+      }
+
+      @keyframes loading-spinner {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(359deg);
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="app" style="position:absolute;top:0;left:0;width:100vw;height:100vh;background-color:rgb(53, 148, 232)">
-      <h1 style="margin:0;padding:0;position:relative;margin-top:50vh;left:0;text-align:center;font-family:'Roboto','Arial Narrow',Arial,sans-serif;color:white;">Loading</h1>
+    <div id="app" class="unloaded">
+      <h1>Loading</h1>
+      <svg viewbox="0 0 50 50">
+        <circle cx="25" cy="25" r="24.5" stroke="#1C78D5" fill="transparent" stroke-width="1" stroke-dasharray="113.1, 37.7" stroke-linecap="round"/>
+      </svg>
     </div>
   </body>
 </html>
