@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       score: (this.answer.positive - this.answer.negative) || 0,
-      loading: true
+      loading: false
     }
   },
   computed: {
@@ -44,7 +44,7 @@ export default {
         positive: positive
       })
       .then(r => {
-        // This returns an object with 'positive' and 'negative' values!
+        // Emit a re-fetch signal
         this.loading = false
         this.$emit('update-rating')
       })

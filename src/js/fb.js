@@ -10,6 +10,8 @@ firebase.initializeApp({
   messagingSenderId: '960635004247'
 })
 
+let avatarCache = {}
+
 export default {
   postMessage (moduleID, user, message) {
     firebase.database().ref('chat/module/' + moduleID).push({
@@ -30,6 +32,11 @@ export default {
     return ref.put(avatar)
   },
   getUserAvatar (userID) {
-    return firebase.storage().ref('avatars/' + userID).getDownloadURL()
+    if (!userID) return null
+    if (!avatarCache[userID]) avatarCache[userID] = firebase.storage().ref('avatars/' + userID).getDownloadURL()
+    return avatarCache[userID]
+  },
+  clearAvatarCache (userID) {
+    avatarCache[userID] = null
   }
 }

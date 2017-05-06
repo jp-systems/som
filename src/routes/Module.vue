@@ -93,13 +93,17 @@
       <div class="content q" v-if="qid && question">
         <div class="title">
           <h1><md-icon>question_answer</md-icon> {{ question.text.split('\n\n')[0] }}</h1>
-          <p class="askedOn">Asked at {{ datetime(question.createdOn) }}</p>
+          <p class="askedOn">Asked on {{ datetime(question.createdOn) }}</p>
+          <template v-if="question.user">
+            <p class="askedBy"><md-avatar v-if="question.userID"><avatar :userID="question.userID"></avatar></md-avatar> {{ question.user }}</p>
+          </template>
         </div>
         <p class="text">{{ question.text.split('\n\n')[1] }}</p>
         <hr>
         <div class="answers" v-if="!postReplyOpen">
           <div v-for="answer in answers" :key="answer.answerID" class="answer">
             <div class="info">
+              <md-avatar class="md-large" v-if="answer.userID"><avatar :userID="answer.userID"></avatar></md-avatar>
               <span class="user">{{ answer.user ? answer.user : 'Anonymous' }}</span>
               <span class="posted-on">Posted: {{ datetime(answer.createdOn) }}</span>
               <span class="id">{{ answer.answerID }}</span>
@@ -130,6 +134,7 @@ import api from '@/js/api'
 import datetime from '@/js/datetime'
 
 import AskQuestion from '@/components/AskQuestion'
+import Avatar from '@/components/Avatar'
 import Chat from '@/components/Chat'
 import PostReply from '@/components/PostReply'
 import RatingBox from '@/components/RatingBox'
@@ -138,6 +143,7 @@ export default {
   name: 'Module',
   components: {
     AskQuestion,
+    Avatar,
     Chat,
     PostReply,
     RatingBox
@@ -463,7 +469,7 @@ export default {
         > .posted-on {
           font-size: .8rem;
           color: rgba(0, 0, 0, .5);
-          width: 4rem;
+          width: 3rem;
           text-align: right;
         }
 
@@ -501,7 +507,6 @@ export default {
     > .title {
       display: flex;
       flex-shrink: 0;
-      justify-content: space-between;
       align-items: center;
       margin: .5rem;
       padding: 1rem;
@@ -509,6 +514,18 @@ export default {
       color: white;
       border-radius: 3px;
       border: 2px solid rgba(0, 0, 0, .1);
+
+      > h1 {
+        margin-right: auto;
+      }
+
+      > .askedOn {
+        margin: 0 1rem;
+      }
+
+      > .askedBy {
+        text-align: center;
+      }
     }
 
     > .text {
@@ -544,10 +561,14 @@ export default {
           max-width: 200px;
           min-width: 160px;
 
+          > .md-avatar {
+            margin-bottom: .5rem;
+          }
+
           > .user {
             text-align: center;
-            font-weight: bold;
-            font-size: .8rem;
+            font-weight: 400;
+            font-size: 1.2rem;
           }
 
           > .posted-on {

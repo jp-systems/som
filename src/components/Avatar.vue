@@ -29,6 +29,7 @@ export default {
   mounted () {
     this.loadAvatar()
     bus.$on('reload-avatar', e => {
+      fb.clearAvatarCache(this.userID)
       this.loadAvatar()
     })
   }

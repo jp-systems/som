@@ -147,7 +147,7 @@ class Functions {
   public static function get_username($userID) {
     return Functions::query("SELECT `username` FROM `user` WHERE `userID` = ? LIMIT 1", [$userID]);
   }
-  // Function to get all the module details either via its ID code of ref found in the table module 
+  // Function to get all the module details either via its ID code of ref found in the table module
   public static function get_module($moduleID) {
     return Functions::query("SELECT `module`.`code`, `module`.`moduleID`, `module`.`name`, `module`.`outline`, `module`.`ref`, `module`.`updatedOn`, `user`.`username` FROM `user` JOIN `module` ON `module`.`userID` = `user`.`userID` WHERE `module`.`moduleID` = ? OR `module`.`code` = ? OR `module`.`ref` = ? LIMIT 1", [$moduleID, $moduleID, $moduleID]);
   }
@@ -189,7 +189,7 @@ class Functions {
   }
   // Function to get all the individual question information
   public static function get_question($questionID) {
-    return Functions::query("SELECT `question`.`text`, `question`.`createdOn`, `question`.`updatedOn`, CASE `question`.`anonymous` WHEN 1 THEN '' ELSE `user`.`username` END as `user` FROM `question` JOIN `user` ON `user`.`userID` = `question`.`userID` WHERE `questionID` = ? LIMIT 1", [$questionID]);
+    return Functions::query("SELECT `question`.`text`, `question`.`createdOn`, `question`.`updatedOn`, (CASE `question`.`anonymous` WHEN 1 THEN '' ELSE `user`.`username` END) as `user`, (CASE `question`.`anonymous` WHEN 1 THEN '' ELSE `user`.`userID` END) as `userID` FROM `question` JOIN `user` ON `user`.`userID` = `question`.`userID` WHERE `questionID` = ? LIMIT 1", [$questionID]);
   }
   // Function to update the question asked
   public static function update_question($sessionID, $questionID, $text) {
@@ -198,7 +198,8 @@ class Functions {
   // Function to get all the answers' information to a question and the number of positive and negative votes
   public static function get_answers($questionID) {
     return Functions::query("SELECT `answer`.`answerID`, `answer`.`createdOn`, `answer`.`text`,
-      CASE `answer`.`anonymous` WHEN 1 THEN '' ELSE (SELECT `user`.`username` FROM `user` WHERE `user`.`userID` = `answer`.`userID`) END AS 'user',
+      (CASE `answer`.`anonymous` WHEN 1 THEN '' ELSE (SELECT `user`.`username` FROM `user` WHERE `user`.`userID` = `answer`.`userID`) END) AS 'user',
+      (CASE `answer`.`anonymous` WHEN 1 THEN '' ELSE `answer`.`userID` END) as `userID`,
       (SELECT COUNT(*) FROM `rating` WHERE `rating`.`answerID` = `answer`.`answerID` AND `rating`.`positive` = 1) AS `positive`,
       (SELECT COUNT(*) FROM `rating` WHERE `rating`.`answerID` = `answer`.`answerID` AND `rating`.`positive` = 0) AS `negative`
       FROM `answer` WHERE `questionID` = ?",
