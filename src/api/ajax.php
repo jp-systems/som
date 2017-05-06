@@ -1,15 +1,16 @@
 <?php
-
+// Import the functions php file
 require_once("functions.php");
 
+// Check if either a GET or POST request
 $get_request = isset($_GET["request"]) ? $_GET["request"] : null;
 $post_request = isset($_POST["request"]) ? $_POST["request"] : null;
-
+// Main function to return the data/values from querying the database
 function respond($response) {
   echo json_encode($response);
   exit();
 }
-
+// IF it's a GET request
 if ($get_request) {
   // GET REQUEST ACTIVE
   switch($get_request) {

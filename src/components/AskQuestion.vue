@@ -6,12 +6,12 @@
     <md-input-container>
       <md-icon>question_answer</md-icon>
       <label>Title</label>
-      <md-input type="text" v-model="title"></md-input>
+      <md-input type="text" v-model="title" required></md-input>
     </md-input-container>
     <md-input-container>
       <md-icon>message</md-icon>
       <label>Question</label>
-      <md-textarea v-model="content"></md-textarea>
+      <md-textarea v-model="content" required></md-textarea>
     </md-input-container>
     <div class="section">
       <div class="flex">

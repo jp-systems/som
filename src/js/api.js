@@ -1,3 +1,4 @@
+// Custom api for requests to the database
 import { get, post } from 'axios'
 import { stringify } from 'qs'
 
