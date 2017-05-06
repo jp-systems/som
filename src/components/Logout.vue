@@ -28,6 +28,7 @@ export default {
     },
     logout () {
       api.post('destroy_session')
+      window.sessionStorage.removeItem('login_token')
       window.localStorage.removeItem('login_token')
       this.$root.loggedIn = false
       this.$root.userID = null

@@ -70,6 +70,13 @@ if ($get_request) {
       if (!isset($_POST["password"])) respond(Functions::error("No password provided!"));
       respond(Functions::verify_user($_POST["username"], $_POST["password"]));
       break;
+    case "change_password":
+      if (!isset($_POST["login_token"])) respond(Functions::error("No token provided!"));
+      if (!isset($_POST["passwordOld"])) respond(Functions::error("No old password provided!"));
+      if (!isset($_POST["passwordNew"])) respond(Functions::error("No new password provided!"));
+      if (!isset($_POST["passwordNew2"])) respond(Functions::error("No duplicate new password provided!"));
+      respond(Functions::change_password($_POST["login_token"], $_POST["passwordOld"], $_POST["passwordNew"], $_POST["passwordNew2"]));
+      break;
     case "verify_session":
       if (!isset($_POST["login_token"])) respond(Functions::error("No token provided!"));
       respond(Functions::verify_session($_POST["login_token"]));

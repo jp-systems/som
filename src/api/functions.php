@@ -95,6 +95,24 @@ class Functions {
       return Functions::error("Incorrect username/password!");
     }
   }
+
+  public static function change_password($sessionID, $passwordOld, $passwordNew, $passwordNew2) {
+    if ($passwordNew !== $passwordNew2) return Functions::error("Passwords do not match!");
+
+    $result = Functions::query("SELECT `password`, `userID` FROM `user` WHERE `userID` = (SELECT `userID` FROM `session` WHERE `sessionID` = ?) LIMIT 1", [$sessionID]);
+    if (!$result["success"] || sizeof($result["result"]) == 0) return Functions::error("Invalid session token!");
+    $result = $result["result"];
+
+    if (password_verify($passwordOld, $result["password"])) {
+      $pass_hash = password_hash($passwordNew, PASSWORD_BCRYPT, ["cost" => 12]);
+      // Delete all login sessions!
+      Functions::query("DELETE FROM `session` WHERE `userID` = ?", [$result["userID"]]);
+      return Functions::query("UPDATE `user` SET `password` = ? WHERE `userID` = ?", [$pass_hash, $result["userID"]]);
+    } else {
+      return Functions::error("Incorrect user password!");
+    }
+  }
+
   // Function to verify the current user session with login token
   public static function verify_session($login_token) {
     $result = Functions::query("SELECT * FROM `session` WHERE `sessionID` = ? LIMIT 1", [$login_token]);

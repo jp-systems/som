@@ -84,16 +84,18 @@ const vm = new Vue({
             console.error(e)
           })
         } else {
-          throw new Error('Invalid login token')
+          window.localStorage.removeItem('login_token')
+          window.sessionStorage.removeItem('login_token')
+          throw new Error('The login token was rejected by the server, deleting token...')
         }
       })
       .catch(e => {
-        console.error(e)
+        console.warn(e)
       })
     }
   },
   mounted () {
-    this.attemptLogin()
+    if (window.localStorage.getItem('login_token') || window.sessionStorage.getItem('login_token')) this.attemptLogin()
   }
 })
 
