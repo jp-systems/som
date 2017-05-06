@@ -99,8 +99,19 @@
           </template>
         </div>
         <p class="text">{{ question.text.split('\n\n')[1] }}</p>
-        <hr>
-        <div class="answers" v-if="!postReplyOpen">
+        <div class="toolbar" v-if="!postReplyOpen && (answers && answers.length > 0)">
+          <p>{{ answers ? answers.length : '?' }} replies</p>
+          <md-input-container>
+            <label for="answerSort">Sort Answers By:</label>
+            <md-select name="answerSort" id="answerSort" v-model="answerSort">
+              <md-option value="dateDesc">Date (Newest First)</md-option>
+              <md-option value="dateAsc">Date (Oldest First)</md-option>
+              <md-option value="ratingDesc">Rating (Highest First)</md-option>
+              <md-option value="ratingAsc">Rating (Lowest First)</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <transition-group name="flip-list" tag="div" class="answers" v-if="!postReplyOpen">
           <div v-for="answer in answers" :key="answer.answerID" class="answer">
             <div class="info">
               <md-avatar class="md-large" v-if="answer.userID"><avatar :userID="answer.userID"></avatar></md-avatar>
@@ -113,7 +124,8 @@
             </div>
             <rating-box :answer="answer" @update-rating="getAnswers"></rating-box>
           </div>
-        </div>
+          <p v-if="answers && answers.length === 0" class="notice"><md-icon>mood_bad</md-icon> Nobody has posted a reply yet!</p>
+        </transition-group>
         <transition name="fade">
           <post-reply v-if="postReplyOpen" :question-id="qid" @close="postReplyOpen=false" @done="replyPosted"></post-reply>
         </transition>
@@ -139,6 +151,11 @@ import Chat from '@/components/Chat'
 import PostReply from '@/components/PostReply'
 import RatingBox from '@/components/RatingBox'
 
+let sortByDateDesc = (a, b) => new Date(a.createdOn) < new Date(b.createdOn)
+let sortByDateAsc = (a, b) => new Date(a.createdOn) > new Date(b.createdOn)
+let sortByRatingDesc = (a, b) => a.positive - a.negative < b.positive - b.negative
+let sortByRatingAsc = (a, b) => a.positive - a.negative > b.positive - b.negative
+
 export default {
   name: 'Module',
   components: {
@@ -158,7 +175,8 @@ export default {
       askQuestionOpen: false,
       postReplyOpen: false,
       question: null,
-      answers: null
+      answers: null,
+      answerSort: 'dateDesc'
     }
   },
   computed: {
@@ -187,6 +205,7 @@ export default {
       this.askQuestionOpen = false
       this.postReplyOpen = false
       this.module = null
+      this.answerSort = 'dateDesc'
       api.get('get_module', {
         module_id: this.id
       })
@@ -285,6 +304,14 @@ export default {
     },
     datetime (format) {
       return datetime(format)
+    },
+    sortAnswers () {
+      if (!this.answers) return
+      let method = sortByDateDesc
+      if (this.answerSort === 'dateAsc') method = sortByDateAsc
+      else if (this.answerSort === 'ratingDesc') method = sortByRatingDesc
+      else if (this.answerSort === 'ratingAsc') method = sortByRatingAsc
+      this.answers.sort(method)
     }
   },
   mounted: function () {
@@ -300,6 +327,9 @@ export default {
         this.question = null
         this.fetchQuestion()
       }
+    },
+    'answerSort' (to, from) {
+      this.sortAnswers()
     }
   }
 }
@@ -307,6 +337,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.flip-list-move {
+  transition: transform 500ms ease-out;
+}
+
 .module {
   display: flex;
   flex-direction: column;
@@ -366,6 +400,17 @@ export default {
     flex-direction: column;
     flex: 1;
     overflow: hidden;
+
+    button.md-fab {
+      transition: opacity 300ms ease-out, transform 300ms ease-out;
+      opacity: .5;
+      transform: scale(0.8);
+
+      &:hover {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
   }
   > .outline {
 
@@ -542,7 +587,33 @@ export default {
       margin-top: auto;
     }
 
+    > .toolbar {
+      display: flex;
+      width: 100%;
+      padding: 0rem 1rem;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      font-size: 1rem;
+
+      > .md-input-container {
+        font-size: 1rem;
+        width: 12rem;
+        margin: 0;
+      }
+    }
+
     > .answers {
+
+      > .notice {
+        padding: 1rem;
+        font-size: 1.2rem;
+        text-align: center;
+
+        > i {
+          color: rgba(255, 130, 0, .9);
+        }
+      }
 
       > .answer {
         display: flex;
