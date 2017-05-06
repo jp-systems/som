@@ -190,7 +190,7 @@ class Functions {
   }
 
   public static function get_question($questionID) {
-    return Functions::query("SELECT `question`.`text`, `question`.`createdOn`, `question`.`updatedOn` FROM `question` WHERE `questionID` = ? LIMIT 1", [$questionID]);
+    return Functions::query("SELECT `question`.`text`, `question`.`createdOn`, `question`.`updatedOn`, CASE `question`.`anonymous` WHEN 1 THEN '' ELSE `user`.`username` END as `user` FROM `question` JOIN `user` ON `user`.`userID` = `question`.`userID` WHERE `questionID` = ? LIMIT 1", [$questionID]);
   }
 
   public static function update_question($sessionID, $questionID, $text) {
